@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enter Password</title>
+
+  <style>
+    body {
+      /* Set background color */
+      background-color: #2a4289; /* You can replace #f0f0f0 with any color code you want */   
+    }
+
+    /* Container to center the input and button */
+    .center-container {
+      text-align: center;
+      margin-top: 50px; /* Adjust as needed */
+    }
+
+    /* Define styles for label */
+    label {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px; /* Adjust spacing between label and input */
+      display: block; /* Display label as block to ensure proper spacing */
+      text-align: center;
+    }
+
+    /* Define styles for input */
+    input[type="text"] {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 50%; /* Input width covers the entire width of its container */
+      box-sizing: border-box; /* Include padding and border in input's total width */
+    }
+
+    /* Define styles for button */
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* Style button on hover */
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Style the heading */
+    h1 {
+      font-size: 60px;
+      text-align: center;
+      color: rgb(255, 255, 255);
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Enter Password</h1>
+<div align="center">
+  <img src="anon.png" style="width:20%;" alt="Image">
+</div>
+<div class="center-container">
+  <form id="passwordForm" onsubmit="checkPassword(event)">
+    <input type="text" id="password" name="password" required>
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<script>
+function checkPassword(event) {
+  event.preventDefault(); // Prevent form submission
+
+  var password = document.getElementById('password').value;
+  if (password === 'RED1989') {
+    window.location.href = 'desktop.html'; // Redirect to another page
+  } else {
+    alert('Incorrect password. Please try again.');
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enter Password</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      /* Set background color */
+      background-color: #000000; /* You can replace #f0f0f0 with any color code you want */   
+    }
+
+    /* Container to center the input and button */
+    .center-container {
+      text-align: center;
+      margin-top: 50px; /* Adjust as needed */
+    }
+
+    /* Define styles for label */
+    label {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px; /* Adjust spacing between label and input */
+      display: block; /* Display label as block to ensure proper spacing */
+      text-align: center;
+    }
+
+    /* Define styles for input */
+    input[type="text"] {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 50%; /* Input width covers the entire width of its container */
+      box-sizing: border-box; /* Include padding and border in input's total width */
+    }
+
+    /* Define styles for button */
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* Style button on hover */
+    button:hover {
+      background-color: #0056b3;
+    }
+
+
+  </style>
+</head>
+<body>
+    <body style="background-color: black;">
+        <div id="user">
+        <h4>C:\Users\TwizzleAgent></h4>
+        </div>
+        <div id="heading">
+            <h1>TWIZZLE_SECURITY</h1>
+            <h4>Use provided artifacts to decrypt the attackers name.</h4>
+            <h4>You will need to access the attacker's files.</h4>
+            <h4>Type in the attacker's name to complete the mission.</h4>
+
+        <div>
+            <br>
+            <br>
+        </div>
+        <div class="center-container">
+          <form id="passwordForm" onsubmit="checkPassword(event)">
+            <input type="text" placeholder="FirstName LastName" name="password" required>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+        
+        <script>
+        function checkPassword(event) {
+          event.preventDefault(); // Prevent form submission
+        
+          var password = document.getElementsByName('password')[0].value;
+          if (password === 'Geoffrey Lewis') {
+            window.location.href = "congrats.html"; // Redirect to another page
+          } else {
+            alert('Incorrect password. Please try again.');
+          }
+        }
+        </script>
+
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<p style="margin-left: 100px; margin-right: 100px; margin-top: 40px; font-size: 18px; line-height: 1.5;"></p>
+
+<div style="text-align: left;">
+  <a href="index.html" class="next">Back</a>
+</div>
+
+</body>
+</html>
