@@ -1,0 +1,109 @@
+body {
+    text-align: center;
+    background-color: black;
+    color: #00ff00;
+    font-family: "Stencil", Times, serif;
+}
+
+#clock {
+    font-size: 10em;
+    border: lime 2px solid;
+    border-radius: 10px;
+    width: 450px;
+    margin: 0 auto 20px auto;
+    cursor: default;
+}
+
+.terminal {
+    width: 380px;
+    border: lime 1px solid;
+    border-radius: 2px;
+    margin: 20px auto;
+    font-family: monospace;
+    font-size: large;
+    background-color: black;
+    padding: 10px 5px;
+}
+.terminal-text {
+    color: #00ff00;
+    background-color: black;
+    font-family: monospace;
+    border: none;
+    outline: none;
+}
+
+.main-button {
+    padding: 10px;
+    background-color: red;
+    font-family: "Stencil", Times, serif;
+    font-style: italic;
+    color: black;
+    border-radius: 50px;
+    border: black 3px solid;
+    margin-bottom: 10px;
+}
+
+.main-button:hover {
+    background-color: #770000;
+    cursor: pointer;
+}
+
+#saved-codes {
+    flex-direction: column;
+    display: flex;
+}
+
+.saved-vid-link {
+    padding: 10px;
+    background-color: black;
+    font-family: "Stencil", Times, serif;
+    font-style: italic;
+    color: lime;
+    border-radius: 50px;
+    border: lime 3px solid;
+    margin-bottom: 10px;
+    width: 200px;
+    margin: 10px auto 0 auto;
+}
+
+.saved-vid-link:hover {
+    background-color: #003300;
+    cursor: pointer;
+}
+
+#mission-controls {
+    margin-top: 20px;
+}
+
+#result-screen {
+    max-width: 500px;
+    border: 3px solid lime;
+    margin: auto;
+    text-align: center;
+    border-radius: 5px;
+}
+
+#result-title {
+    text-decoration: underline;
+}
+
+#result-container {
+    width: 230px;
+    font-size: 1.5em;
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto 20px auto;
+}
+
+#result-text {
+    width: 120px;
+    border: 1px dashed lime;
+    margin: auto;
+    border-radius: 3px;
+    transform: rotate(-5deg);
+    font-size: 1em;
+}
+
+#return-button {
+    margin-top: 20px;
+}

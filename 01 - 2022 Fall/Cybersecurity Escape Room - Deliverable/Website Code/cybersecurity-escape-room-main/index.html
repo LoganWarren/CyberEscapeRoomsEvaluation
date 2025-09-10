@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Cybersecurity Escape Room</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="icon" href="favicon-32x32.png" type="image/x-icon"/>
+	</head>      
+	<body onload="addDefault()">
+        <h1 id="title">Cybersecurity Escape Room</h1>
+        <div id="login">
+            <div id="name-entry-container" class="terminal">
+                Enter team name: 
+                <input id="name-entry" class="terminal-text" type="text">
+            </div>
+            <div id="pwd-entry-container" class="terminal">
+                Enter password:  
+                <input id="pwd-entry" class="terminal-text" type="text">
+            </div>
+            <div>
+                <button id="login-button" class="main-button" onclick="startEscapeRoom()">Begin Escape Room</button>
+            </div>
+            <div>
+                <h3>Clicking 'Begin Escape Room' will start the timer.</h3>
+                <h3>Your goal is to watch videos in order to find clues for secret passwords.</h3>
+                <h3>When you find a password, enter it into the code box to check it.</h3>
+                <h3>If it is correct, the next video will appear in the box.</h3>
+                <h3>You may click on the links below the video to rewatch any previous video.</h3>
+                <h3>If the timer runs out, you will immediately lose the escape room and will be unable to enter more codes.</h3>
+                <h3>Good luck, agents.</h3>
+            </div>
+        </div>
+        <div id="main" style="display:none">
+            <div id="clock">40:00</div>
+            <div id="video-player">
+                <iframe id="current-video" src="https://drive.google.com/file/d/1peqO1t_ldzy9vXB78e3mqyNcAvHRqPro/preview" width="640" height="480" allow="autoplay" onended="showVictoryScreen()"></iframe>
+            </div>
+            <div id="hash-link" style="display:none">
+                <div>ENTER THE HASH '0bf63c462a3297f3a2aed67682ca11cb' INTO THE SITE BELOW:</div>
+                <a href="https://crackstation.net/" target="_blank">Hash Cracking Site</a>
+            </div>
+            <div id="code-controls">
+                <div id="code-entry-container" class="terminal">
+                    Enter password: 
+                    <input id="code-entry" class="terminal-text" type="text">
+                </div>
+                <div>
+                    <button id="code-submit" class="main-button" onclick="updateVideo(currentCode())">Enter Code</button>
+                </div>
+                <div id="saved-codes">
+                    View previous videos:
+                </div>
+            </div>
+            <div id="mission-controls" style="display:none">
+                <div>
+                    <button id="view-results" class="main-button" onclick="showResultScreen()">View Results</button>
+                </div>
+            </div>
+            <div id="mission-controls-l" style="display:none">
+                <div>
+                    <button id="view-results-l" class="main-button" onclick="showLossScreen()">View Results</button>
+                </div>
+            </div>
+        </div>
+        <div id="result" style="display:none">
+            <div id="result-screen">
+                <h1 id="result-title">Mission Report</h2>
+                <h2 id="team-text">Team: {team}</h3>
+                <h2 id="time-text">Final Time: {time}</h3>
+                <div id="result-container">
+                    Result: 
+                    <h2 id="result-text">Success</h3>
+                </div>
+            </div>
+            <div>
+                <button id="return-button" class="main-button" onclick="returnToMain()">Back</button>
+            </div>
+        </div>
+        <script src="script.js"></script>
+	</body>
+</html>
