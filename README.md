@@ -1,5 +1,7 @@
-# CyberEscapeRoomsEvaluation
-A compilation of previous works for the INFSCI 1740 escape rooms
+# About the CyberEscapeRoomsEvaluation Project 
+Over the past few years, capstone teams have already developed 3 cyber escape rooms as an engaging cybersecurity learning experience for high school and college students.
+
+The purpose of this project is to understand the narrative of each cyber escape room, build it, test it, enhance it, and offer it to high school or college students to gather their feedback on how it can be improved.
 
 # Easy Links for us:
 
