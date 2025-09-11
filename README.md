@@ -5,10 +5,10 @@ A compilation of previous works for the INFSCI 1740 escape rooms
 
 ## Previous 3 Escape Room Google Drive
 https://drive.google.com/drive/folders/1W2XApMbCk8P4F4fTbBO22BwegmibKdIw
-
+## Our Project Plan Doc (Also in GitHub)
+https://github.com/LoganWarren/CyberEscapeRoomsEvaluation/blob/main/Project%20Plan.pdf
 ## Trillo Board
 https://trello.com/invite/b/68b9d13d2460f2fb6a5e4bf8/ATTId63cfce53f1dbaddcfe229527b881e47B3F8A273/my-trello-board
-
 ## Cyber Escape Room Assignment Document
 https://docs.google.com/document/d/1SiqllRH7pOPI7UFSpcvfq9AjNOstqzMZK9JNwaQ9mKE/edit?tab=t.0
 
