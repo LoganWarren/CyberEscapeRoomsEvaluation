@@ -1,41 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>FAQ & Troubleshoot</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FAQ & Troubleshooting — Cyber Escape Rooms</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header>
+  <header class="site-header">
     <h1>FAQ & Troubleshooting</h1>
+    <p>Find quick answers and common fixes</p>
   </header>
 
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="room1.html">Room 1</a>
-    <a href="room2.html">Room 2</a>
-    <a href="room3.html">Room 3</a>
-    <a href="faq.html">FAQ</a>
+  <!-- NAVBAR -->
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html" aria-label="Cyber Escape Rooms Home">
+        <img src="Pitt_spirit_mark.png" alt="" class="brand-logo" />
+        <span class="brand-text">Cyber Escape Rooms</span>
+      </a>
+
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links">
+        <span class="sr-only">Toggle navigation</span>☰
+      </button>
+
+      <div id="nav-links" class="links">
+        <a href="index.html">Home</a>
+        <a href="room1.html">Room 1</a>
+        <a href="room2.html">Room 2</a>
+        <a href="room3.html">Room 3</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+    </div>
   </nav>
 
   <main>
     <h2>Frequently Asked Questions</h2>
-    <ul>
-      <li><strong>Q:</strong> Do I need special hardware?<br><strong>A:</strong> Most rooms can be played with a laptop and internet connection.</li>
-      <li><strong>Q:</strong> How long does a game last?<br><strong>A:</strong> Typically 30–60 minutes depending on the group.</li>
+    <ul class="faq-list">
+      <li>
+        <strong>Do I need special hardware?</strong><br />
+        Most rooms can be played with a laptop and internet connection. If a room needs extra hardware, it’s listed on that room’s page.
+      </li>
+      <li>
+        <strong>How long does a game last?</strong><br />
+        Typically 30–60 minutes depending on the group.
+      </li>
+      <li>
+        <strong>Can we host this for a class?</strong><br />
+        Yes. See each room’s “How to Play / Set Up” section for facilitation tips and materials.
+      </li>
     </ul>
 
     <h2>Troubleshoot Guide</h2>
-    <p>If you encounter issues:</p>
     <ol>
-      <li>Check your internet connection.</li>
-      <li>Follow the setup instructions on each room’s page.</li>
-      <li>If problems persist, see the <a href="https://github.com/LoganWarren/CyberEscapeRoomsEvaluation">GitHub repo</a> to report issues.</li>
+      <li>Check your internet connection and try a hard refresh (Ctrl/Cmd + Shift + R).</li>
+      <li>Follow the setup instructions on the room’s page (browser, resolution, required files).</li>
+      <li>If problems persist, open an issue in the <a href="https://github.com/LoganWarren/CyberEscapeRoomsEvaluation" target="_blank" rel="noopener">GitHub repo</a> (include room name, steps to reproduce, and screenshots if possible).</li>
     </ol>
+
+    <h3>Contact (for maintainability issues)</h3>
+    <p>Use the repository issues: <a href="https://github.com/LoganWarren/CyberEscapeRoomsEvaluation" target="_blank" rel="noopener">CyberEscapeRoomsEvaluation</a></p>
   </main>
 
   <footer>
     <p>Maintained by CyberEscapeRoomsEvaluation contributors</p>
   </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>

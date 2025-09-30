@@ -1,40 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Escape Room 1</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Room 2 — Cyber Escape Rooms</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header>
+  <header class="site-header">
     <h1>Escape Room 2</h1>
-    <p>Introduction & Instructions</p>
+    <p>Intermediate challenges with network sleuthing</p>
   </header>
 
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="room1.html">Room 1</a>
-    <a href="room2.html">Room 2</a>
-    <a href="room3.html">Room 3</a>
-    <a href="faq.html">FAQ</a>
+  <!-- NAVBAR -->
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html" aria-label="Cyber Escape Rooms Home">
+        <img src="Pitt_spirit_mark.png" alt="" class="brand-logo" />
+        <span class="brand-text">Cyber Escape Rooms</span>
+      </a>
+
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links">
+        <span class="sr-only">Toggle navigation</span>☰
+      </button>
+
+      <div id="nav-links" class="links">
+        <a href="index.html">Home</a>
+        <a href="room1.html">Room 1</a>
+        <a href="room2.html">Room 2</a>
+        <a href="room3.html">Room 3</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+    </div>
   </nav>
 
   <main>
     <h2>About This Room</h2>
-    <p>Escape Room 2 Intro:.</p>
+    <p>Room 2 increases difficulty and introduces network-centric puzzles.</p>
 
-    <h2>How to Play</h2>
-    <p>Follow the setup guide below to get started.</p>
+    <h2>How to Play / Set Up</h2>
+    <ul>
+      <li>Confirm local files (if required) are downloaded.</li>
+      <li>Ensure audio is enabled for cue-based clues.</li>
+    </ul>
 
     <h3>Instructional Video</h3>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/example" frameborder="0" allowfullscreen></iframe>
+    <div class="video-wrap">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/example" title="Room 2 Setup" frameborder="0" allowfullscreen></iframe>
+    </div>
 
     <h2>Play Now</h2>
-    <p><a href="https://example.com/play-room1" class="button">Play Game</a></p>
+    <p><a href="#" class="button" aria-disabled="true">Enter Room 2</a></p>
+
+    <hr />
+    <section aria-labelledby="makers2">
+      <h3 id="makers2">About the Makers</h3>
+      <p>Designed by the Capstone Team. See credits and contributors in the repository.</p>
+    </section>
   </main>
 
   <footer>
-    <p>Designed by the Capstone Team</p>
+    <p>© CyberEscapeRoomsEvaluation</p>
   </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
