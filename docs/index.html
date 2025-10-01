@@ -25,7 +25,7 @@
       </button>
 
       <div id="nav-links" class="links">
-        <a href="index.html">Home</a>
+        <a href="index.html" class="active">Home</a>
         <a href="room1.html">Room 1</a>
         <a href="room2.html">Room 2</a>
         <a href="room3.html">Room 3</a>
@@ -40,30 +40,50 @@
 
     <section aria-labelledby="rooms-title" class="rooms-section">
       <h2 id="rooms-title">Choose an Escape Room</h2>
+
       <div class="rooms-grid">
-        <a class="room-card" href="room1.html" aria-label="Enter Room 1 page">
+        <!-- ROOM 1 -->
+        <div class="room-card">
           <div class="room-card__content">
             <h3>Room 1</h3>
             <p>Intro to cybersecurity through hands-on puzzles.</p>
-            <span class="room-card__cta" aria-hidden="true">Enter →</span>
-          </div>
-        </a>
 
-        <a class="room-card" href="room2.html" aria-label="Enter Room 2 page">
+            <div class="room-card__actions">
+              <!-- Enter Room goes to the player-safe page -->
+              <a href="room1.html" class="button">Enter Room</a>
+              <!-- Instructor login (working for Room 1) -->
+              <a href="room1-facilitator.html" class="instructor-link">Instructor login</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROOM 2 -->
+        <div class="room-card">
           <div class="room-card__content">
             <h3>Room 2</h3>
             <p>Intermediate challenges with network sleuthing.</p>
-            <span class="room-card__cta" aria-hidden="true">Enter →</span>
-          </div>
-        </a>
 
-        <a class="room-card" href="room3.html" aria-label="Enter Room 3 page">
+            <div class="room-card__actions">
+              <a href="room2.html" class="button">Enter Room</a>
+              <!-- Disabled instructor login for now -->
+              <span class="instructor-link is-disabled" aria-disabled="true" title="Coming soon">Instructor login (coming soon)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROOM 3 -->
+        <div class="room-card">
           <div class="room-card__content">
             <h3>Room 3</h3>
             <p>Advanced threats, forensics, and incident response.</p>
-            <span class="room-card__cta" aria-hidden="true">Enter →</span>
+
+            <div class="room-card__actions">
+              <a href="room3.html" class="button">Enter Room</a>
+              <!-- Disabled instructor login for now -->
+              <span class="instructor-link is-disabled" aria-disabled="true" title="Coming soon">Instructor login (coming soon)</span>
+            </div>
           </div>
-        </a>
+        </div>
       </div>
     </section>
 

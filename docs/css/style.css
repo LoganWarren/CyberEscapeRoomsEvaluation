@@ -339,3 +339,40 @@ hr{
   box-shadow: 0 0 0 3px var(--ring), 0 0 0 6px rgba(0,0,0,0.25);
   border-radius: 10px;
 }
+/* --- Home card actions + instructor link --- */
+.room-card__actions {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+}
+
+/* smaller, inline text link under the button */
+.instructor-link {
+  display: inline-block;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  color: var(--pitt-gold);
+  cursor: pointer;
+}
+
+.instructor-link:hover,
+.instructor-link:focus-visible {
+  text-decoration-thickness: 2px;
+}
+
+/* disabled state for rooms without a login yet */
+.instructor-link.is-disabled {
+  color: var(--text-500);
+  text-decoration: none;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* make cards still feel interactive without being full anchors */
+.room-card:hover,
+.room-card:focus-within {
+  transform: translateY(-2px);
+  box-shadow: var(--card-shadow-hover);
+  border-color: rgba(255,184,28,0.45);
+}
