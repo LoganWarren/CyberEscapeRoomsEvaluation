@@ -6,7 +6,7 @@ totalNumMinutes = 30;
 allCodes = [
     {
         code: '{INITIAL}',
-        url: 'https://drive.google.com/file/d/1peqO1t_ldzy9vXB78e3mqyNcAvHRqPro/preview'
+        url: 'https://www.youtube.com/watch?v=BUb4_GZgTRY&feature=youtu.be' //updated to third video (question 2)
     },
     {
         code: 'BOTNET',
@@ -30,7 +30,7 @@ allCodes = [
     },
     {
         code: 'PHISHING ATTACK',
-        url: 'https://drive.google.com/file/d/1_q4frXp6dALjiXtw_PVNfCVM1nfQa4WN/preview'
+        url: 'https://www.youtube.com/watch?v=BUb4_GZgTRY&feature=youtu.be' //updated to second video (question 1)
     },
     {
         code: 'RANSOMWARE',
@@ -46,9 +46,11 @@ allCodes = [
     },
     {
         code: '{LOSS}',
-        url: 'https://drive.google.com/file/d/1Wubr9_BWhs6O-rkyC_Bh0tOz9GcFRQQY/preview'
+        url: 'https://www.youtube.com/watch?v=c93DhijZPAk' //updated to first in email
     },
 ]
+
+// https://www.youtube.com/watch?v=TT0MXK2CDBE - This is the 4th video - question 3. it is for the black lock box
 
 // DON'T EDIT ANYTHING BELOW HERE
 currentVideo = document.getElementById("current-video");
