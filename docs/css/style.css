@@ -139,7 +139,7 @@ footer .footer-link{
 .site-nav .nav-inner{
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0.85rem 1rem;      /* taller */
+  padding: 1.85rem 5rem;      /* taller */
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -155,7 +155,7 @@ footer .footer-link{
 /* Logo scaling */
 .brand-logo{
   display: block;
-  height: 28px;          /* desktop height */
+  height: 40px;          /* desktop height */
   width: auto;           /* keep aspect ratio */
   object-fit: contain;
   image-rendering: auto; /* crisp scaling */
