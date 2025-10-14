@@ -1,0 +1,43 @@
+body, html {
+    height: 10%;
+    
+}
+
+  .container-fluid {
+    padding-top: 70px;
+    padding-bottom: 0px;
+  }
+
+.hover:hover .img-responsive {
+  opacity: 0.3;
+}
+
+.hover:hover .img {
+  opacity: 0.3;
+}
+
+
+
+.bg-b {
+  background: #1515fb;
+  color: #bdbdbd;
+}
+.bg-w h3 {color: #fff;}
+.bg-w p {color: #fff;}
+
+.bg-w {
+  background: #fff;
+  color: #2d2d30;
+}
+.bg-w h3 {color: #2d2d30;}
+.bg-w p {color: #2d2d30;}
+
+.btn-hover:hover {
+  color: #ff0000; /* Change to the color you desire */
+}
+
+
+
+
+
+
