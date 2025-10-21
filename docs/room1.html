@@ -5,11 +5,81 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Room 1 — Cyber Escape Rooms</title>
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ---- Page-scoped styles for the photo gallery ---- */
+    .gallery-intro {
+      color: var(--text-300);
+      margin-top: .25rem;
+    }
+    .gallery-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 1rem;
+    }
+    @media (max-width: 980px) { .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 640px) { .gallery-grid { grid-template-columns: 1fr; } }
+
+    .gallery-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+    }
+    .gallery-item:hover,
+    .gallery-item:focus-within {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.22);
+      border-color: rgba(255,184,28,0.35);
+    }
+
+    .gallery-thumb {
+      aspect-ratio: 16 / 10;
+      width: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-body {
+      padding: .75rem .9rem 1rem;
+      display: grid;
+      gap: .35rem;
+    }
+    .gallery-title {
+      margin: 0;
+      font-size: 1rem;
+      color: #fff;
+      font-weight: 800;
+    }
+    .gallery-caption {
+      margin: 0;
+      color: var(--text-300);
+      line-height: 1.5;
+      font-size: .95rem;
+    }
+
+    .gallery-actions {
+      margin-top: .5rem;
+    }
+    .gallery-actions a {
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      color: var(--pitt-gold);
+    }
+    .gallery-actions a:hover,
+    .gallery-actions a:focus-visible {
+      text-decoration-thickness: 2px;
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
     <h1>Escape Room 1</h1>
-    <p>Foundational cyber puzzles (phishing, OSINT, brute force, botnets, ransomware, steganography)</p>  </header>
+    <p>Phishing, OSINT, brute force, botnets, ransomware, steganography</p>
+  </header>
 
   <!-- NAVBAR -->
   <nav class="site-nav">
@@ -25,7 +95,7 @@
 
       <div id="nav-links" class="links">
         <a href="index.html">Home</a>
-        <a href="room1.html">Room 1</a>
+        <a href="room1.html" class="active">Room 1</a>
         <a href="room2.html">Room 2</a>
         <a href="room3.html">Room 3</a>
         <a href="faq.html">FAQ</a>
@@ -40,6 +110,7 @@
       (Phishing, OSINT, Botnet, Brute Force, Ransomware/QR/Stego, etc.). Use printed artifacts and on-screen clues to
       unlock passwords, decode hints, and complete the scenario.
     </p>
+
     <h2>How to Play / Set Up</h2>
     <ul>
       <li>Recommended: 1–4 players, latest Chrome/Firefox, speakers on.</li>
@@ -56,14 +127,146 @@
     <p><a href="rooms/room1/index.html" class="button">Enter the Room</a></p>
 
     <hr />
-  <section aria-labelledby="materials">
-      <h3 id="materials">Optional Materials & Report</h3>
-      <ul>
-        <li>Instructions Package: <a href="rooms/room1/materials/Instructions.zip">Instructions.zip</a></li>
-        <li>Edited Videos (folder): <a href="rooms/room1/materials/Edited%20Videos/">Edited Videos/</a></li>
-        <li>Capstone Report (PDF): <a href="rooms/room1/reports/INFSCI1740%20Cyber%20Escape%20Room%20Report.pdf">INFSCI1740 Cyber Escape Room Report</a></li>
-      </ul>
+
+    <!-- ========= NEW: Physical Components Gallery ========= -->
+    <section aria-labelledby="gallery">
+      <h2 id="gallery">Physical Components Gallery</h2>
+      <p class="gallery-intro">
+        Photos of the physical props/pieces used in Room 1. To update: place images in
+        <span class="mono">rooms/room1/photos/</span> and edit the captions below.
+      </p>
+
+      <div class="gallery-grid">
+        <!-- Example item 1 -->
+        <figure class="gallery-item">
+          <a href="rooms/room1/photos/lockbox.jpg" target="_blank" rel="noopener">
+            <img
+              class="gallery-thumb"
+              src="rooms/room1/photos/lockbox.jpg"
+              alt="Brown metal lockbox used for Puzzle Group 2"
+              loading="lazy"
+            />
+          </a>
+          <figcaption class="gallery-body">
+            <h4 class="gallery-title">Brown Metal Lockbox</h4>
+            <p class="gallery-caption">
+              Houses the wooden puzzle box and a QR piece. Relock with the 3-digit lock and scramble the combo after use.
+            </p>
+            <div class="gallery-actions">
+              <a href="rooms/room1/photos/lockbox.jpg" target="_blank" rel="noopener">Open full size</a>
+            </div>
+          </figcaption>
+        </figure>
+
+        <!-- Example item 2 -->
+      <figure class="gallery-item">
+          <a href="rooms/room1/photos/Safe (1).jpg" target="_blank" rel="noopener">
+            <img
+              class="gallery-thumb"
+              src="rooms/room1/photos/Safe (1).jpg"
+              alt="Wooden puzzle box used to store the ransomware definition and a QR code piece"
+              loading="lazy"
+            />
+          </a>
+          <figcaption class="gallery-body">
+            <h4 class="gallery-title">Wooden Puzzle Box</h4>
+            <p class="gallery-caption">
+              
+            </p>
+            <div class="gallery-actions">
+              <a href="rooms/room1/photos/Safe (1).jpg" target="_blank" rel="noopener">Open full size</a>
+            </div>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item">
+          <a href="rooms/room1/photos/PaperPuzzels1.jpg" target="_blank" rel="noopener">
+            <img
+              class="gallery-thumb"
+              src="rooms/room1/photos/PaperPuzzels1.jpg"
+              alt="Four QR code pieces laid flat for scanning"
+              loading="lazy"
+            />
+          </a>
+          <figcaption class="gallery-body">
+            <h4 class="gallery-title">Paper Puzzles</h4>
+            <p class="gallery-caption">
+            Printed out paper versions of escape room puzzles
+            </p>
+            <div class="gallery-actions">
+              <a href="rooms/room1/photos/PaperPuzzels1.jpg" target="_blank" rel="noopener">Open full size</a>
+            </div>
+          </figcaption>
+        </figure>
+  <!--  
+        <figure class="gallery-item">
+          <a href="rooms/room1/photos/botnet-slips.jpg" target="_blank" rel="noopener">
+            <img
+              class="gallery-thumb"
+              src="rooms/room1/photos/botnet-slips.jpg"
+              alt="Twelve paper slips representing devices in the botnet puzzle"
+              loading="lazy"
+            />
+          </a>
+          <figcaption class="gallery-body">
+            <h4 class="gallery-title">Botnet Paper Slips</h4>
+            <p class="gallery-caption">
+              There should be 12 pieces. Sort alphabetically, note even positions, then sort by the third IP octet.
+            </p>
+            <div class="gallery-actions">
+              <a href="rooms/room1/photos/botnet-slips.jpg" target="_blank" rel="noopener">Open full size</a>
+            </div>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item">
+          <a href="rooms/room1/photos/black-safe.jpg" target="_blank" rel="noopener">
+            <img
+              class="gallery-thumb"
+              src="rooms/room1/photos/black-safe.jpg"
+              alt="Black safe used for the blacklight flashlights and instruction pages"
+              loading="lazy"
+            />
+          </a>
+          <figcaption class="gallery-body">
+            <h4 class="gallery-title">Black Safe</h4>
+            <p class="gallery-caption">
+              Stores 4 blacklight flashlights + two instruction pages. Lock by turning the handle left (down). PIN: 96024321 + ENTER.
+            </p>
+            <div class="gallery-actions">
+              <a href="rooms/room1/photos/black-safe.jpg" target="_blank" rel="noopener">Open full size</a>
+            </div>
+          </figcaption>
+        </figure>
+
+        
+        <figure class="gallery-item">
+          <a href="rooms/room1/photos/fold-puzzle.jpg" target="_blank" rel="noopener">
+            <img
+              class="gallery-thumb"
+              src="rooms/room1/photos/fold-puzzle.jpg"
+              alt="Fold puzzle sheet showing labeled semicircles"
+              loading="lazy"
+            />
+          </a>
+          <figcaption class="gallery-body">
+            <h4 class="gallery-title">Fold Puzzle Sheet</h4>
+            <p class="gallery-caption">
+              Fold so matching semicircles touch, ordered from least to greatest, to reveal the clue.
+            </p>
+            <div class="gallery-actions">
+              <a href="rooms/room1/photos/fold-puzzle.jpg" target="_blank" rel="noopener">Open full size</a>
+            </div>
+          </figcaption>
+        </figure>
+      </div>
+-->
+      <!--
+        Add more items by duplicating a <figure class="gallery-item">…</figure>.
+        Keep alt text specific (what/why it matters), not "image of…".
+      -->
     </section>
+    <!-- ========= /Gallery ========= -->
 
     <hr />
     <section aria-labelledby="makers1">
@@ -79,3 +282,5 @@
   <script src="js/main.js"></script>
 </body>
 </html>
+
+
