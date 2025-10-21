@@ -35,6 +35,33 @@
   </nav>
 
   <main>
+    <!-- ======== Instructor CTA (big & obvious) ======== -->
+    <section class="instructor-cta" aria-labelledby="instructor-access">
+      <div class="cta-inner">
+        <div class="cta-text">
+          <h2 id="instructor-access">Instructor Access</h2>
+          <p>
+            Need the <strong>instructor PIN</strong> to view room instructions? Contact
+            <strong>Ahmed Ibrahim</strong> at
+            <a class="cta-email" href="mailto:aibrahim@pitt.edu?subject=Cyber%20Escape%20Rooms%20%E2%80%94%20Instructor%20PIN%20Request&body=Hello%20Professor%20Ibrahim%2C%0A%0AI%27d%20like%20access%20to%20the%20instructor%20materials%20for%20the%20Cyber%20Escape%20Rooms.%0A%0ARoom%28s%29%3A%20%5BRoom%201%20%2F%20Room%202%20%2F%20Room%203%5D%0AInstitution%3A%20%0APlanned%20date%2Ftime%3A%20%0A%0AThank%20you!">
+              aibrahim@pitt.edu
+            </a>.
+          </p>
+          <p class="cta-sub">
+            After you receive the PIN, use the <em>Instructor login</em> link under each room below.
+          </p>
+        </div>
+
+        <div class="cta-actions">
+          <a class="button button-ghost" href="mailto:aibrahim@pitt.edu?subject=Cyber%20Escape%20Rooms%20%E2%80%94%20Instructor%20PIN%20Request&body=Hello%20Professor%20Ibrahim%2C%0A%0AI%27d%20like%20access%20to%20the%20instructor%20materials%20for%20the%20Cyber%20Escape%20Rooms.%0A%0ARoom%28s%29%3A%20%5BRoom%201%20%2F%20Room%202%20%2F%20Room%203%5D%0AInstitution%3A%20%0APlanned%20date%2Ftime%3A%20%0A%0AThank%20you!">
+            Email Prof. Ahmed Ibrahim
+          </a>
+          <div class="cta-name">Ahmed Ibrahim</div>
+        </div>
+      </div>
+    </section>
+    <!-- ======== /Instructor CTA ======== -->
+
     <h2>Welcome</h2>
     <p>This site brings together multiple cybersecurity escape rooms in one place for easy access. Each room includes instructions, setup guides, and a play option.</p>
 
@@ -49,10 +76,11 @@
             <p>Intro to cybersecurity through hands-on puzzles.</p>
 
             <div class="room-card__actions">
-              <!-- Enter Room goes to the player-safe page -->
               <a href="room1.html" class="button">Enter Room</a>
-              <!-- Instructor login (working for Room 1) -->
               <a href="room1-facilitator.html" class="instructor-link">Instructor login</a>
+              <div class="pin-hint">
+                Need the PIN? <a href="mailto:aibrahim@pitt.edu?subject=Room%201%20Instructor%20PIN%20Request">Contact Prof. Ahmed Ibrahim</a>
+              </div>
             </div>
           </div>
         </div>
@@ -65,8 +93,8 @@
 
             <div class="room-card__actions">
               <a href="room2.html" class="button">Enter Room</a>
-              <!-- Disabled instructor login for now -->
               <span class="instructor-link is-disabled" aria-disabled="true" title="Coming soon">Instructor login (coming soon)</span>
+              <div class="pin-hint is-muted">Instructor PIN access coming soon</div>
             </div>
           </div>
         </div>
@@ -79,8 +107,8 @@
 
             <div class="room-card__actions">
               <a href="room3.html" class="button">Enter Room</a>
-              <!-- Disabled instructor login for now -->
               <span class="instructor-link is-disabled" aria-disabled="true" title="Coming soon">Instructor login (coming soon)</span>
+              <div class="pin-hint is-muted">Instructor PIN access coming soon</div>
             </div>
           </div>
         </div>
@@ -101,3 +129,4 @@
   <script src="js/main.js"></script>
 </body>
 </html>
+
