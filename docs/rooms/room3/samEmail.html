@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="globalTimer.js"></script>
+    <title>Email - Mock Desktop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #f1f1f1;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .sidebar ul li:hover {
+            background-color: #d3d3d3;
+        }
+
+        /* Header */
+        .header {
+            width: 100%;
+            background-color: #0078d4;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .header .account {
+            font-size: 16px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Email List */
+        .email-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            padding: 20px;
+            display: none;
+            /* Initially hidden */
+        }
+
+        .email-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .email-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        .email-item h3 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .email-item p {
+            font-size: 14px;
+            margin: 5px 0 0;
+            color: #555;
+        }
+
+        /* Email Content */
+        .email-content {
+            flex-grow: 1;
+            padding: 20px;
+            display: none;
+            /* Initially hidden */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Folders</h2>
+        <ul>
+            <li onclick="showEmails('inbox')">Inbox</li>
+            <li onclick="showEmails('sent')">Sent</li>
+            <li onclick="showEmails('drafts')">Drafts</li>
+            <li onclick="showEmails('spam')">Spam</li>
+            <li onclick="showEmails('trash')">Trash</li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <h1>Email</h1>
+            <div class="account">Logged in as: s.carters7@bastion.com</div>
+        </div>
+
+        <!-- Email List -->
+        <div class="email-list" id="email-list">
+
+        </div>
+
+        <!-- Email Content -->
+        <div class="email-content" id="email-content">
+            <h3 id="email-subject"></h3>
+            <p id="email-body"></p>
+        </div>
+    </div>
+
+    <script>
+        // Fake email data for each folder
+        const emailData = {
+            inbox: [
+                {
+                    subject: "Project Brief: Shield Up Campaign",
+                    body: `
+            <p>Dear Sam,</p>
+            <p>Attached is the project brief for the "Shield Up" campaign, empowering clients against cyber threats. Please review the deliverables and timelines.</p>
+            <img src="images/Picture Email Sam Application.png" alt="Project Brief" style="width:100%; max-width:600px; border-radius:10px; margin-top:10px;">
+            <p>Feel free to reach out if you have any questions or concerns.</p>
+            <p>Best regards,<br>Project Management Team</p>
+        `
+                },
+                {
+                    subject: "Vanguard Application Form",
+                    body: `
+            <p>Dear Sam,</p>
+            <p>Attached is your Vanguard application form for the Chief Technology Officer position. Please ensure all information is correct and submit it by the deadline.</p>
+            <img src="images/Picture Email Sam Application.png" alt="Application Form" style="width:100%; max-width:600px; border-radius:10px; margin-top:10px;">
+            <p>Let us know if you need any assistance.</p>
+            <p>Best regards,<br>HR Team</p>
+        `
+                },
+                {
+                    subject: "Baseball Fundraiser Invitation",
+                    body: `
+            <p>Dear Sam,</p>
+            <p>You're invited to a Baseball Fundraiser featuring the Fierce Eagles vs. Red Hawks. Proceeds go to the UW Medical Center in Montlake, Seattle.</p>
+            <a href="images/Picture Email Baseball Fundraiser.pdf" target="_blank">Download the full invitation here</a>.
+            <p>Event Details:<br>
+            Date: June 26<br>
+            Gates Open: 4 PM<br>
+            Game Starts: 5 PM</p>
+            <p>We look forward to seeing you there!</p>
+            <p>Best regards,<br>Event Coordination Team</p>
+        `
+                },
+                {
+                    subject: "Grand Opening: Storm Kraken Koffee",
+                    body: `
+            <p>Dear Sam,</p>
+            <p>Join us for the grand opening of Storm Kraken Koffee! Enjoy our "Buy One Get One Free" promotion during our first week.</p>
+            <a href="images/Picture Email Cafe.pdf" target="_blank">View the flyer here</a>.
+            <p>Location:<br>
+            1254 Pinebrook Avenue, Seattle, WA 98104</p>
+            <p>Opening Hours: 7 AM - 2 PM Daily</p>
+            <p>Best regards,<br>Storm Kraken Koffee Team</p>
+        `
+                },
+                {
+                    subject: "Join Us for the Annual BASTION Tech Carnival!",
+                    body: `Hi Team,<br><br>
+           Join us for a day of excitement, creativity, and friendly competition at the annual BASTION Tech Carnival! This event is packed with activities to help you unwind and connect with your colleagues. There’s something for everyone!<br><br>
+           <img src="images/Picture Email Tech Carnival.png" alt="Tech Carnival" style="max-width:100%; height:auto;"><br><br>
+           <strong>Activities</strong><br>
+           - VR Gaming Zone<br>
+           - Relaxation Zone<br>
+           - Trivia<br>
+           - Food Trucks<br><br>
+           We hope to see you there!<br><br>
+           Best regards,<br>
+           BASTION Corp HR`
+                },
+                {
+                    subject: "Join Us for an Exciting Event: Learn to Learn More Efficiently and Involvedly!",
+                    body: `Dear BASTION CORP Team,<br><br>
+           I’m excited to announce an upcoming event designed to help us all enhance our learning skills and improve how we approach both individual and team growth.<br><br>
+           <strong>Event:</strong> Learning More Efficiently & Involvedly<br>
+           <strong>Location:</strong> Pittsburgh Office<br><br>
+           In today’s fast-paced world, it’s essential to not only absorb information quickly but also to engage with it in a meaningful way. This event will focus on strategies for:<br>
+           - Learning new skills more efficiently.<br>
+           - Staying actively involved in the learning process.<br>
+           - Applying what we learn to improve collaboration and productivity.<br><br>
+           Whether you're looking to sharpen your existing skills or discover new approaches, this session promises to provide valuable insights that will benefit us all.<br><br>
+           We encourage everyone to participate! Together, we can elevate how we learn, grow, and contribute to BASTION CORP’s success.<br><br>
+           Please RSVP by next week so we can make necessary arrangements.<br><br>
+           Looking forward to seeing you there!<br><br>
+           Best regards,<br>
+           BASTION CORP HR`
+                },
+                {
+                    subject: "Strengthening Our Defenses: Vigilance Against Phishing, Spear Phishing, and Vishing",
+                    body: `Dear BASTION CORP Team,<br><br>
+           As a cybersecurity company, we’re all well aware of the tactics employed by attackers—but it’s important to never grow complacent. Recently, we’ve seen a rise in more targeted and sophisticated phishing, spear phishing, and vishing attempts across the industry. Even the most security-conscious organizations can become vulnerable without constant vigilance.<br><br>
+           Here’s a quick reminder of the risks:<br><br>
+           <strong>Phishing and Spear Phishing:</strong><br>
+           - Phishing emails are becoming harder to spot, often mimicking legitimate communications from trusted contacts.<br>
+           - Spear Phishing attacks are laser-focused, targeting specific individuals within our company, often using insider knowledge to appear credible.<br><br>
+           <strong>Vishing:</strong><br>
+           - Attackers may use phone calls to impersonate familiar voices or companies, attempting to manipulate us into revealing sensitive information.<br><br>
+           We encourage everyone to remain sharp and cautious, even with routine communications. Be sure to:<br><br>
+           - Verify unusual or unexpected requests through separate communication channels.<br>
+           - Report suspicious emails, messages, or calls to the security team immediately.<br>
+           - Never click on links or open attachments unless you are certain of the source.<br><br>
+           While these threats aren’t new to us, staying proactive is key to preventing even the most subtle attacks from succeeding.<br><br>
+           Thank you for your continued commitment to safeguarding our organization.<br><br>
+           Best regards,<br>
+           BASTION CORP Security Team`
+                },
+                {
+                    subject: "Update on New Onboarding Process + Workshop Details",
+                    body: `Hi Everyone,<br><br>
+           I wanted to provide an update on the new onboarding process. Please review the attached document in our Slack for a detailed breakdown of the changes. We'll be holding a workshop next Thursday to address any questions and walk through the new procedures step-by-step.<br><br>
+           Thank you for your attention to this matter.<br><br>
+           Best regards,<br>
+           Karen<br>
+           BASTION Corp`
+                },
+
+                {
+                    subject: "A New Chapter Awaits You at Vanguard",
+                    body: `Dear Sam,<br><br>
+                   I hope this message finds you well. I’m Melissa, from Vanguard’s strategic team, and we’ve been keeping a close eye on the work you’ve been doing at BASTION. Your leadership and vision have stood out, and we believe you’re exactly who we need as we enter our next phase of growth.<br><br>
+                   I’m sure you know how competitive this industry is, but what I can assure you is that we not only recognize talent—we know how to reward it. The position we’re offering is more than just a title; it’s an opportunity to be part of something transformative. At Vanguard, we’re not just following trends—we’re setting them, and we want you on board as we shape the future.<br><br>
+                   I understand the need for discretion, especially since this is your company email. If you're interested, we can continue this conversation through another channel of your choice. I know this is a big decision, and we’re confident you’ll see the value in taking the next step with us.<br><br>
+                   Looking forward to hearing from you, Sam.<br><br>
+                   Melissa<br>
+                   Talent Acquisition Specialist<br>
+                   Vanguard`
+                },
+                {
+                    subject: "New Hire Equipment Setup",
+                    body: `Hi Sam,<br><br>
+                   Just wanted to give you a heads-up that we have a few new hires starting next week in the IT department. Could you ensure that workstations, accounts, and security access are set up for them ahead of time? There’s an attached list of employees and their roles for your reference in Teams. Let me know if you need any additional details.<br><br>
+                   Thanks,<br>
+                   Jennifer<br>
+                   BASTION Corporation`
+                },
+                {
+                    subject: "Quarterly Security Training – Employee Participation",
+                    body: `Hi Sam,<br><br>
+                   As part of our quarterly compliance program, we’re conducting security awareness training for all employees next week. Could you ensure that your team is registered and prepared to participate? It’s crucial that everyone completes this, especially given the sensitive nature of the projects we’re handling.<br><br>
+                   Let me know if you need more details.<br><br>
+                   Best,<br>
+                   John<br>
+                   BASTION Corporation`
+                },
+                {
+                    subject: "Request for Incident Response Documentation",
+                    body: `Hi Sam,<br><br>
+                   We’re compiling a report for the executive team regarding a slight uptick in recent security incidents, and we need documentation on any incidents your team has handled over the past quarter. Could you provide a summary of the issues your team has worked on and their resolutions by next Monday? This will be a critical part of our quarterly review.<br><br>
+                   Thanks,<br>
+                   James<br>
+                   BASTION Corporation`
+                },
+                {
+                    subject: "Update on Network Infrastructure Upgrades",
+                    body: `Hi Sam,<br><br>
+           I hope all is well. I wanted to update you on the status of the network infrastructure upgrades. The new firewalls are set to be installed next week, and the team has started configuring the backup servers. We’ll need your approval to finalize the purchase order for the additional network switches. Whenever you can, will you let me know if it’s good to go?<br><br>
+           Also, could you make sure your team is prepped to assist with the switchover? We’re expecting minimal downtime, but we’ll need all hands on deck.<br><br>
+           Best regards,<br>
+           David`
+                },
+                {
+                    subject: "Urgent: Q4 Cybersecurity Audit Results",
+                    body: `Hi Sam,<br><br>
+           I hope you're doing well. I wanted to give you a heads-up that the results from our Q4 cybersecurity audit just came in, and there are a few areas of concern we’ll need to address ASAP. I’d like to schedule a meeting with you and the IT leadership team to discuss the key findings and prioritize next steps. Can we set something up for early next week? Let me know what works for you.<br><br>
+           Best regards,<br>
+           John Peterson<br>
+           BASTION Corporation`
+                }
+
+
+            ],
+            sent: [
+                {
+                    subject: "RE: A New Chapter Awaits You at Vanguard",
+                    body: `Hi Melissa,<br><br>
+                   Thank you for reaching out. I’ve been giving some thought to my next steps, and what you’re offering sounds like the kind of opportunity I’ve been looking for. It’s always good to know when your work is being recognized, especially by a company as forward-thinking as Vanguard.<br><br>
+                   That being said, I would appreciate it if we could keep things low-key for now. Feel free to contact me at my personal email or and we can discuss details further. I’m definitely interested in hearing more about what you have in mind, and I’m open to exploring how I can contribute to Vanguard’s vision.<br><br>
+                   Looking forward to hearing from you soon.<br><br>
+                   Best,<br>
+                   Sam Carters`
+                },
+                {
+                    subject: "RE: New Hire Equipment Setup",
+                    body: `Hi Jennifer,<br><br>
+                   Thanks for the information. I’ll have my team set up the workstations and make sure accounts and security access are ready for each new hire. I’ll follow up with you once everything is in place, and if we run into any issues, I’ll let you know right away.<br><br>
+                   Best,<br>
+                   Sam Carters`
+                },
+                {
+                    subject: "RE: Request for Incident Response Documentation",
+                    body: `Hi John,<br><br>
+           I’ll compile the incident response summaries and get them to you by Monday. We’ve handled a few notable cases that I’ll make sure to highlight in the report. If you need more details on any specific incidents, feel free to let me know.<br><br>
+           Best,<br>
+           Sam Carters`
+                },
+                {
+                    subject: "RE: Update on Network Infrastructure Upgrades",
+                    body: `Hi David,<br><br>
+           Thanks for the update. Everything seems to be moving along well. I’ve reviewed the PO, and it looks good to me—go ahead and finalize it. I’ll make sure the team is ready for the switchover and fully briefed on what to expect. We’ll be prepped to minimize any potential downtime and ensure a smooth transition.<br><br>
+           Let me know if there’s anything else you need from my end,<br><br>
+           Sam Carters`
+                }
+
+            ],
+            drafts: [
+                { subject: "Draft: New Project", body: "Here are some ideas for the new project we discussed..." }
+            ],
+            spam: [
+                { subject: "Congratulations! You won!", body: "You have been selected as a winner in our contest! Click here to claim your prize." }
+            ],
+            trash: [
+                { subject: "Old Meeting Notes", body: "Here are the notes from the last meeting. Feel free to review them." }
+            ]
+        };
+
+        // Show emails for the selected folder
+        function showEmails(folder) {
+            const emailList = document.getElementById('email-list');
+            const emailContent = document.getElementById('email-content');
+
+            // Clear current email list
+            emailList.innerHTML = '';
+
+            // Populate email list
+            emailData[folder].forEach((email, index) => {
+                const emailItem = document.createElement('div');
+                emailItem.classList.add('email-item');
+                emailItem.innerHTML = `<h3>${email.subject}</h3><p>${email.body.substring(0, 50)}...</p>`;
+                emailItem.onclick = () => showEmailContent(folder, index);
+                emailList.appendChild(emailItem);
+            });
+
+            // Show email list and hide email content
+            emailList.style.display = 'block';
+            emailContent.style.display = 'none';
+        }
+
+        // Show content of the selected email
+        function showEmailContent(folder, index) {
+            const email = emailData[folder][index];
+            const emailList = document.getElementById('email-list');
+            const emailContent = document.getElementById('email-content');
+
+            // Set email subject as plain text
+            document.getElementById('email-subject').textContent = email.subject;
+
+            // Set email body as HTML to interpret tags like <br>
+            document.getElementById('email-body').innerHTML = email.body;
+
+            // Show email content and hide email list
+            emailList.style.display = 'none';
+            emailContent.style.display = 'block';
+        }
+
+    </script>
+
+</body>
+
+<div id="footer-bar">
+    <div id="timer"></div>
+    <div class="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+    <!-- <button id="finalize-report" onclick="finalizeReport()">Finalize Incident Report</button> -->
+</div>
+<script>
+    // Initialize local storage for timer and visited pages if not already set
+    if (!localStorage.getItem('elapsedTime')) {
+        localStorage.setItem('elapsedTime', '0');
+    }
+    if (!localStorage.getItem('visitedPages')) {
+        localStorage.setItem('visitedPages', '[]');
+    }
+
+    // Track current page visit
+    const currentPage = window.location.pathname;
+    let visitedPages = JSON.parse(localStorage.getItem('visitedPages'));
+    if (!visitedPages.includes(currentPage)) {
+        visitedPages.push(currentPage);
+        localStorage.setItem('visitedPages', JSON.stringify(visitedPages));
+    }
+
+    // Calculate progress based on the number of visited pages
+    const totalPages = 5; // Adjust this number based on your total number of pages
+    const progress = 50;
+    document.getElementById('progress-bar').style.width = progress + '%';
+
+
+    // Function to navigate to the incident report page
+    function finalizeReport() {
+        window.location.href = 'incidentReport.pdf';
+    }
+
+</script>
+
+<style>
+    /* Footer Bar Styling */
+    #footer-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 10px;
+        color: white;
+        font-family: 'Segoe UI', sans-serif;
+        z-index: 999;
+    }
+
+    #timer {
+        margin-left: 20px;
+    }
+
+    .progress-container {
+        flex-grow: 1;
+        margin: 0 20px;
+        background-color: #444;
+        height: 20px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    #progress-bar {
+        height: 100%;
+        background-color: #0078D7;
+        width: 0%;
+        transition: width 0.3s;
+    }
+
+    #finalize-report {
+        background-color: #0078D7;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    #finalize-report:hover {
+        background-color: #005A9E;
+    }
+</style>
+
+</html>

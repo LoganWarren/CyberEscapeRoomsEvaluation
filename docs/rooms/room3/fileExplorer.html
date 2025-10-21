@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="globalTimer.js"></script>
+    <title>File Explorer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 20%;
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sidebar h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .folder-list {
+            list-style-type: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        .folder-list li {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #444;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .folder-list li:hover {
+            background-color: #555;
+        }
+
+        .main-content {
+            width: 80%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .main-content h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .file-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .file-table th, .file-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .file-table th {
+            background-color: #f4f4f4;
+        }
+
+        .file-table tr:hover {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Folders</h2>
+    <ul class="folder-list">
+        <li onclick="showFiles('Home')">Home</li>
+        <li onclick="showFiles('Documents')">Documents</li>
+        <li onclick="showFiles('Music')">Music</li>
+        <li onclick="showFiles('Videos')">Videos</li>
+        <li onclick="showFiles('Downloads')">Downloads</li>
+    </ul>
+</div>
+
+<div class="main-content">
+    <h2 id="folderTitle">Documents</h2>
+    <table class="file-table">
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>Type</th>
+                <th>Size</th>
+            </tr>
+        </thead>
+        <tbody id="fileList">
+            <!-- Populated by JavaScript -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Password Modal -->
+<div id="passwordModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
+    <div style="background:white; padding:20px; border-radius:5px; text-align:center;">
+        <h3>Enter Password</h3>
+        <input type="password" id="passwordInput">
+        <button onclick="checkPassword()">Submit</button>
+        <button onclick="closeModal()">Cancel</button>
+    </div>
+</div>
+
+<!-- PDF Viewer Modal -->
+<div id="pdfViewer" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
+    <div style="background:white; padding:20px; border-radius:5px; text-align:center;">
+        <h3>View PDF Document</h3>
+        <p>Click below to view PDF contents.</p>
+        <!-- Update buttons to call viewPdf with a PDF link -->
+        <button id="viewPdfButton1" onclick="viewPdf('pdf1')">View PDF Content 1</button>
+        <button id="viewPdfButton2" onclick="viewPdf('pdf2')">View PDF Content 2</button>
+        <button id="viewPdfButton3" onclick="viewPdf('pdf3')">View PDF Content 3</button>
+        <button onclick="closePdfViewer()">Close</button>
+    </div>
+</div>
+<!-- Video Modal -->
+<div id="videoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); align-items:center; justify-content:center; flex-direction:column;">
+    <button id="closeButton" onclick="closeVideo()" style="position:absolute; top:10px; right:10px; background:red; color:white; border:none; padding:10px; cursor:pointer; border-radius:5px;">X</button>
+    <video id="introVideo" autoplay playsinline style="max-width:80%; max-height:80%;">
+        <source src="https://capstone2videos.s3.us-east-2.amazonaws.com/Bastion+3+final.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <button id="replayButton" onclick="replayVideo()" style="display:none; margin-top:20px; padding:10px 20px; background:blue; color:white; border:none; cursor:pointer; border-radius:5px;">Replay</button>
+</div>
+
+
+<script>
+    function showVideoModal() {
+        const videoModal = document.getElementById('videoModal');
+        const introVideo = document.getElementById('introVideo');
+        const replayButton = document.getElementById('replayButton');
+
+        // Display the modal and play video
+        videoModal.style.display = 'flex';
+        introVideo.play();
+
+        // Hide the replay button initially
+        replayButton.style.display = 'none';
+
+        // Add event listener to show replay button when video ends
+        introVideo.addEventListener('ended', function() {
+            replayButton.style.display = 'inline-block';
+        });
+    }
+
+    // Function to close the video modal
+    function closeVideo() {
+        const videoModal = document.getElementById('videoModal');
+        const introVideo = document.getElementById('introVideo');
+
+        videoModal.style.display = 'none';
+        introVideo.pause();
+        introVideo.currentTime = 0; // Reset video to start
+    }
+
+    // Function to replay the video
+    function replayVideo() {
+        const introVideo = document.getElementById('introVideo');
+        const replayButton = document.getElementById('replayButton');
+
+        introVideo.currentTime = 0;
+        introVideo.play();
+        replayButton.style.display = 'none'; // Hide replay button during playback
+    }
+
+    // Call the function when the page loads
+    window.onload = showVideoModal;
+
+    // Mock data for file lists in each folder
+const files = {
+    
+    'Home': [
+        { name: 'passwordReminders.txt', type: 'Text', size: '2 KB' },
+        { name: 'profile.png', type: 'Image', size: '1.1 MB' }
+    ],
+    'Documents': [
+        { name: 'resume.docx', type: 'Document', size: '56 KB' },
+        { name: 'project.pdf', type: 'PDF', size: '1.2 MB' },
+        { name: 'notes.txt', type: 'Text', size: '4 KB' },
+        { name: 'clientDatabase.zip', type: 'ZIP', size: '15 KB', password: 'hansen' },
+        { name: 'employeeInformation.zip', type: 'ZIP', size: '25 KB', password: 'cruze' },
+        { name: 'productRoadmap.zip', type: 'ZIP', size: '30 KB', password: 'seattle' }
+    ],
+    'Music': [
+        { name: 'favoriteSong.mp3', type: 'Audio', size: '3.5 MB' }
+    ],
+    'Videos': [
+        { name: 'movie.mp4', type: 'Video', size: '700 MB' }
+    ],
+    'Downloads': [
+        { name: 'installer.exe', type: 'Application', size: '25 MB' },
+        { name: 'ebook.epub', type: 'eBook', size: '1 MB' }
+    ]
+};
+
+let selectedFile = null;
+
+// Function to display files for a selected folder
+function showFiles(folderName) {
+    document.getElementById('folderTitle').textContent = folderName;
+    const fileList = document.getElementById('fileList');
+    fileList.innerHTML = ''; // Clear previous entries
+
+    files[folderName].forEach(file => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td onclick="openFile('${folderName}', '${file.name}')">${file.name}</td>
+            <td>${file.type}</td>
+            <td>${file.size}</td>
+        `;
+        fileList.appendChild(row);
+    });
+}
+
+// Open file with password prompt for ZIP files
+function openFile(folderName, fileName) {
+    selectedFile = files[folderName].find(file => file.name === fileName);
+    if (selectedFile && selectedFile.type === 'ZIP') {
+        document.getElementById('passwordModal').style.display = 'flex';
+    }
+}
+
+function openFile(folderName, fileName) {
+    selectedFile = files[folderName].find(file => file.name === fileName);
+    if (selectedFile) {
+        if (selectedFile.name === 'passwordReminders.txt') {
+            showPasswordReminders();
+        } else if (selectedFile.type === 'ZIP') {
+            document.getElementById('passwordModal').style.display = 'flex';
+        }
+    }
+}
+
+
+function checkPassword() {
+    const enteredPassword = document.getElementById('passwordInput').value;
+    if (selectedFile && enteredPassword === selectedFile.password) {
+        document.getElementById('passwordModal').style.display = 'none';
+
+        // Open the appropriate PDF based on the file name
+        let pdfUrl = '';
+        switch (selectedFile.name) {
+            case 'clientDatabase.zip':
+                pdfUrl = 'https://nate-roper.github.io/cyber-escape-site/Leaked Docs/clientDatabase.pdf';
+                break;
+            case 'employeeInformation.zip':
+                pdfUrl = 'https://nate-roper.github.io/cyber-escape-site/Leaked Docs/employeeInformation.pdf';
+                break;
+            case 'productRoadmap.zip':
+                pdfUrl = 'https://nate-roper.github.io/cyber-escape-site/Leaked Docs/productRoadmap.pdf';
+                break;
+            default:
+                alert('No matching PDF found.');
+                return;
+        }
+
+        // Open the PDF in a new window
+        window.open(pdfUrl, '_blank');
+
+    } else {
+        alert("Incorrect password!");
+    }
+}
+
+
+function closeModal() {
+    document.getElementById('passwordModal').style.display = 'none';
+}
+
+let viewedPdfs = new Set(); // Set to track viewed PDFs
+
+// Add event listeners to track when each PDF view button is clicked
+document.getElementById('viewPdfButton1').addEventListener('click', function() {
+    trackViewedPdf('pdf1');
+});
+document.getElementById('viewPdfButton2').addEventListener('click', function() {
+    trackViewedPdf('pdf2');
+});
+document.getElementById('viewPdfButton3').addEventListener('click', function() {
+    trackViewedPdf('pdf3');
+});
+
+// Function to open a PDF and track views
+function trackViewedPdf(pdfId) {
+    let viewedPdfs = new Set(); // Set to track viewed PDFs
+    let pdfUrl = '';
+
+    // Set the correct URL based on the pdfId
+    switch (pdfId) {
+        case 'pdf1':
+            pdfUrl = 'https://nate-roper.github.io/cyber-escape-site/Leaked Docs/clientDatabase.pdf';
+            break;
+        case 'pdf2':
+            pdfUrl = 'https://nate-roper.github.io/cyber-escape-site/Leaked Docs/employeeInformation.pdf';
+            break;
+        case 'pdf3':
+            pdfUrl = 'https://nate-roper.github.io/cyber-escape-site/Leaked Docs/productRoadmap.pdf';
+            break;
+        default:
+            alert('Invalid PDF ID');
+            return;
+    }
+
+    // Open the PDF in a new window
+    window.open(pdfUrl, '_blank');
+
+    // Add the PDF ID to the viewedPdfs set
+    viewedPdfs.add(pdfId);
+
+    // Check if all three PDFs have been viewed
+    if (viewedPdfs.size === 3) {
+        // Automatically open the incident report page after a short delay
+        setTimeout(function() {
+            window.location.replace('https://nate-roper.github.io/cyber-escape-site/incidentReport.html');
+        }, 1000); // 1-second delay before redirection
+    }
+}
+
+
+
+// Function to open password reminders text
+function showPasswordReminders() {
+    const passwordInfo = `(lowercase no spaces)
+clientDatabase.pdf -> my best friend's last name
+
+employeeInformation.pdf -> model of my first car
+
+productRoadmap.pdf -> my home city`;
+
+    // Display the content in a new window
+    const newWindow = window.open('', '_blank', 'width=400,height=300');
+    newWindow.document.write('<pre>' + passwordInfo + '</pre>');
+    newWindow.document.title = "Password Reminders";
+}
+
+
+// Initialize with Documents folder
+showFiles('Documents');
+</script>
+
+<div id="footer-bar">
+    <div id="timer"></div>
+    <div class="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+    <button id="finalize-report" onclick="finalizeReport()">Finalize Incident Report</button>
+</div>
+<script>
+    // Initialize local storage for timer and visited pages if not already set
+    if (!localStorage.getItem('elapsedTime')) {
+        localStorage.setItem('elapsedTime', '0');
+    }
+    if (!localStorage.getItem('visitedPages')) {
+        localStorage.setItem('visitedPages', '[]');
+    }
+
+    // Track current page visit
+    const currentPage = window.location.pathname;
+    let visitedPages = JSON.parse(localStorage.getItem('visitedPages'));
+    if (!visitedPages.includes(currentPage)) {
+        visitedPages.push(currentPage);
+        localStorage.setItem('visitedPages', JSON.stringify(visitedPages));
+    }
+
+    // Calculate progress based on the number of visited pages
+    const totalPages = 5; // Adjust this number based on your total number of pages
+    const progress = 90;
+    document.getElementById('progress-bar').style.width = progress + '%';
+
+   
+
+    // Function to navigate to the incident report page
+    function finalizeReport() {
+        window.location.href = 'incidentReport.pdf';
+    }
+
+    
+</script>
+
+<style>
+    /* Footer Bar Styling */
+    #footer-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 10px;
+        color: white;
+        font-family: 'Segoe UI', sans-serif;
+        z-index: 999;
+    }
+    #timer {
+        margin-left: 20px;
+    }
+    .progress-container {
+        flex-grow: 1;
+        margin: 0 20px;
+        background-color: #444;
+        height: 20px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    #progress-bar {
+        height: 100%;
+        background-color: #0078D7;
+        width: 0%;
+        transition: width 0.3s;
+    }
+    #finalize-report {
+        background-color: #0078D7;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    #finalize-report:hover {
+        background-color: #005A9E;
+    }
+    #replayButton {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 10px 20px;
+        background: blue;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        z-index: 1000; /* Ensure it is above the video */
+        font-size: 20px; /* Make text bigger */
+        font-weight: bold; /* Make text bold */
+    }
+
+</style>
+</body>
+</html>
