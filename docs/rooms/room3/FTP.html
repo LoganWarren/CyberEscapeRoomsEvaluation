@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="globalTimer.js"></script>
+    <title>FTP Server</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .ftp-container {
+            width: 60%;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .ftp-header {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .ftp-inputs input, .ftp-inputs button {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .file-list {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .file-column {
+            width: 45%;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #f0f0f0;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="ftp-container">
+    <div class="ftp-header">FTP Server</div>
+    <div class="ftp-inputs">
+        <input type="text" id="ftpHost" placeholder="Host">
+        <input type="text" id="ftpUsername" placeholder="Username">
+        <input type="password" id="ftpPassword" placeholder="Password">
+        <button onclick="connectToFTP()">Connect</button>
+    </div>
+
+    <div class="file-list">
+        <div class="file-column">
+            <h3>Local Files</h3>
+            <ul>
+                <li>jaimeResume.docx</li>
+                <li>profile.jpg</li>
+                <li>menu.pdf</li>
+            </ul>
+        </div>
+        <div class="file-column">
+            <h3>Server Files</h3>
+            <ul id="serverFileList">
+                <!-- Populated on connect -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    function connectToFTP() {
+    // Define correct credentials
+    const correctHost = "73.118.209.254";
+    const correctUsername = "carters";
+    const correctPassword = "seahawks";
+
+    // Get user inputs
+    const inputHost = document.getElementById('ftpHost').value;
+    const inputUsername = document.getElementById('ftpUsername').value;
+    const inputPassword = document.getElementById('ftpPassword').value;
+
+    // Validate credentials
+    if (inputHost === correctHost && inputUsername === correctUsername && inputPassword === correctPassword) {
+        // Mock file list from server
+        const serverFiles = ['clientDatabase.zip', 'employeeInformation.zip', 'productRoadmap.zip'];
+
+        // Populate server files on the right side
+        const serverFileList = document.getElementById('serverFileList');
+        serverFileList.innerHTML = ''; // Clear previous entries
+        serverFiles.forEach(file => {
+            const li = document.createElement('li');
+            li.textContent = file;
+            serverFileList.appendChild(li);
+        });
+        alert("Connection Successful");
+    } else {
+        // Show an error message for incorrect credentials
+        alert("Connection Failed");
+    }
+}
+
+</script>
+
+<div id="footer-bar">
+    <div id="timer"></div>
+    <div class="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+    <!-- <button id="finalize-report" onclick="finalizeReport()">Finalize Incident Report</button> -->
+</div>
+<script>
+    // Initialize local storage for timer and visited pages if not already set
+    if (!localStorage.getItem('elapsedTime')) {
+        localStorage.setItem('elapsedTime', '0');
+    }
+    if (!localStorage.getItem('visitedPages')) {
+        localStorage.setItem('visitedPages', '[]');
+    }
+
+    // Track current page visit
+    const currentPage = window.location.pathname;
+    let visitedPages = JSON.parse(localStorage.getItem('visitedPages'));
+    if (!visitedPages.includes(currentPage)) {
+        visitedPages.push(currentPage);
+        localStorage.setItem('visitedPages', JSON.stringify(visitedPages));
+    }
+
+    // Calculate progress based on the number of visited pages
+    const totalPages = 5; // Adjust this number based on your total number of pages
+    const progress = 75;
+    document.getElementById('progress-bar').style.width = progress + '%';
+
+
+    // Function to navigate to the incident report page
+    function finalizeReport() {
+        window.location.href = 'incidentReport.pdf';
+    }
+
+</script>
+
+<style>
+    /* Footer Bar Styling */
+    #footer-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 10px;
+        color: white;
+        font-family: 'Segoe UI', sans-serif;
+        z-index: 999;
+    }
+    #timer {
+        margin-left: 20px;
+    }
+    .progress-container {
+        flex-grow: 1;
+        margin: 0 20px;
+        background-color: #444;
+        height: 20px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    #progress-bar {
+        height: 100%;
+        background-color: #0078D7;
+        width: 0%;
+        transition: width 0.3s;
+    }
+    #finalize-report {
+        background-color: #0078D7;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    #finalize-report:hover {
+        background-color: #005A9E;
+    }
+</style>
+</body>
+</html>

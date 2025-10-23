@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="globalTimer.js"></script>
+    <title>Desktop</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: url('images/login.jpg') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        .desktop {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 100px;
+        }
+        .user {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s;
+            background-color: transparent;
+        }
+        .user img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .user-name {
+            margin-top: 10px;
+            font-size: 20px;
+            color: #fff;
+        }
+        .login, .security {
+            display: none;
+            margin-top: 30px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            color: #fff;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            width: 250px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #0078D7;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #005A9E;
+        }
+    </style>
+    
+</head>
+<body>
+
+<h1>BASTION Sign-In</h1>
+
+<div class="desktop">
+    <div class="user" onclick="openLogin('user1')">
+        <img src="images/jaimePFP.jpeg" alt="Jaime">
+        <div class="user-name">Jaime</div>
+    </div>
+    <div class="user" onclick="openLogin('user2')">
+        <img src="images/alexPFP.jpeg" alt="Alex">
+        <div class="user-name">Alex</div>
+    </div>
+    <div class="user" onclick="openLogin('user3')">
+        <img src="images/samPFP.jpeg" alt="Sam">
+        <div class="user-name">Sam</div>
+    </div>
+</div>
+
+
+<div id="login-user1" class="login">
+    <h2>Jaime - Sign In</h2>
+    <input type="text" id="username1" placeholder="Username"><br>
+    <input type="password" id="password1" placeholder="Password"><br>
+    <button onclick="validateLogin('user1')">Login</button>
+</div>
+
+<div id="login-user2" class="login">
+    <h2>Alex - Sign In</h2>
+    <input type="text" id="username2" placeholder="Username"><br>
+    <input type="password" id="password2" placeholder="Password"><br>
+    <button onclick="validateLogin('user2')">Login</button>
+</div>
+
+<div id="login-user3" class="login">
+    <h2>Sam - Sign In</h2>
+    <input type="text" id="username3" placeholder="Username"><br>
+    <input type="password" id="password3" placeholder="Password"><br>
+    <button onclick="validateLogin('user3')">Login</button>
+</div>
+
+<!-- Security Questions -->
+<div id="security-user1" class="security">
+    <h2>Jaime - Security Questions</h2>
+    <input type="text" id="secq1-user1" placeholder="What was the make and model of your first car?"><br>
+    <input type="text" id="secq2-user1" placeholder="What is the name of your favorite pet?"><br>
+    <input type="text" id="secq3-user1" placeholder="What was the name of the city in which you were born?"><br>
+    <button onclick="validateSecurity('user1')">Submit</button>
+</div>
+
+<div id="security-user2" class="security">
+    <h2>Alex - Security Questions</h2>
+    <input type="text" id="secq1-user2" placeholder="What was the make and model of your first car?"><br>
+    <input type="text" id="secq2-user2" placeholder="What was the name of the street you grew up on?"><br>
+    <input type="text" id="secq3-user2" placeholder="What was the name of the city in which you were born?"><br>
+    <button onclick="validateSecurity('user2')">Submit</button>
+</div>
+
+<div id="security-user3" class="security">
+    <h2>Sam - Security Questions</h2>
+    <input type="text" id="secq1-user3" placeholder="What was the make and model of your first car?"><br>
+    <input type="text" id="secq2-user3" placeholder="What was the name of your first childhood friend?"><br>
+    <input type="text" id="secq3-user3" placeholder="What was the name of the city in which you were born?"><br>
+    <button onclick="validateSecurity('user3')">Submit</button>
+</div>
+
+
+<script>
+    function openLogin(user) {
+        document.querySelectorAll('.login, .security').forEach(el => el.style.display = 'none');
+        document.getElementById('login-' + user).style.display = 'block';
+    }
+    function validateLogin(user) {
+        let username = document.getElementById('username' + user.slice(-1)).value;
+        let password = document.getElementById('password' + user.slice(-1)).value;
+
+        if (user === 'user1' && username === 'j.graves2' && password === 'CavsFan123') {
+            alert('Login successful for ' + username + '!');
+            window.open('jaime.html', '_blank');
+        } else if (user === 'user2' && username === 'a.richardson1' && password === 'Mittens10') {
+            alert('Login successful for ' + username + '!');
+            window.open('alex.html', '_blank');
+        } else if (user === 'user3' && username === 's.carters7' && password === 'smokedsalmon24') {
+            alert('Login successful for ' + username + '!');
+            window.open('sam.html', '_blank');
+        } else {
+            alert('Incorrect Username or Password');
+        }
+    }
+    
+</script>
+
+<div id="footer-bar">
+    <div id="timer"></div>
+    <div class="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+    <!-- <button id="finalize-report" onclick="finalizeReport()">Finalize Incident Report</button> -->
+</div>
+
+<script>
+    // Initialize local storage for timer and visited pages if not already set
+    if (!localStorage.getItem('elapsedTime')) {
+        localStorage.setItem('elapsedTime', '0');
+    }
+    if (!localStorage.getItem('visitedPages')) {
+        localStorage.setItem('visitedPages', '[]');
+    }
+
+    // Track current page visit
+    const currentPage = window.location.pathname;
+    let visitedPages = JSON.parse(localStorage.getItem('visitedPages'));
+    if (!visitedPages.includes(currentPage)) {
+        visitedPages.push(currentPage);
+        localStorage.setItem('visitedPages', JSON.stringify(visitedPages));
+    }
+
+    // Calculate progress based on the number of visited pages
+    const totalPages = 5; // Adjust this number based on your total number of pages
+    const progress = 15;
+    document.getElementById('progress-bar').style.width = progress + '%';
+
+
+    // Function to navigate to the incident report page
+    function finalizeReport() {
+        window.location.href = 'incidentReport.pdf';
+    }
+
+</script>
+
+
+<style>
+    /* Footer Bar Styling */
+    #footer-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 10px;
+        color: white;
+        font-family: 'Segoe UI', sans-serif;
+        z-index: 999;
+    }
+    #timer {
+        margin-left: 20px;
+}
+    .progress-container {
+        flex-grow: 1;
+        margin: 0 20px;
+        background-color: #444;
+        height: 20px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    #progress-bar {
+        height: 100%;
+        background-color: #0078D7;
+        width: 0%;
+        transition: width 0.3s;
+    }
+    #finalize-report {
+        background-color: #0078D7;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    #finalize-report:hover {
+        background-color: #005A9E;
+    }
+</style>
+
+</body>
+</html>
