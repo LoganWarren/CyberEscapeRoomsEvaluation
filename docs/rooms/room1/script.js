@@ -10,19 +10,19 @@ allCodes = [
     },
     {
         code: 'BOTNET',
-        url: 'https://drive.google.com/file/d/1k1E8CnrM-GvojkChj-vWLVj1dYx6TjUg/preview'
+        url: 'https://www.youtube.com/watch?v=BUb4_GZgTRY&feature=youtu.be'
     },
     {
         code: 'SECURITY QUESTIONS',
-        url: 'https://drive.google.com/file/d/1NZqJuUhLe73pGDTT3n_sp6b_oAWbWQkZ/preview'
+        url: 'https://www.youtube.com/watch?v=BUb4_GZgTRY&feature=youtu.be'
     },
     {
         code: 'BRUTE FORCE',
-        url: 'https://drive.google.com/file/d/1XCQyPjJOnisU32F7emi4RenslUf69fZK/preview'
+        url: 'https://www.youtube.com/watch?v=BUb4_GZgTRY&feature=youtu.be'
     },
     {
         code: 'STEGANOGRAPHY',
-        url: 'https://drive.google.com/file/d/1cyD33ZO63QYtyJhxQLBh8riZYhAABmYe/preview'
+        url: 'https://www.youtube.com/watch?v=BUb4_GZgTRY&feature=youtu.be'
     },
     {
         code: 'OPEN SOURCE INTELLIGENCE',
