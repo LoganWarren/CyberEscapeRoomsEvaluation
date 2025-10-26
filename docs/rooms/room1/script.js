@@ -2,19 +2,45 @@
 let totalNumMinutes = 30; // EDIT THIS LINE TO CHANGE THE AMOUNT OF TIME
 
 // EDIT THIS ARRAY TO ADD OR CHANGE VIDEOS (MUST BE IN ORDER)
+// THE CODES MUST BE ENTERED IN THIS ORDER
 const allCodes = [
-  { code: '{INITIAL}', url: 'https://www.youtube.com/watch?v=BUb4_GZgTRY&feature=youtu.be' },
-  { code: 'BOTNET', url: 'https://www.youtube.com/watch?v=BUb4_GZgTRY&feature=youtu.be' },
-  { code: 'SECURITY QUESTIONS', url: 'https://www.youtube.com/watch?v=BUb4_GZgTRY&feature=youtu.be' },
-  { code: 'BRUTE FORCE', url: 'https://www.youtube.com/watch?v=BUb4_GZgTRY&feature=youtu.be' },
-  { code: 'STEGANOGRAPHY', url: 'https://www.youtube.com/watch?v=BUb4_GZgTRY&feature=youtu.be' },
+  // Intro / Room Start
+  { code: '{INITIAL}', url: 'https://www.youtube.com/watch?v=BUb4_GZgTRY' },
+
+  // Puzzle Group 1
+  // (Lockbox / task setup — “Black Lock Box Code - 763”)
+  { code: 'BOTNET', url: 'https://www.youtube.com/watch?v=TT0MXK2CDBE' },
+
+  // Puzzle Group 2 (begin Security Questions)
+  // (Sets up that there are five questions; asks Q1: brute force)
+  { code: 'SECURITY QUESTIONS', url: 'https://www.youtube.com/watch?v=CDVRLroNu8k' },
+
+  // Q1: Brute Force  -> Next video introduces Q2 (steganography)
+  { code: 'BRUTE FORCE', url: 'https://www.youtube.com/watch?v=GM9lfRw8ahU' },
+
+  // Q2: Steganography -> Next video tees up Q3 (OSINT)
+  { code: 'STEGANOGRAPHY', url: 'https://www.youtube.com/watch?v=BE8Iy12kVEA' },
+
+  // Q3: Open Source Intelligence -> Next video asks Q4 (phishing)
   { code: 'OPEN SOURCE INTELLIGENCE', url: 'https://www.youtube.com/watch?v=hKwNQNw28u0' },
-  { code: 'PHISHING ATTACK', url: 'https://www.youtube.com/watch?v=BUb4_GZgTRY&feature=youtu.be' },
+
+  // Q4: Phishing Attack -> Next video asks ransomware (Q5)
+  { code: 'PHISHING ATTACK', url: 'https://www.youtube.com/watch?v=YpMrqcGAU9A' },
+
+  // Q5: Ransomware
+  // (If you don’t have a specific “Q5 confirmation” clip, keep this Drive clip or swap later)
   { code: 'RANSOMWARE', url: 'https://drive.google.com/file/d/1-edDwWaS87EzRg2Qf6C-ArULfDtiMHNG/preview' },
+
+  // Script Blacklight step (shows/hash step)
   { code: 'FINDHASH', url: 'https://drive.google.com/file/d/1-edDwWaS87EzRg2Qf6C-ArULfDtiMHNG/preview' },
-  { code: 'SENDCASH', url: 'https://drive.google.com/file/d/1Gt22SR84L-bW6EouKESdUeTHmZeOLjZC/preview' },
-  { code: '{LOSS}', url: 'https://www.youtube.com/watch?v=c93DhijZPAk' }, // loss video
+
+  // Cracked Hash -> WIN (show the win experience video here)
+  { code: 'SENDCASH', url: 'https://www.youtube.com/watch?v=dz38gQkC3m4' },
+
+  // Access Loss Vid
+  { code: '{LOSS}', url: 'https://www.youtube.com/watch?v=c93DhijZPAk' },
 ];
+
 
 // Optional note: https://www.youtube.com/watch?v=TT0MXK2CDBE (not in array)
 

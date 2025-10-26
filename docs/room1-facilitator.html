@@ -133,7 +133,7 @@
     <ul class="list-tight">
       <li>Open <a href="rooms/room1/index.html">Play Game</a> on the facilitator machine.</li>
       <li>Have the team enter a name; you enter <code>StartCyber</code>, click <em>BEGIN ESCAPE ROOM</em>.</li>
-      <li>Use the hints below sparingly; you have up to three per team.</li>
+      <li>It is recommended up to three per team.</li>
     </ul>
 
     <hr class="hr-soft" />
@@ -143,7 +143,7 @@
       <ul class="list-tight">
         <li>Keep the instructions folder with you (remaining QR code, Cleanup, and Hint docs inside).</li>
         <li>Distribute: two 3-digit lockboxes, one 3-character lockbox, bag of Botnet snippets, safe, PAPER PUZZLES contents, four notebooks and pens (remove used pages).</li>
-        <li>Open browser to <span class="mono">tinyurl.com/CybersecurityEscapeRoom</span> or use the “Play Game” link above.</li>
+        <li>Open the game using the “Play Game” button.</li>
         <li>Read the Introduction script to players (below) before starting.</li>
       </ul>
     </section>
@@ -177,11 +177,7 @@
             <li>Question 5: <code>ransomware</code></li>
             <li>Script Blacklight: <code>findhash</code></li>
             <li>Cracked Hash: <code>sendcash</code></li>
-            <li>Access Loss Vid: <code>{LOSS}</code></li>
           </ul>
-        </div>
-        <div class="callout">
-          <strong>Tip:</strong> If the site’s <code>allCodes</code> array changes, update this list.
         </div>
       </div>
     </section>
@@ -285,16 +281,7 @@
       </details>
     </section>
 
-    <section aria-labelledby="admin">
-      <h2 id="admin">Admin: Videos & Codes</h2>
-      <ul class="list-tight">
-        <li>In the site JS, <code>allCodes</code> contains pairs of <em>code</em> and <em>url</em>.</li>
-        <li>Host videos (e.g., Google Drive) and paste share URLs.</li>
-        <li>Special codes: <code>{INITIAL}</code> and <code>{LOSS}</code> — change only their URLs.</li>
-        <li>If you change the total number of codes, adjust the “next-to-last” and “last” video logic (historically lines 82/91) to match the new order.</li>
-        <li>Edit native elements via <span class="mono">index.html</span> and <span class="mono">style.css</span> (hash popup is customizable).</li>
-      </ul>
-    </section>
+
 
     <hr class="hr-soft" />
 
