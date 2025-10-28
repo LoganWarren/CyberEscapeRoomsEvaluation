@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Room 3 — Facilitator Materials</title>
+  <title>Room 3 — Facilitator Materials (Walkthrough)</title>
   <meta name="robots" content="noindex,nofollow" />
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    /* Local helpers */
+    /* Local helpers (kept from original) */
     .callout {
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.12);
@@ -118,7 +118,6 @@
           <div class="error" id="gateError" aria-live="polite"></div>
         </div>
         <p class="mono" style="font-size:.85rem; color:var(--text-500); margin:.25rem 0 0;">
-          Tip: add <code>#p=YOURPIN</code> to the URL to auto-unlock on your device.
         </p>
       </form>
     </div>
@@ -129,201 +128,105 @@
       <strong>Facilitator note:</strong> Keep this page off-screen to players. Bookmark it; it’s not linked in the navbar.
     </div>
 
-    <h2>Quick Start</h2>
-    <ul class="list-tight">
-      <li>Open <a href="rooms/room1/index.html">Play Game</a> on the facilitator machine.</li>
-      <li>Have the team enter a name; you enter <code>StartCyber</code>, click <em>BEGIN ESCAPE ROOM</em>.</li>
-      <li>Use the hints below sparingly; you have up to three per team.</li>
-    </ul>
+    <!-- === Replaced content: Walkthrough Steps from the uploaded manual === -->
+    <section aria-labelledby="walkthrough">
+      <h2 id="walkthrough">Walkthrough — Step-by-step (facilitator)</h2>
 
-    <hr class="hr-soft" />
+      <ol class="list-tight">
+        <li>
+          <strong>Print & arrange materials:</strong>
+          Before starting, ensure all documents from the Resources page are printed and laid out at the workstation.
+        </li>
 
-    <section aria-labelledby="setup">
-      <h2 id="setup">Setup</h2>
-      <ul class="list-tight">
-        <li>Keep the instructions folder with you (remaining QR code, Cleanup, and Hint docs inside).</li>
-        <li>Distribute: two 3-digit lockboxes, one 3-character lockbox, bag of Botnet snippets, safe, PAPER PUZZLES contents, four notebooks and pens (remove used pages).</li>
-        <li>Open browser to <span class="mono">tinyurl.com/CybersecurityEscapeRoom</span> or use the “Play Game” link above.</li>
-        <li>Read the Introduction script to players (below) before starting.</li>
-      </ul>
-    </section>
-
-    <section aria-labelledby="intro">
-      <h2 id="intro">Player Introduction Script</h2>
-      <div class="callout">
-        <p><em>“Welcome to the Cyber Security Escape Room. A dear family member to each of you has fallen for the same phishing scam, and the hacker has stolen their data and is using it for nefarious purposes. Do not touch any of the game elements, unless instructed, until the timer starts. You will be provided notebooks; these notebooks will not contain any clues or hints related to the room, and are to aid you when you’d like to write things down.</em></p>
-        <p><em>Your objective is to uncover the identity of the perpetrator using the tools at your disposal and alert the authorities before the hacker scrubs any trace of their activity for good and gets away with this crime.</em></p>
-        <p><em>As you go, you will be aided by cyber security experts, via video, who need your help to stop this hacker for good. Their videos will help you navigate through the hacker’s security.</em></p>
-        <p><em>There are puzzles you will encounter accompanied by instructional documents; these are elements that trace back to the hacker and their means of attack. Read these documents carefully as they contain information that is necessary to proceed.</em></p>
-        <p><em>You have access to all of the documents and items on this table and this website to uncover the hacker’s identity. The only information you need is on the table or on the website. Do not navigate away from this website during the experience. When needed, write in the notebooks provided, and not on anything else.</em></p>
-        <p><em>There is an entry field accessible to you all. Each video you see will provide you with the next piece of information you need to enter to progress, and will unlock new avenues to explore. Once you’ve assembled all the information needed and broken through to the hacker’s personal data, the cyber security experts will send out that information to the proper authorities, bringing them to justice.</em></p>
-        <p><em>If you are ever stuck and need assistance, you can ask me for a Hint. I can provide you with up to three hints throughout the room, and once you’re out of hints, you’re out for good!</em></p>
-        <p><em>Now, come up with a (super cool and awesome) team name. When you’re ready, enter in your team name on the site in the “enter team name” field. I’ll then enter the password to start the room, click begin escape room, and your timer will start. Once we start, you’ll have thirty minutes before the hacker is gone for good. Good luck!”</em></p>
-      </div>
-    </section>
-
-    <section aria-labelledby="passwords">
-      <h2 id="passwords">Current Puzzle Password List</h2>
-      <div class="two-col">
-        <div>
+        <li>
+          <strong>Log into each employee account</strong> (credentials found on Employee ID cards):
           <ul class="list-tight mono">
-            <li>Room Start: <code>StartCyber</code></li>
-            <li>Puzzle Group 1: <code>botnet</code></li>
-            <li>Puzzle Group 2: <code>security questions</code></li>
-            <li>Question 1: <code>brute force</code></li>
-            <li>Question 2: <code>steganography</code></li>
-            <li>Question 3: <code>open source intelligence</code></li>
-            <li>Question 4: <code>phishing attack</code></li>
-            <li>Question 5: <code>ransomware</code></li>
-            <li>Script Blacklight: <code>findhash</code></li>
-            <li>Cracked Hash: <code>sendcash</code></li>
-            <li>Access Loss Vid: <code>{LOSS}</code></li>
+            <li>Jaime — User:  j.graves2  Pass:  CavsFan123 </li>
+            <li>Sam — User:  s.carters7  Pass:  smokedsalmon24 </li>
           </ul>
-        </div>
-        <div class="callout">
-          <strong>Tip:</strong> If the site’s <code>allCodes</code> array changes, update this list.
-        </div>
-      </div>
-    </section>
+        </li>
 
-    <section aria-labelledby="hints">
-      <h2 id="hints">Hints (Facilitator Reference)</h2>
+        <li>
+          <strong>Search emails for suspicious content:</strong>
+          Look for messages from  sreniram66  and messages with subjects like <em>Quick Access Check</em> and <em>A New Transaction</em>.
+          Sam's inbox contains suspicious threads; Jaime's email has a dedicated suspicious folder.
+        </li>
 
-      <details>
-        <summary>Open Source Intelligence (OSINT)</summary>
-        <p>Find underlined words + their numbers. Combine pairs from multiple puzzles; order by the numbers to form a question.</p>
-      </details>
+        <li>
+          <strong>Find the suspicious transaction in Jaime’s folder:</strong>
+          That email contains an IP and a conversation with external contacts; it includes hashed login data pointing to an FTP.
+        </li>
 
-      <details>
-        <summary>Phishing</summary>
-        <p>They need the <strong>legitimate</strong> email. Urgency is a common phishing tell.</p>
-      </details>
+        <li>
+          <strong>Decrypt the hashed login:</strong>
+          Use an MD5 decrypter (the conversation references the tool). The correct FTP credentials (decrypted) are:
+          <div class="mono">
+            Host:  73.118.209.254  — User:  carters  — Pass:  seahawks 
+          </div>
+        </li>
 
-      <details>
-        <summary>Botnet Assembly</summary>
-        <p>Alphabetize; record words in even positions. Then sort by the third IP octet to get word–number pairs.</p>
-      </details>
+        <li>
+          <strong>Access FTP:</strong>
+          Log in to the FTP above. There will be three stolen files that reference Sam.
+        </li>
 
-      <details>
-        <summary>Puzzle Group 1 (assemble security question)</summary>
-        <p>Order words by their associated numbers.</p>
-      </details>
+        <li>
+          <strong>Open Sam’s locked files from his file explorer:</strong>
+          Each locked file has a password hint (passwords are lowercase, no spaces) and are solved via OSINT and physical desk items:
+          <ul class="list-tight">
+            <li><strong>clientDatabase.pdf</strong> — Hint: “my best friend's last name” →  hansen  (found on a company social post from Sam)</li>
+            <li><strong>employeeInformation.pdf</strong> — Hint: “model of my first car” →  cruze  (found on Sam's parking pass)</li>
+            <li><strong>productRoadmap.pdf</strong> — Hint: “my home city” →  seattle  (clues scattered across the game; “sreniram66” → mariners backwards etc.)</li>
+          </ul>
+        </li>
 
-      <details>
-        <summary>Puzzle Box</summary>
-        <p>Flip it over. Try hitting it. (Seriously.)</p>
-      </details>
+        <li>
+          <strong>Enter each password:</strong> After entering the three passwords, the final material will prompt the team to complete a short Incident Report (a debrief and certificate of completion).
+        </li>
 
-      <details>
-        <summary>Bruteforce</summary>
-        <p>Try all permutations of the given digits (e.g., 123, 321, 213...).</p>
-      </details>
+        <li>
+          <strong>Incident report & completion:</strong>
+          Provide the incident report template (Resources page). A completed example is available on the Resources page and in the facilitator packet.
+        </li>
+      </ol>
 
-      <details>
-        <summary>QR Code (Group 2)</summary>
-        <p>Lay it flat; correct positions; no overlaps or gaps before scanning.</p>
-      </details>
+      <p class="callout mono" style="margin-top:1rem;">
+        Quick reminders:
+        <br />• All answers are lowercase, no spaces.
+        <br />• Keep printed backups of the Employee ID cards, parking pass image, and relevant social post screenshots for faster reset.
+      </p>
 
-      <details>
-        <summary>Fold Puzzle</summary>
-        <p>Fold so labeled semicircles with the same order touch, from least to greatest.</p>
-      </details>
-
-      <details>
-        <summary>Decryption</summary>
-        <p>Decryption key is in previous materials; if missed, direct them to the folder after a minute or two.</p>
-      </details>
-
-      <details>
-        <summary>Password Hash</summary>
-        <p>Use a hash-cracking tool; it returns the account password.</p>
-      </details>
-    </section>
-
-    <section aria-labelledby="cleanup">
-      <h2 id="cleanup">Cleanup / Packing Instructions</h2>
-      <p>After the experience, note any pieces to reprint while packing.</p>
-
-      <details>
-        <summary>Puzzle 1 Cleanup</summary>
-        <ul class="list-tight">
-          <li>Gather 12 Botnet slips into their starting container.</li>
-          <li>Return Puzzle 1 papers to the folder: 3 instruction pages (Botnet/Phishing/OSINT), 4 email pages, 1 fake social profile page.</li>
-          <li>Return the Botnet container and the folder to storage.</li>
-        </ul>
-      </details>
-
-      <details>
-        <summary>Puzzle 2 Cleanup</summary>
-        <ul class="list-tight">
-          <li>Account for 4 QR pieces. If backups were used, note for reprint.</li>
-          <li>Put one QR piece + ransomware definition in the <strong>wooden puzzle box</strong> (cardboard instruction piece helps closing).</li>
-          <li>Store the wooden box in the <strong>brown metal lockbox</strong>. Behind the labeled paper at the top, place another QR piece. Lock with 3-digit lock; scramble.</li>
-          <li>In the <strong>lock-shaped box (gold switch)</strong>, store steganography definition + wooden box instructions + another QR piece. Lock with 3-character lock; scramble.</li>
-          <li>In the <strong>final black lockbox</strong>: last QR piece, fold-puzzle page, 2 envelopes (Bruteforce instructions; general Group 2 instructions).
-              If dial won’t turn, set <code>763</code>, turn, then lock (close → turn dial left → confirm locked) and scramble.</li>
-          <li>Return all lockboxes to storage.</li>
-        </ul>
-      </details>
-
-      <details>
-        <summary>Puzzle 3 Cleanup</summary>
-        <ul class="list-tight">
-          <li>In black safe: return 4 blacklight flashlights + 2 instruction pages (hashes, encryption). Close and turn handle left (down) to lock.</li>
-          <li>If needed, open with <code>96024321</code> then <kbd>ENTER</kbd>, place items, re-lock properly.</li>
-          <li>Return safe to storage.</li>
-        </ul>
-      </details>
-
-      <details>
-        <summary>General Cleanup</summary>
-        <ul class="list-tight">
-          <li>Collect 4 notebooks; tear out and discard used pages.</li>
-          <li>Collect pencils.</li>
-          <li>Final sweep for missed pieces. Return all items and this folder to storage.</li>
-        </ul>
-      </details>
-    </section>
-
-    <section aria-labelledby="admin">
-      <h2 id="admin">Admin: Videos & Codes</h2>
-      <ul class="list-tight">
-        <li>In the site JS, <code>allCodes</code> contains pairs of <em>code</em> and <em>url</em>.</li>
-        <li>Host videos (e.g., Google Drive) and paste share URLs.</li>
-        <li>Special codes: <code>{INITIAL}</code> and <code>{LOSS}</code> — change only their URLs.</li>
-        <li>If you change the total number of codes, adjust the “next-to-last” and “last” video logic (historically lines 82/91) to match the new order.</li>
-        <li>Edit native elements via <span class="mono">index.html</span> and <span class="mono">style.css</span> (hash popup is customizable).</li>
-      </ul>
+      <!-- Required citation for the uploaded manual -->
+      <p style="margin-top:1rem; color:var(--text-500); font-size:.9rem;">
+      </p>
     </section>
 
     <hr class="hr-soft" />
 
-    <!-- ======== Instructor CTA (big & obvious) ======== -->
+    <!-- keep the Admin / Instructor CTA from original for contact -->
     <section class="instructor-cta" aria-labelledby="instructor-access">
       <div class="cta-inner">
         <div class="cta-text">
           <h2 id="instructor-access">Questions? Contact the Instructor</h2>
           <p>
-            Contact
-            <strong>Ahmed Ibrahim</strong> at
-            <a class="cta-email" href="mailto:aibrahim@pitt.edu?subject=Cyber%20Escape%20Rooms%20%E2%80%94%20Instructor%20PIN%20Request&body=Hello%20Professor%20Ibrahim%2C%0A%0AI%27d%20like%20access%20to%20the%20instructor%20materials%20for%20the%20Cyber%20Escape%20Rooms.%0A%0ARoom%28s%29%3A%20%5BRoom%201%20%2F%20Room%202%20%2F%20Room%203%5D%0AInstitution%3A%20%0APlanned%20date%2Ftime%3A%20%0A%0AThank%20you!">
-              aibrahim@pitt.edu
-            </a>.
+            Contact <strong>Ahmed Ibrahim</strong> at
+            <a class="cta-email" href="mailto:aibrahim@pitt.edu?subject=Cyber%20Escape%20Rooms%20%E2%80%94%20Instructor%20PIN%20Request">aibrahim@pitt.edu</a>.
+          </p>
         </div>
 
         <div class="cta-actions">
-          <a class="button button-ghost" href="mailto:aibrahim@pitt.edu?subject=Cyber%20Escape%20Rooms%20%E2%80%94%20Instructor%20PIN%20Request&body=Hello%20Professor%20Ibrahim%2C%0A%0AI%27d%20like%20access%20to%20the%20instructor%20materials%20for%20the%20Cyber%20Escape%20Rooms.%0A%0ARoom%28s%29%3A%20%5BRoom%201%20%2F%20Room%202%20%2F%20Room%203%5D%0AInstitution%3A%20%0APlanned%20date%2Ftime%3A%20%0A%0AThank%20you!">
+          <a class="button button-ghost" href="mailto:aibrahim@pitt.edu?subject=Cyber%20Escape%20Rooms%20%E2%80%94%20Instructor%20PIN%20Request">
             Email Prof. Ahmed Ibrahim
           </a>
           <div class="cta-name">Ahmed Ibrahim</div>
         </div>
       </div>
     </section>
-    <!-- ======== /Instructor CTA ======== -->
 
-  <footer>
-    <p>© CyberEscapeRoomsEvaluation</p>
-  </footer>
+    <footer>
+      <p>© CyberEscapeRoomsEvaluation</p>
+    </footer>
+  </main>
 
   <script src="js/main.js"></script>
   <script>
