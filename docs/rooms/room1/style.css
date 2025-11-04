@@ -3,7 +3,9 @@ body {
     background-color: black;
     color: #00ff00;
     font-family: "Stencil", Times, serif;
+    font-size: 18px; /* was smaller; bumped for readability */
 }
+
 
 #clock {
     font-size: 10em;
@@ -13,14 +15,13 @@ body {
     margin: 0 auto 20px auto;
     cursor: default;
 }
-
 .terminal {
     width: 380px;
     border: lime 1px solid;
     border-radius: 2px;
     margin: 20px auto;
     font-family: monospace;
-    font-size: large;
+    font-size: 1.1em; /* slightly larger */
     background-color: black;
     padding: 10px 5px;
 }
@@ -30,10 +31,11 @@ body {
     font-family: monospace;
     border: none;
     outline: none;
+    font-size: 1.05em;
 }
 
 .main-button {
-    padding: 10px;
+    padding: 12px 18px;
     background-color: red;
     font-family: "Stencil", Times, serif;
     font-style: italic;
@@ -41,7 +43,11 @@ body {
     border-radius: 50px;
     border: black 3px solid;
     margin-bottom: 10px;
+    font-size: 1.05em;
 }
+
+
+
 
 .main-button:hover {
     background-color: #770000;
@@ -106,4 +112,58 @@ body {
 
 #return-button {
     margin-top: 20px;
+}
+
+/* START OF THE STUFF FOR THE PROGRESS SECTIONS */
+/* Progress panel */
+#progress-panel {
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: left;
+    font-family: monospace;
+    font-size: 0.95em;
+}
+
+#progress-label {
+    margin-bottom: 6px;
+}
+
+#progress-bar {
+    width: 100%;
+    background: #003300;
+    border: 1px solid lime;
+    border-radius: 6px;
+    height: 16px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+#progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: lime;
+    transition: width 0.3s ease;
+}
+
+#progress-steps {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+#progress-steps li {
+    margin: 2px 0;
+}
+
+#progress-steps li::before {
+    content: "• ";
+    color: #00aa00;
+}
+
+#progress-steps li.done::before {
+    content: "✔ ";
+    color: lime;
+}
+#progress-steps li.done {
+    opacity: 0.8;
 }

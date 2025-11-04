@@ -1,5 +1,5 @@
 // ===== CONFIG =====
-let totalNumMinutes = 30; // EDIT THIS LINE TO CHANGE THE AMOUNT OF TIME
+let totalNumMinutes = 45; // EDIT THIS LINE TO CHANGE THE AMOUNT OF TIME
 
 // EDIT THIS ARRAY TO ADD OR CHANGE VIDEOS (MUST BE IN ORDER)
 // THE CODES MUST BE ENTERED IN THIS ORDER
@@ -233,7 +233,7 @@ function startEscapeRoom() {
     endTime = new Date(new Date().getTime() + totalNumMinutes * 60000);
     document.getElementById('login').style.display = 'none';
     document.getElementById('main').style.display = 'block';
-    document.getElementById("clock").innerHTML = padWithZero(totalNumMinutes, 2) + ':00';
+document.getElementById("clock").innerHTML = '45:00';
     gameState = 'play';
 
             // NEW: show Puzzle Group 1 hint at the start
