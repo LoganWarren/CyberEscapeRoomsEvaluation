@@ -167,6 +167,7 @@ function updateVideo(code) {
 
 function currentCode() {
   const entry = document.getElementById("code-entry").value.toUpperCase();
+
   if (
     entry === getCurrentCorrectCode() &&
     !allSavedCodes.includes(entry) &&
@@ -175,9 +176,15 @@ function currentCode() {
   ) {
     allSavedCodes.push(entry);
     addVideoLink(entry);
+    updateProgress(); // <-- update the progress bar/checklist
   }
+
   return entry;
 }
+
+
+
+
 
 function addVideoLink(code) {
   addElement('button', code, 'saved-codes', [['class', 'saved-vid-link'], ['onclick', 'updateVideo("'+code+'")']]);
@@ -294,4 +301,45 @@ function returnToMain() {
   document.getElementById('result').style.display = 'none';
   document.getElementById('main').style.display = 'block';
   
+}
+
+// ---------------------------------------------------------------------------------------
+// This is the update progress section
+function updateProgress() {
+    var steps = [
+        'BOTNET',
+        'SECURITY QUESTIONS',
+        'BRUTE FORCE',
+        'STEGANOGRAPHY',
+        'OPEN SOURCE INTELLIGENCE',
+        'PHISHING ATTACK',
+        'RANSOMWARE',
+        'FINDHASH',
+        'SENDCASH'
+    ];
+
+    function mark(id, done) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        if (done) el.classList.add('done');
+        else el.classList.remove('done');
+    }
+
+    mark('step-botnet', allSavedCodes.includes('BOTNET'));
+    mark('step-sec-questions', allSavedCodes.includes('SECURITY QUESTIONS'));
+    mark('step-q1', allSavedCodes.includes('BRUTE FORCE'));
+    mark('step-q2', allSavedCodes.includes('STEGANOGRAPHY'));
+    mark('step-q3', allSavedCodes.includes('OPEN SOURCE INTELLIGENCE'));
+    mark('step-q4', allSavedCodes.includes('PHISHING ATTACK'));
+    mark('step-q5', allSavedCodes.includes('RANSOMWARE'));
+    mark('step-findhash', allSavedCodes.includes('FINDHASH'));
+    mark('step-sendcash', allSavedCodes.includes('SENDCASH'));
+
+    var doneCount = steps.filter(function(c) { return allSavedCodes.includes(c); }).length;
+    var pct = Math.round(doneCount / steps.length * 100);
+
+    var bar = document.getElementById('progress-bar-fill');
+    var label = document.getElementById('progress-label');
+    if (bar) bar.style.width = pct + '%';
+    if (label) label.textContent = pct + '% complete';
 }
