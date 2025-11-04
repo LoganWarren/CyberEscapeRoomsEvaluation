@@ -5,40 +5,29 @@ let totalNumMinutes = 30; // EDIT THIS LINE TO CHANGE THE AMOUNT OF TIME
 // THE CODES MUST BE ENTERED IN THIS ORDER
 const allCodes = [
   // Intro / Room Start
-  { code: '{INITIAL}', url: 'https://www.youtube.com/watch?v=BUb4_GZgTRY' },
+  { code: '{INITIAL}', url: 'https://www.youtube.com/embed/BUb4_GZgTRY' },
 
   // Puzzle Group 1
-  // (Lockbox / task setup — “Black Lock Box Code - 763”)
-  { code: 'BOTNET', url: 'https://www.youtube.com/watch?v=TT0MXK2CDBE' },
+  { code: 'BOTNET', url: 'https://www.youtube.com/embed/TT0MXK2CDBE' },
 
-  // Puzzle Group 2 (begin Security Questions)
-  // (Sets up that there are five questions; asks Q1: brute force)
-  { code: 'SECURITY QUESTIONS', url: 'https://www.youtube.com/watch?v=CDVRLroNu8k' },
+  // Puzzle Group 2 – Security Questions (Q1–Q5)
+  { code: 'SECURITY QUESTIONS', url: 'https://www.youtube.com/embed/CDVRLroNu8k' }, // Q1 prompt
+  { code: 'BRUTE FORCE', url: 'https://www.youtube.com/embed/GM9lfRw8ahU' },      // Q2 prompt
+  { code: 'STEGANOGRAPHY', url: 'https://www.youtube.com/embed/BE8Iy12kVEA' },    // Q3 prompt
+  { code: 'OPEN SOURCE INTELLIGENCE', url: 'https://www.youtube.com/embed/hKwNQNw28u0' }, // Q4 prompt
+  { code: 'PHISHING ATTACK', url: 'https://www.youtube.com/embed/YpMrqcGAU9A' },  // Q5 prompt
 
-  // Q1: Brute Force  -> Next video introduces Q2 (steganography)
-  { code: 'BRUTE FORCE', url: 'https://www.youtube.com/watch?v=GM9lfRw8ahU' },
+  // Ransomware / bridge step – still a Drive preview, that’s fine
+  { code: 'RANSOMWARE'},
 
-  // Q2: Steganography -> Next video tees up Q3 (OSINT)
-  { code: 'STEGANOGRAPHY', url: 'https://www.youtube.com/watch?v=BE8Iy12kVEA' },
+  // Script Blacklight / FINDHASH step – (you said no video needed, but if you keep a clip, embed it too or leave as Drive)
+  { code: 'FINDHASH'},
 
-  // Q3: Open Source Intelligence -> Next video asks Q4 (phishing)
-  { code: 'OPEN SOURCE INTELLIGENCE', url: 'https://www.youtube.com/watch?v=hKwNQNw28u0' },
+  // WIN experience
+  { code: 'SENDCASH', url: 'https://www.youtube.com/embed/dz38gQkC3m4' },
 
-  // Q4: Phishing Attack -> Next video asks ransomware (Q5)
-  { code: 'PHISHING ATTACK', url: 'https://www.youtube.com/watch?v=YpMrqcGAU9A' },
-
-  // Q5: Ransomware
-  // (If you don’t have a specific “Q5 confirmation” clip, keep this Drive clip or swap later)
-  { code: 'RANSOMWARE', url: 'https://drive.google.com/file/d/1-edDwWaS87EzRg2Qf6C-ArULfDtiMHNG/preview' },
-
-  // Script Blacklight step (shows/hash step)
-  { code: 'FINDHASH', url: 'https://drive.google.com/file/d/1-edDwWaS87EzRg2Qf6C-ArULfDtiMHNG/preview' },
-
-  // Cracked Hash -> WIN (show the win experience video here)
-  { code: 'SENDCASH', url: 'https://www.youtube.com/watch?v=dz38gQkC3m4' },
-
-  // Access Loss Vid
-  { code: '{LOSS}', url: 'https://www.youtube.com/watch?v=c93DhijZPAk' },
+  // LOSS experience
+  { code: '{LOSS}', url: 'https://www.youtube.com/embed/c93DhijZPAk' },
 ];
 
 
@@ -94,18 +83,49 @@ function getCurrentCorrectCode() {
 }
 
 function updateVideo(code) {
-  const idx = getIndexOfCode(code);
+  // Whenever a code is tried, hide safe hint by default
+  var safeHint = document.getElementById('safe-hint');
+  if (safeHint) safeHint.style.display = 'none';
+
   if (gameState === 'play' && (allSavedCodes.includes(code) || code === getCurrentCorrectCode() || code === '{LOSS}')) {
-    const rawUrl = allCodes[idx].url;
-    currentVideo.src = toEmbed(rawUrl); // ONLY change the src on the persistent iframe
+    var idx = getIndexOfCode(code);
+    if (idx === -1) {
+      playSound('incorrect');
+      return;
+    }
+
+    // --- SPECIAL CASE A: RANSOMWARE -> show safe hint, no video change ---
+    if (code === 'RANSOMWARE') {
+      // Progress internal step count
+      if (idx >= numOfCodesEntered) {
+        numOfCodesEntered = idx + 1;
+      }
+
+      // Show the safe/key text under the video
+      if (safeHint) safeHint.style.display = 'block';
+
+      // Mark as correct
+      playSound('correct');
+
+      // Don't change the iframe src – last video stays on screen
+      return;
+    }
+
+    // For all other codes, update the video as normal
+    currentVideo.src = allCodes[idx].url;
 
     if (idx >= numOfCodesEntered) {
       numOfCodesEntered = idx + 1;
     }
 
-    if (code === allCodes[8].code) { // FINDHASH
-      document.getElementById('hash-link').style.display = 'block';
-    } else if (code === allCodes[9].code) { // SENDCASH -> WIN
+    // --- SPECIAL CASE B: FINDHASH -> show hash/CrackStation text ---
+    if (code === allCodes[8].code) {  // FINDHASH in your order
+      var hashLink = document.getElementById('hash-link');
+      if (hashLink) hashLink.style.display = 'block';
+    }
+
+    // --- WIN ---
+    if (code === allCodes[9].code) { // SENDCASH
       gameState = 'win';
       clearInterval(x);
       playSound('win');
@@ -114,6 +134,8 @@ function updateVideo(code) {
       document.getElementById('hash-link').style.display = 'none';
       document.getElementById('clock').style.color = 'yellow';
       document.getElementById('clock').style.borderColor = 'yellow';
+
+    // --- LOSS ---
     } else if (code === allCodes[10].code) { // {LOSS}
       gameState = 'loss';
       clearInterval(x);
@@ -124,13 +146,24 @@ function updateVideo(code) {
       document.getElementById('hash-link').style.display = 'none';
       document.getElementById('clock').style.color = 'red';
       document.getElementById('clock').style.borderColor = 'red';
+
+    // --- Normal correct "ping" ---
     } else if (idx + 1 === numOfCodesEntered) {
       playSound('correct');
     }
+
+    // --- SPECIAL CASE C: hide PG1 hint after BOTNET is solved ---
+    if (code === 'BOTNET') {
+      var pg1 = document.getElementById('puzzle-group1-hint');
+      if (pg1) pg1.style.display = 'none';
+    }
+
   } else {
     playSound('incorrect');
   }
 }
+
+
 
 function currentCode() {
   const entry = document.getElementById("code-entry").value.toUpperCase();
@@ -202,6 +235,11 @@ function startEscapeRoom() {
     document.getElementById('main').style.display = 'block';
     document.getElementById("clock").innerHTML = padWithZero(totalNumMinutes, 2) + ':00';
     gameState = 'play';
+
+            // NEW: show Puzzle Group 1 hint at the start
+        var pg1 = document.getElementById('puzzle-group1-hint');
+        if (pg1) pg1.style.display = 'block';
+
   } else {
     alert('Incorrect password. Please ask the escape room guide for the correct password.');
     return;

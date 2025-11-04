@@ -48,24 +48,38 @@
           referrerpolicy="strict-origin-when-cross-origin">
         </iframe>
       </div>
+<!-- NEW safe hint we toggle from JS -->
+<div id="safe-hint" style="display:none; margin-top:10px;">
+  Take the key found in the lock box and find out how to open the safe.
+</div>
+
 
       <div id="hash-link" style="display:none">
         <div>ENTER THE HASH '0bf63c462a3297f3a2aed67682ca11cb' INTO THE SITE BELOW:</div>
         <a href="https://crackstation.net/" target="_blank" rel="noopener">Hash Cracking Site</a>
       </div>
 
-      <div id="code-controls">
-        <div id="code-entry-container" class="terminal">
-          Enter password:
-          <input id="code-entry" class="terminal-text" type="text">
-        </div>
-        <div>
-          <button id="code-submit" class="main-button" onclick="updateVideo(currentCode())">Enter Code</button>
-        </div>
-        <div id="saved-codes">
-          View previous videos:
-        </div>
-      </div>
+<div id="code-controls">
+    <!-- NEW: Hint that only appears at the very start -->
+    <p id="puzzle-group1-hint" style="display:none; margin:10px auto 0; max-width:600px;">
+      Begin working through <strong>Puzzle Group 1</strong> and solve the 
+      <strong>Botnet</strong>, <strong>Open Source Intelligence</strong>, 
+      and <strong>Phishing Attack</strong> puzzles to discover your first code.
+    </p>
+
+    <div id="code-entry-container" class="terminal">
+        Enter password: 
+        <input id="code-entry" class="terminal-text" type="text">
+    </div>
+    <div>
+        <button id="code-submit" class="main-button" onclick="updateVideo(currentCode())">Enter Code</button>
+    </div>
+    <div id="saved-codes">
+        View previous videos:
+    </div>
+</div>
+
+
 
       <div id="mission-controls" style="display:none">
         <div>
