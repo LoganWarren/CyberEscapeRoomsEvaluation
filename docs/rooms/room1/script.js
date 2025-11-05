@@ -153,10 +153,15 @@ function updateVideo(code) {
     }
 
     // --- SPECIAL CASE C: hide PG1 hint after BOTNET is solved ---
-    if (code === 'BOTNET') {
-      var pg1 = document.getElementById('puzzle-group1-hint');
-      if (pg1) pg1.style.display = 'none';
-    }
+// Hide Puzzle Group 1 hint + checks once BOTNET is solved
+if (code === 'BOTNET') {
+  var pg1 = document.getElementById('puzzle-group1-hint');
+  if (pg1) pg1.style.display = 'none';
+
+  var pg1Checks = document.getElementById('pg1-checks');
+  if (pg1Checks) pg1Checks.style.display = 'none';
+}
+
 
   } else {
     playSound('incorrect');
@@ -166,21 +171,28 @@ function updateVideo(code) {
 
 
 function currentCode() {
-  const entry = document.getElementById("code-entry").value.toUpperCase();
+  const raw = document.getElementById("code-entry").value;
+  const upperRaw = raw.toUpperCase();
+
+  // Turn what the user typed into a canonical code (if possible)
+  const normalized = normalizeCode(raw) || upperRaw; // fallback to raw upper if no alias
 
   if (
-    entry === getCurrentCorrectCode() &&
-    !allSavedCodes.includes(entry) &&
-    entry !== '{default}' &&
-    getIndexOfCode(entry) !== -1
+    normalizeCode(raw) && // only treat it as correct if it's one of our known codes
+    normalized === getCurrentCorrectCode() &&
+    !allSavedCodes.includes(normalized) &&
+    normalized !== '{default}' &&
+    getIndexOfCode(normalized) !== -1
   ) {
-    allSavedCodes.push(entry);
-    addVideoLink(entry);
-    updateProgress(); // <-- update the progress bar/checklist
+    allSavedCodes.push(normalized);
+    addVideoLink(normalized);
+    updateProgress();
   }
 
-  return entry;
+  // Return the normalized code so updateVideo() gets the canonical variant
+  return normalized;
 }
+
 
 
 
@@ -342,4 +354,145 @@ function updateProgress() {
     var label = document.getElementById('progress-label');
     if (bar) bar.style.width = pct + '%';
     if (label) label.textContent = pct + '% complete';
+}
+
+function checkPG1() {
+  // 1) Phishing / legitimate email
+  const phishingInput = document.getElementById('pg1-phishing');
+  const phishingFeedback = document.getElementById('pg1-phishing-feedback');
+
+  if (phishingInput && phishingFeedback) {
+    const raw = phishingInput.value.trim();
+    const val = raw.toUpperCase();
+
+    const acceptable = [
+      'NANA',
+      'NANA JOLYNE',
+      'JOLYNE',
+      'NANA JOJO'
+    ];
+
+    if (!raw) {
+      phishingFeedback.textContent = '';
+      phishingFeedback.classList.remove('correct', 'incorrect');
+    } else if (acceptable.includes(val)) {
+      phishingFeedback.textContent = '✔ Correct – you found the legitimate email from Nana.';
+      phishingFeedback.classList.add('correct');
+      phishingFeedback.classList.remove('incorrect');
+    } else {
+      phishingFeedback.textContent = '✖ Not quite, Try another one.';
+      phishingFeedback.classList.add('incorrect');
+      phishingFeedback.classList.remove('correct');
+    }
+  }
+
+  // 2) OSINT numbers
+  const osintInput = document.getElementById('pg1-osint');
+  const osintFeedback = document.getElementById('pg1-osint-feedback');
+  const expectedOsint = [2, 3, 5, 11, 12, 13];
+
+  if (osintInput && osintFeedback) {
+    const raw = osintInput.value.trim();
+    if (!raw) {
+      osintFeedback.textContent = '';
+      osintFeedback.classList.remove('correct', 'incorrect');
+    } else {
+      const parts = raw.split(',').map(s => s.trim()).filter(Boolean);
+      const nums = parts.map(p => parseInt(p, 10)).filter(n => !Number.isNaN(n));
+
+      const isMatch =
+        nums.length === expectedOsint.length &&
+        nums.every((n, i) => n === expectedOsint[i]);
+
+      if (isMatch) {
+        osintFeedback.textContent = '✔ Correct – those are the OSINT profile positions.';
+        osintFeedback.classList.add('correct');
+        osintFeedback.classList.remove('incorrect');
+      } else {
+        osintFeedback.textContent = '✖ That sequence doesn’t match the numbers from the profile. Check again.';
+        osintFeedback.classList.add('incorrect');
+        osintFeedback.classList.remove('correct');
+      }
+    }
+  }
+
+  // 3) Botnet positions
+  const botnetInput = document.getElementById('pg1-botnet');
+  const botnetFeedback = document.getElementById('pg1-botnet-feedback');
+  // Adjust these if you settle on different positions
+  const expectedBotnet = [4, 6, 8, 9, 16];
+
+  if (botnetInput && botnetFeedback) {
+    const raw = botnetInput.value.trim();
+    if (!raw) {
+      botnetFeedback.textContent = '';
+      botnetFeedback.classList.remove('correct', 'incorrect');
+    } else {
+      const parts = raw.split(',').map(s => s.trim()).filter(Boolean);
+      const nums = parts.map(p => parseInt(p, 10)).filter(n => !Number.isNaN(n));
+
+      const isMatch =
+        nums.length === expectedBotnet.length &&
+        nums.every((n, i) => n === expectedBotnet[i]);
+
+      if (isMatch) {
+        botnetFeedback.textContent = '✔ Correct – those positions match the botnet device puzzle.';
+        botnetFeedback.classList.add('correct');
+        botnetFeedback.classList.remove('incorrect');
+      } else {
+        botnetFeedback.textContent = '✖ Something’s off – revisit the botnet slips and their sorted order.';
+        botnetFeedback.classList.add('incorrect');
+        botnetFeedback.classList.remove('correct');
+      }
+    }
+  }
+}
+// Map user-entered text to the canonical code strings in allCodes
+function normalizeCode(raw) {
+  if (!raw) return null;
+  const trimmed = raw.trim();
+  const upper = trimmed.toUpperCase();
+  const noSpace = upper.replace(/\s+/g, '');
+
+  // BOTNET / BOT NET
+  if (noSpace === 'BOTNET') return 'BOTNET';
+
+  // SECURITY QUESTIONS / SecurityQuestions
+  if (noSpace === 'SECURITYQUESTIONS') return 'SECURITY QUESTIONS';
+
+  // BRUTE FORCE / BruteForce
+  if (noSpace === 'BRUTEFORCE') return 'BRUTE FORCE';
+
+  // Steganography
+  if (noSpace === 'STEGANOGRAPHY') return 'STEGANOGRAPHY';
+
+  // Open Source Intelligence / OSI / Open Source
+  if (noSpace === 'OPENSOURCEINTELLIGENCE' || noSpace === 'OSI' || upper === 'OPEN SOURCE') {
+    return 'OPEN SOURCE INTELLIGENCE';
+  }
+
+  // Phishing: phishing attack / phishing / phishing scam / phishing email
+  if (
+    noSpace === 'PHISHINGATTACK' ||
+    upper === 'PHISHING' ||
+    noSpace === 'PHISHINGSCAM' ||
+    noSpace === 'PHISHINGEMAIL'
+  ) {
+    return 'PHISHING ATTACK';
+  }
+
+  // Ransomware / Ransom ware
+  if (noSpace === 'RANSOMWARE') return 'RANSOMWARE';
+
+  // FINDHASH
+  if (noSpace === 'FINDHASH') return 'FINDHASH';
+
+  // SENDCASH
+  if (noSpace === 'SENDCASH') return 'SENDCASH';
+
+  // SECURITY QUESTIONS code itself (if you want to allow exact phrase too)
+  if (upper === 'SECURITY QUESTIONS') return 'SECURITY QUESTIONS';
+
+  // default: not a known alias; let the caller decide what to do
+  return null;
 }

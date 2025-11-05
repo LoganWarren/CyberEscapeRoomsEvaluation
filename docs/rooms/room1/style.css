@@ -167,3 +167,67 @@ body {
 #progress-steps li.done {
     opacity: 0.8;
 }
+
+/* START OF THE STUFF FOR THE Puzzle 1 Group */
+/* Puzzle Group 1 check section */
+#pg1-checks {
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: left;
+    font-family: monospace;
+    font-size: 0.95em;
+}
+
+#pg1-checks h2 {
+    font-size: 1.3em;
+    margin-bottom: 8px;
+}
+
+.pg1-help {
+    margin-bottom: 10px;
+}
+
+.pg1-field {
+    margin-bottom: 14px;
+}
+
+.pg1-label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.pg1-hint {
+    font-weight: normal;
+    font-size: 0.9em;
+}
+
+.pg1-input {
+    width: 100%;
+    padding: 6px 8px;
+    box-sizing: border-box;
+    background-color: black;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 1em;
+}
+
+.pg1-input:focus {
+    outline: none;
+    border-color: lime;
+}
+
+.pg1-feedback {
+    margin-top: 4px;
+    font-size: 0.9em;
+}
+
+.pg1-feedback.correct {
+    color: lime;
+}
+
+.pg1-feedback.incorrect {
+    color: #ff5555;
+}
