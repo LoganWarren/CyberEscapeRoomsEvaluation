@@ -3,11 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Room 1 — Facilitator Materials (2022 Fall)</title>
+  <title>Room 2 — Facilitator Materials</title>
   <meta name="robots" content="noindex,nofollow" />
   <link rel="stylesheet" href="css/style.css" />
   <style>
     /* Local helpers */
+    :root {
+  font-size: 18px; /* bump base font size */
+}
     .callout {
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.12);
@@ -79,7 +82,7 @@
 </head>
 <body>
   <header class="site-header">
-    <h1>Room 1 — Facilitator Materials</h1>
+    <h1>Room 2 — Facilitator Materials</h1>
     <p>Setup, passwords, hints, cleanup, and admin notes (2022 Fall)</p>
   </header>
 
@@ -133,7 +136,7 @@
     <ul class="list-tight">
       <li>Open <a href="rooms/room1/index.html">Play Game</a> on the facilitator machine.</li>
       <li>Have the team enter a name; you enter <code>StartCyber</code>, click <em>BEGIN ESCAPE ROOM</em>.</li>
-      <li>It is recommended up to three per team.</li>
+      <li>Use the hints below sparingly; you have up to three per team.</li>
     </ul>
 
     <hr class="hr-soft" />
@@ -142,8 +145,8 @@
       <h2 id="setup">Setup</h2>
       <ul class="list-tight">
         <li>Keep the instructions folder with you (remaining QR code, Cleanup, and Hint docs inside).</li>
-        <li>Distribute: 3-digit lockbox, a bag of Botnet snippets, safe, PAPER PUZZLES contents, four notebooks and pens.</li>
-        <li>Open the game using the “Play Game” button.</li>
+        <li>Distribute: two 3-digit lockboxes, one 3-character lockbox, bag of Botnet snippets, safe, PAPER PUZZLES contents, four notebooks and pens (remove used pages).</li>
+        <li>Open browser to <span class="mono">tinyurl.com/CybersecurityEscapeRoom</span> or use the “Play Game” link above.</li>
         <li>Read the Introduction script to players (below) before starting.</li>
       </ul>
     </section>
@@ -177,7 +180,11 @@
             <li>Question 5: <code>ransomware</code></li>
             <li>Script Blacklight: <code>findhash</code></li>
             <li>Cracked Hash: <code>sendcash</code></li>
+            <li>Access Loss Vid: <code>{LOSS}</code></li>
           </ul>
+        </div>
+        <div class="callout">
+          <strong>Tip:</strong> If the site’s <code>allCodes</code> array changes, update this list.
         </div>
       </div>
     </section>
@@ -206,13 +213,33 @@
       </details>
 
       <details>
+        <summary>Puzzle Box</summary>
+        <p>Flip it over. Try hitting it. (Seriously.)</p>
+      </details>
+
+      <details>
+        <summary>Bruteforce</summary>
+        <p>Try all permutations of the given digits (e.g., 123, 321, 213...).</p>
+      </details>
+
+      <details>
         <summary>QR Code (Group 2)</summary>
         <p>Lay it flat; correct positions; no overlaps or gaps before scanning.</p>
       </details>
 
       <details>
+        <summary>Fold Puzzle</summary>
+        <p>Fold so labeled semicircles with the same order touch, from least to greatest.</p>
+      </details>
+
+      <details>
         <summary>Decryption</summary>
         <p>Decryption key is in previous materials; if missed, direct them to the folder after a minute or two.</p>
+      </details>
+
+      <details>
+        <summary>Password Hash</summary>
+        <p>Use a hash-cracking tool; it returns the account password.</p>
       </details>
     </section>
 
@@ -233,7 +260,12 @@
         <summary>Puzzle 2 Cleanup</summary>
         <ul class="list-tight">
           <li>Account for 4 QR pieces. If backups were used, note for reprint.</li>
-          <li>Put one QR piece + lock keys in the <strong>Lock Box</strong></li>
+          <li>Put one QR piece + ransomware definition in the <strong>wooden puzzle box</strong> (cardboard instruction piece helps closing).</li>
+          <li>Store the wooden box in the <strong>brown metal lockbox</strong>. Behind the labeled paper at the top, place another QR piece. Lock with 3-digit lock; scramble.</li>
+          <li>In the <strong>lock-shaped box (gold switch)</strong>, store steganography definition + wooden box instructions + another QR piece. Lock with 3-character lock; scramble.</li>
+          <li>In the <strong>final black lockbox</strong>: last QR piece, fold-puzzle page, 2 envelopes (Bruteforce instructions; general Group 2 instructions).
+              If dial won’t turn, set <code>763</code>, turn, then lock (close → turn dial left → confirm locked) and scramble.</li>
+          <li>Return all lockboxes to storage.</li>
         </ul>
       </details>
 
@@ -245,9 +277,31 @@
           <li>Return safe to storage.</li>
         </ul>
       </details>
+
+      <details>
+        <summary>General Cleanup</summary>
+        <ul class="list-tight">
+          <li>Collect 4 notebooks; tear out and discard used pages.</li>
+          <li>Collect pencils.</li>
+          <li>Final sweep for missed pieces. Return all items and this folder to storage.</li>
+        </ul>
+      </details>
+    </section>
+
+    <section aria-labelledby="admin">
+      <h2 id="admin">Admin: Videos & Codes</h2>
+      <ul class="list-tight">
+        <li>In the site JS, <code>allCodes</code> contains pairs of <em>code</em> and <em>url</em>.</li>
+        <li>Host videos (e.g., Google Drive) and paste share URLs.</li>
+        <li>Special codes: <code>{INITIAL}</code> and <code>{LOSS}</code> — change only their URLs.</li>
+        <li>If you change the total number of codes, adjust the “next-to-last” and “last” video logic (historically lines 82/91) to match the new order.</li>
+        <li>Edit native elements via <span class="mono">index.html</span> and <span class="mono">style.css</span> (hash popup is customizable).</li>
+      </ul>
     </section>
 
     <hr class="hr-soft" />
+
+    <!-- ======== Instructor CTA (big & obvious) ======== -->
     <section class="instructor-cta" aria-labelledby="instructor-access">
       <div class="cta-inner">
         <div class="cta-text">
@@ -268,9 +322,12 @@
         </div>
       </div>
     </section>
+    <!-- ======== /Instructor CTA ======== -->
+
   <footer>
     <p>© CyberEscapeRoomsEvaluation</p>
   </footer>
+
   <script src="js/main.js"></script>
   <script>
     // Lightweight PIN gate (client-side only; obfuscation, not security)

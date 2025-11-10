@@ -5,11 +5,110 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Room 1 — Cyber Escape Rooms</title>
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ---- Page-scoped styles for the photo gallery ---- */
+   
+   :root {
+  font-size: 18px; /* bump base font size */
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.site-header h1 {
+  font-size: 2.4rem;
+}
+
+.site-header p {
+  font-size: 1.1rem;
+}
+
+main p,
+main li {
+  font-size: 1.05rem;
+}
+
+.button,
+.site-nav a {
+  font-size: 1rem;
+}
+
+   
+    .gallery-intro {
+      color: var(--text-300);
+      margin-top: .25rem;
+    }
+    .gallery-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 1rem;
+    }
+    @media (max-width: 980px) { .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 640px) { .gallery-grid { grid-template-columns: 1fr; } }
+
+    .gallery-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+    }
+    .gallery-item:hover,
+    .gallery-item:focus-within {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.22);
+      border-color: rgba(255,184,28,0.35);
+    }
+
+    .gallery-thumb {
+      aspect-ratio: 16 / 10;
+      width: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-body {
+      padding: .75rem .9rem 1rem;
+      display: grid;
+      gap: .35rem;
+    }
+    .gallery-title {
+      margin: 0;
+      font-size: 1rem;
+      color: #fff;
+      font-weight: 800;
+    }
+    .gallery-caption {
+      margin: 0;
+      color: var(--text-300);
+      line-height: 1.5;
+      font-size: .95rem;
+    }
+
+    .gallery-actions {
+      margin-top: .5rem;
+    }
+    .gallery-actions a {
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      color: var(--pitt-gold);
+    }
+    .gallery-actions a:hover,
+    .gallery-actions a:focus-visible {
+      text-decoration-thickness: 2px;
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
     <h1>Escape Room 1</h1>
-    <p>Foundational cyber puzzles (phishing, OSINT, brute force, botnets, ransomware, steganography)</p>  </header>
+    <p>Phishing, OSINT, brute force, botnets, ransomware, steganography</p>
+  </header>
 
   <!-- NAVBAR -->
   <nav class="site-nav">
@@ -25,7 +124,7 @@
 
       <div id="nav-links" class="links">
         <a href="index.html">Home</a>
-        <a href="room1.html">Room 1</a>
+        <a href="room1.html" class="active">Room 1</a>
         <a href="room2.html">Room 2</a>
         <a href="room3.html">Room 3</a>
         <a href="faq.html">FAQ</a>
@@ -37,40 +136,235 @@
     <h2>About This Room</h2>
     <p>
       This 2022 Fall capstone delivers a classic cyber escape room: teams progress through themed puzzle groups
-      (Phishing, OSINT, Botnet, Brute Force, Ransomware/QR/Stego, etc.). Use printed artifacts and on-screen clues to
+      (Phishing, OSINT, Botnet, Brute Force, Ransomware/QR/Stego, etc.). Use printed artifacts and on-screen/video clues to
       unlock passwords, decode hints, and complete the scenario.
     </p>
+
     <h2>How to Play / Set Up</h2>
     <ul>
       <li>Recommended: 1–4 players, latest Chrome/Firefox, speakers on.</li>
       <li>Facilitator prints needed PDFs (see Puzzles & Materials below) and distributes to teams.</li>
-      <li>Teams may use the web “Website Code” version for interactive steps (optional).</li>
+      <li>Have the Physical materials laid out, and the puzzles folder ready</li>
+      <li>It is recommended to have paper, as it will be helpful to right parts of puzzles down</li>
     </ul>
 
-    <h3>Instructional Video</h3>
-    <div class="video-wrap">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/example" title="Room 1 Setup" frameborder="0" allowfullscreen></iframe>
-    </div>
+ <h3>Introduction Video</h3>
+<div class="video-wrap">
+  <iframe
+    width="560"
+    height="315"
+    src="https://www.youtube.com/embed/BUb4_GZgTRY"
+    title="Cybersecurity Escape Room – Mission Briefing"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+  </iframe>
+</div>
+
 
     <h2>Play Now</h2>
     <p><a href="rooms/room1/index.html" class="button">Enter the Room</a></p>
 
     <hr />
-  <section aria-labelledby="materials">
-      <h3 id="materials">Optional Materials & Report</h3>
-      <ul>
-        <li>Instructions Package: <a href="rooms/room1/materials/Instructions.zip">Instructions.zip</a></li>
-        <li>Edited Videos (folder): <a href="rooms/room1/materials/Edited%20Videos/">Edited Videos/</a></li>
-        <li>Capstone Report (PDF): <a href="rooms/room1/reports/INFSCI1740%20Cyber%20Escape%20Room%20Report.pdf">INFSCI1740 Cyber Escape Room Report</a></li>
-      </ul>
-    </section>
 
+    <!-- ========= NEW: Physical Components Gallery ========= -->
+    <section aria-labelledby="gallery">
+      <h2 id="gallery">Physical Components Gallery</h2>
+      <p class="gallery-intro">
+        Photos of the physical props/pieces used in Room 1.
+      </p>
+
+      <div class="gallery-grid">
+        <!-- Example item 1 -->
+        <figure class="gallery-item">
+          <a href="rooms/room1/photos/lockbox copy.jpg" target="_blank" rel="noopener">
+            <img
+              class="gallery-thumb"
+              src="rooms/room1/photos/lockbox copy.jpg"
+              alt="Metal lockbox used for Puzzle Group 2"
+              loading="lazy"
+            />
+          </a>
+          <figcaption class="gallery-body">
+            <h4 class="gallery-title">Metal Lockbox</h4>
+            <p class="gallery-caption">
+              3-digit lock box containing elements of a puzzle.
+            </p>
+            <div class="gallery-actions">
+              <a href="rooms/room1/photos/lockbox copy.jpg" target="_blank" rel="noopener">Open full size</a>
+            </div>
+          </figcaption>
+        </figure>
+
+        <!-- Example item 2 -->
+      <figure class="gallery-item">
+          <a href="rooms/room1/photos/Safe (1).jpg" target="_blank" rel="noopener">
+            <img
+              class="gallery-thumb"
+              src="rooms/room1/photos/Safe (1).jpg"
+              alt="Wooden puzzle box used to store the ransomware definition and a QR code piece"
+              loading="lazy"
+            />
+          </a>
+          <figcaption class="gallery-body">
+            <h4 class="gallery-title">Safe Box</h4>
+            <p class="gallery-caption">
+              Safe containing elements of a puzzle.
+            </p>
+            <div class="gallery-actions">
+              <a href="rooms/room1/photos/Safe (1).jpg" target="_blank" rel="noopener">Open full size</a>
+            </div>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item">
+          <a href="rooms/room1/photos/PaperPuzzels1.jpg" target="_blank" rel="noopener">
+            <img
+              class="gallery-thumb"
+              src="rooms/room1/photos/PaperPuzzels1.jpg"
+              alt="Four QR code pieces laid flat for scanning"
+              loading="lazy"
+            />
+          </a>
+          <figcaption class="gallery-body">
+            <h4 class="gallery-title">Paper Puzzles Cypher</h4>
+            <p class="gallery-caption">
+            A cypher for one of the puzzles
+            </p>
+            <div class="gallery-actions">
+              <a href="rooms/room1/photos/PaperPuzzels1.jpg" target="_blank" rel="noopener">Open full size</a>
+            </div>
+          </figcaption>
+        </figure>
+               <figure class="gallery-item">
+          <a href="rooms/room1/photos/Profile.jpg" target="_blank" rel="noopener">
+            <img
+              class="gallery-thumb"
+              src="rooms/room1/photos/Profile.jpg"
+              alt="Four QR code pieces laid flat for scanning"
+              loading="lazy"
+            />
+          </a>
+          <figcaption class="gallery-body">
+            <h4 class="gallery-title">User Profile</h4>
+            <p class="gallery-caption">
+            A social media profile
+            </p>
+            <div class="gallery-actions">
+              <a href="rooms/room1/photos/Profile.jpg" target="_blank" rel="noopener">Open full size</a>
+            </div>
+          </figcaption>
+        </figure>
+<figure class="gallery-item">
+  <a href="rooms/room1/photos/PhishingEmail1.png" target="_blank" rel="noopener">
+    <img
+      class="gallery-thumb"
+      src="rooms/room1/photos/PhishingEmail1.png"
+      alt="Phishing email 1 handout – suspicious bank security alert"
+      loading="lazy"
+    />
+  </a>
+  <figcaption class="gallery-body">
+    <h4 class="gallery-title">Phishing Email 1</h4>
+    <p class="gallery-caption">
+      One of the four emails mixed with a single legitimate email.
+    </p>
+    <div class="gallery-actions">
+      <a href="rooms/room1/photos/PhishingEmail1.png" target="_blank" rel="noopener">Open full size</a>
+    </div>
+  </figcaption>
+</figure>
+
+<figure class="gallery-item">
+  <a href="rooms/room1/photos/PhishingEmail2.jpg" target="_blank" rel="noopener">
+    <img
+      class="gallery-thumb"
+      src="rooms/room1/photos/PhishingEmail2.jpg"
+      alt="Phishing email 2 handout – 'Please Help me!' money transfer scam"
+      loading="lazy"
+    />
+  </a>
+  <figcaption class="gallery-body">
+    <h4 class="gallery-title">Phishing Email 2</h4>
+    <p class="gallery-caption">
+      One of the four emails mixed with a single legitimate email.
+    </p>
+    <div class="gallery-actions">
+      <a href="rooms/room1/photos/PhishingEmail2.jpg" target="_blank" rel="noopener">Open full size</a>
+    </div>
+  </figcaption>
+</figure>
+
+<figure class="gallery-item">
+  <a href="rooms/room1/photos/PhishingEmail3.jpg" target="_blank" rel="noopener">
+    <img
+      class="gallery-thumb"
+      src="rooms/room1/photos/PhishingEmail3.jpg"
+      alt="Phishing email 3 handout – email from Nana asking for a phone number"
+      loading="lazy"
+    />
+  </a>
+  <figcaption class="gallery-body">
+    <h4 class="gallery-title">Phishing Email 3)</h4>
+    <p class="gallery-caption">
+      One of the four emails mixed with a single legitimate email.
+    </p>
+    <div class="gallery-actions">
+      <a href="rooms/room1/photos/PhishingEmail3.jpg" target="_blank" rel="noopener">Open full size</a>
+    </div>
+  </figcaption>
+</figure>
+
+<figure class="gallery-item">
+  <a href="rooms/room1/photos/PhishingEmail4.jpg" target="_blank" rel="noopener">
+    <img
+      class="gallery-thumb"
+      src="rooms/room1/photos/PhishingEmail4.jpg"
+      alt="Phishing email 4 handout – spoofed Rainforest security notice"
+      loading="lazy"
+    />
+  </a>
+  <figcaption class="gallery-body">
+    <h4 class="gallery-title">Phishing Email 4</h4>
+    <p class="gallery-caption">
+      One of the four emails mixed with a single legitimate email.
+    </p>
+    <div class="gallery-actions">
+      <a href="rooms/room1/photos/PhishingEmail4.jpg" target="_blank" rel="noopener">Open full size</a>
+    </div>
+  </figcaption>
+</figure>
+    </section>
     <hr />
     <section aria-labelledby="makers1">
       <h3 id="makers1">About the Makers</h3>
-      <p>2022 Fall INFSCI 1740 capstone team. See report for credits.</p>
+      <p>2022 Fall INFSCI 1740 capstone team.</p>
+    </section>
+        <!-- ======== Instructor CTA (big & obvious) ======== -->
+    <section class="instructor-cta" aria-labelledby="instructor-access">
+      <div class="cta-inner">
+        <div class="cta-text">
+          <h2 id="instructor-access">Instructor Access</h2>
+          <p>
+            Need the <strong>instructor PIN, or have any questions? </strong> Contact
+            <strong>Ahmed Ibrahim</strong> at
+            <a class="cta-email" href="mailto:aibrahim@pitt.edu?subject=Cyber%20Escape%20Rooms%20%E2%80%94%20Instructor%20PIN%20Request&body=Hello%20Professor%20Ibrahim%2C%0A%0AI%27d%20like%20access%20to%20the%20instructor%20materials%20for%20the%20Cyber%20Escape%20Rooms.%0A%0ARoom%28s%29%3A%20%5BRoom%201%20%2F%20Room%202%20%2F%20Room%203%5D%0AInstitution%3A%20%0APlanned%20date%2Ftime%3A%20%0A%0AThank%20you!">
+              aibrahim@pitt.edu
+            </a>.
+          </p>
+        </div>
+
+        <div class="cta-actions">
+          <a class="button button-ghost" href="mailto:aibrahim@pitt.edu?subject=Cyber%20Escape%20Rooms%20%E2%80%94%20Instructor%20PIN%20Request&body=Hello%20Professor%20Ibrahim%2C%0A%0AI%27d%20like%20access%20to%20the%20instructor%20materials%20for%20the%20Cyber%20Escape%20Rooms.%0A%0ARoom%28s%29%3A%20%5BRoom%201%20%2F%20Room%202%20%2F%20Room%203%5D%0AInstitution%3A%20%0APlanned%20date%2Ftime%3A%20%0A%0AThank%20you!">
+            Email Prof. Ahmed Ibrahim
+          </a>
+          <div class="cta-name">Ahmed Ibrahim</div>
+        </div>
+      </div>
     </section>
   </main>
+
+
 
   <footer>
     <p>© CyberEscapeRoomsEvaluation</p>
@@ -79,3 +373,5 @@
   <script src="js/main.js"></script>
 </body>
 </html>
+
+

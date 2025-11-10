@@ -5,11 +5,108 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Room 3 — Cyber Escape Rooms</title>
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ---- Page-scoped styles for the photo gallery ---- */
+       :root {
+  font-size: 18px; /* bump base font size */
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.site-header h1 {
+  font-size: 2.4rem;
+}
+
+.site-header p {
+  font-size: 1.1rem;
+}
+
+main p,
+main li {
+  font-size: 1.05rem;
+}
+
+.button,
+.site-nav a {
+  font-size: 1rem;
+}
+
+   
+    .gallery-intro {
+      color: var(--text-300);
+      margin-top: .25rem;
+    }
+    .gallery-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 1rem;
+    }
+    @media (max-width: 980px) { .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 640px) { .gallery-grid { grid-template-columns: 1fr; } }
+
+    .gallery-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+    }
+    .gallery-item:hover,
+    .gallery-item:focus-within {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.22);
+      border-color: rgba(255,184,28,0.35);
+    }
+
+    .gallery-thumb {
+      aspect-ratio: 16 / 10;
+      width: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-body {
+      padding: .75rem .9rem 1rem;
+      display: grid;
+      gap: .35rem;
+    }
+    .gallery-title {
+      margin: 0;
+      font-size: 1rem;
+      color: #fff;
+      font-weight: 800;
+    }
+    .gallery-caption {
+      margin: 0;
+      color: var(--text-300);
+      line-height: 1.5;
+      font-size: .95rem;
+    }
+
+    .gallery-actions {
+      margin-top: .5rem;
+    }
+    .gallery-actions a {
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      color: var(--pitt-gold);
+    }
+    .gallery-actions a:hover,
+    .gallery-actions a:focus-visible {
+      text-decoration-thickness: 2px;
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
     <h1>Escape Room 3</h1>
-    <p>Advanced threats, forensics, and incident response</p>
+    <p>Advanced threats, forensics, and incident response.  </p>
   </header>
 
   <!-- NAVBAR -->
@@ -36,26 +133,131 @@
 
   <main>
     <h2>About This Room</h2>
-    <p>Room 3 is geared toward advanced learners—expect deeper analysis and incident response scenarios.</p>
+    <p>Room 3 is meant to teach the players core cybersecurity concepts, such as using Open Source Inteligence, Encryption, Decryption, how to file an Incident Response Report, and how to pick up on phishing attempts and other human-factor vulnerabilities.</p>
 
     <h2>How to Play / Set Up</h2>
     <ul>
       <li>Make sure your screen resolution is at least 1280×720.</li>
       <li>Have a scratchpad available for artifact notes & timestamps.</li>
+      <li>Print out all materials needed for the room included in the files below.</li>
     </ul>
 
-    <h3>Instructional Video</h3>
-    <div class="video-wrap">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/example" title="Room 3 Setup" frameborder="0" allowfullscreen></iframe>
-    </div>
+    <h3>Instructional Walkthrough Video</h3>
+<div class="video-wrap">
+  <iframe
+    width="560"
+    height="315"
+    src="https://drive.google.com/file/d/13S5-73EBVQX4PED-TiqThZmdmijdek_O/preview"
+    title="Room 3 Setup"
+    allow="autoplay; encrypted-media; picture-in-picture"
+    allowfullscreen
+    referrerpolicy="strict-origin-when-cross-origin">
+  </iframe>
+</div>
+
 
     <h2>Play Now</h2>
-    <p><a href="#" class="button" aria-disabled="true">Enter Room 3</a></p>
+    <p><a href="rooms\room3\userPage.html" class="button" aria-disabled="false">Enter Room 3</a></p>
 
-    <hr />
+<section aria-labelledby="materials">
+      <h3 id="materials">Materials & Report</h3>
+      <ul>
+        <li>Physical Materials Package: <a href="rooms/room3/Materials.zip">Materials</a></li>
+        <li>Incident Report (For Students):  <a href="rooms/room3/incidentReport.pdf">Incident Report</a></li>
+      </ul>
+    </section>
+<section aria-labelledby="gallery">
+      <h2 id="gallery">Physical Components Gallery</h2>
+      <p class="gallery-intro">
+        Photos of the physical props/pieces used in Room 3.
+      </p>
+
+      <div class="gallery-grid">
+        <!-- Example item 1 -->
+        <figure class="gallery-item">
+          <a href="rooms/room3/Materials/Desk Clues/A Car Bill.pdf" target="_blank" rel="noopener">
+            <img
+              class="gallery-thumb"
+              src="rooms/room3/Materials/Desk Clues/A Car Bill.png"
+              alt="Car Bill found on desk"
+              loading="lazy"
+            />
+          </a>
+          <figcaption class="gallery-body">
+            <h4 class="gallery-title">Metal Lockbox</h4>
+            <p class="gallery-caption">
+              Clues left on the desks of the three suspected perpitrators.  Maybe they'll have some insight?
+            </p>
+            <div class="gallery-actions">
+              <a href="rooms/room3/Materials/Desk Clues/A Car Bill.png" target="_blank" rel="noopener">Open full size</a>
+            </div>
+          </figcaption>
+        </figure>
+
+        <!-- Example item 2 -->
+      <figure class="gallery-item">
+          <a href="rooms/room3/Materials/Employee Info Cards/Employee Info Cards.png" target="_blank" rel="noopener">
+            <img
+              class="gallery-thumb"
+              src="rooms/room3/Materials/Employee Info Cards/Employee Info Cards.png"
+              alt="Credentials"
+              loading="lazy"
+            />
+          </a>
+          <figcaption class="gallery-body">
+            <h4 class="gallery-title">Employee Cards</h4>
+            <p class="gallery-caption">
+              The credentials of the three suspects
+            </p>
+            <div class="gallery-actions">
+              <a href="rooms/room3/Materials/Employee Info Cards/Employee Info Cards.png" target="_blank" rel="noopener">Open full size</a>
+            </div>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item">
+          <a href="rooms\room3\Materials\Leaked Docs\LeakedRoadmap.png" target="_blank" rel="noopener">
+            <img
+              class="gallery-thumb"
+              src="rooms\room3\Materials\Leaked Docs\LeakedRoadmap.png"
+              alt="Documents leaked"
+              loading="lazy"
+            />
+          </a>
+          <figcaption class="gallery-body">
+            <h4 class="gallery-title">Leaked Documents</h4>
+            <p class="gallery-caption">
+            The documents that were leaked
+            </p>
+            <div class="gallery-actions">
+              <a href="rooms\room3\Materials\Leaked Docs\LeakedRoadmap.png" target="_blank" rel="noopener">Open full size</a>
+            </div>
+          </figcaption>
+        </figure>    <hr />
+        </div>
+        </section>
     <section aria-labelledby="makers3">
       <h3 id="makers3">About the Makers</h3>
-      <p>Designed by the Capstone Team. See credits and contributors in the repository.</p>
+      <p>Designed by the 2024 Capstone Team. See credits and contributors in the repository.</p>
+    </section>
+    <section class="instructor-cta" aria-labelledby="instructor-access">
+      <div class="cta-inner">
+        <div class="cta-text">
+          <h2 id="instructor-access">Instructor Access</h2>
+          <p>
+            Need the <strong>instructor PIN, or have any questions? </strong> Contact
+            <strong>Ahmed Ibrahim</strong> at
+            <a class="cta-email" href="mailto:aibrahim@pitt.edu?subject=Cyber%20Escape%20Rooms%20%E2%80%94%20Instructor%20PIN%20Request&body=Hello%20Professor%20Ibrahim%2C%0A%0AI%27d%20like%20access%20to%20the%20instructor%20materials%20for%20the%20Cyber%20Escape%20Rooms.%0A%0ARoom%28s%29%3A%20%5BRoom%201%20%2F%20Room%202%20%2F%20Room%203%5D%0AInstitution%3A%20%0APlanned%20date%2Ftime%3A%20%0A%0AThank%20you!">
+              aibrahim@pitt.edu
+            </a>.
+          </p>
+        </div>
+        <div class="cta-actions">
+          <a class="button button-ghost" href="mailto:aibrahim@pitt.edu?subject=Cyber%20Escape%20Rooms%20%E2%80%94%20Instructor%20PIN%20Request&body=Hello%20Professor%20Ibrahim%2C%0A%0AI%27d%20like%20access%20to%20the%20instructor%20materials%20for%20the%20Cyber%20Escape%20Rooms.%0A%0ARoom%28s%29%3A%20%5BRoom%201%20%2F%20Room%202%20%2F%20Room%203%5D%0AInstitution%3A%20%0APlanned%20date%2Ftime%3A%20%0A%0AThank%20you!">
+            Email Prof. Ahmed Ibrahim
+          </a>
+        </div>
+      </div>
     </section>
   </main>
 
