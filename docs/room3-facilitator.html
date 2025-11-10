@@ -7,7 +7,10 @@
   <meta name="robots" content="noindex,nofollow" />
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    /* Local helpers (kept from original) */
+    /* Local helpers */
+    :root {
+      font-size: 18px;
+    }
     .callout {
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.12);
@@ -77,13 +80,13 @@
     }
   </style>
 </head>
+
 <body>
   <header class="site-header">
     <h1>Room 3 — Facilitator Materials</h1>
-    <p>Setup, passwords, hints, cleanup, and admin notes (2022 Fall)</p>
+    <p>Setup, passwords, hints, cleanup, and administrative notes for this room.</p>
   </header>
 
-  <!-- NAVBAR (no visible link to this page in the menu) -->
   <nav class="site-nav">
     <div class="nav-inner">
       <a class="brand" href="index.html" aria-label="Cyber Escape Rooms Home">
@@ -105,118 +108,87 @@
     </div>
   </nav>
 
-  <!-- PIN gate (change data-pin below to your preferred PIN; default: pitt1740) -->
   <div class="gate" id="gate" data-pin="1740">
     <div class="gate-card" id="gateCard">
       <h1>Facilitator Access</h1>
       <p>Enter the facilitator PIN to view materials.</p>
       <form id="gateForm">
         <label class="sr-only" for="pin">PIN</label>
-        <input id="pin" name="pin" type="password" inputmode="text" autocomplete="off" placeholder="Enter PIN" required />
+        <input id="pin" name="pin" type="password" autocomplete="off" placeholder="Enter PIN" required />
         <div class="actions">
           <button class="btn" type="submit">Unlock</button>
-          <div class="error" id="gateError" aria-live="polite"></div>
+          <div class="error" id="gateError"></div>
         </div>
-        <p class="mono" style="font-size:.85rem; color:var(--text-500); margin:.25rem 0 0;">
-        </p>
       </form>
     </div>
   </div>
 
   <main id="content" aria-hidden="true">
     <div class="callout">
-      <strong>Facilitator note:</strong> Keep this page off-screen to players. Bookmark it; it’s not linked in the navbar.
+      This page is only for facilitators. Keep it hidden from players and save it as a bookmark since it does not appear in the main menu.
     </div>
 
-    <!-- === Replaced content: Walkthrough Steps from the uploaded manual === -->
     <section aria-labelledby="walkthrough">
-      <h2 id="walkthrough">Walkthrough — Step-by-step (facilitator)</h2>
+      <h2 id="walkthrough">Walkthrough for Facilitators</h2>
 
       <ol class="list-tight">
         <li>
-          <strong>Print & arrange materials:</strong>
-          Before starting, ensure all documents from the Resources page are printed and laid out at the workstation.
+          Begin by printing every document from the Resources page. Arrange all materials at the workstation before the session begins to ensure a smooth start.
         </li>
 
         <li>
-          <strong>Log into each employee account</strong> (credentials found on Employee ID cards):
-          <ul class="list-tight mono">
-            <li>Jaime — User:  j.graves2  Pass:  CavsFan123 </li>
-            <li>Sam — User:  s.carters7  Pass:  smokedsalmon24 </li>
-          </ul>
+          Sign in to each employee account using the information on the ID cards. Jaime’s username is j.graves2 with the password CavsFan123. Sam’s username is s.carters7 with the password smokedsalmon24.
         </li>
 
         <li>
-          <strong>Search emails for suspicious content:</strong>
-          Look for messages from  sreniram66  and messages with subjects like <em>Quick Access Check</em> and <em>A New Transaction</em>.
-          Sam's inbox contains suspicious threads; Jaime's email has a dedicated suspicious folder.
+          Once logged in, open each inbox and look for anything that seems out of place. Messages from the sender sreniram66 are especially important, along with emails titled Quick Access Check or A New Transaction. Sam’s inbox contains an unusual conversation, while Jaime’s inbox includes an entire folder dedicated to suspicious content.
         </li>
 
         <li>
-          <strong>Find the suspicious transaction in Jaime’s folder:</strong>
-          That email contains an IP and a conversation with external contacts; it includes hashed login data pointing to an FTP.
+          Inside Jaime’s suspicious folder, find the email describing a questionable transaction. It includes an external conversation, an IP address, and a hashed set of credentials connected to an FTP server.
         </li>
 
         <li>
-          <strong>Decrypt the hashed login:</strong>
-          Use an MD5 decrypter (the conversation references the tool). The correct FTP credentials (decrypted) are:
-          <div class="mono">
-            Host:  73.118.209.254  — User:  carters  — Pass:  seahawks 
-          </div>
+          Use an MD5 decryption tool to convert the hashed credentials into readable values. The correct FTP login information reveals itself as follows. The host is 73.118.209.254, the username is carters, and the password is seahawks.
         </li>
 
         <li>
-          <strong>Access FTP:</strong>
-          Log in to the FTP above. There will be three stolen files that reference Sam.
+          Connect to the FTP server using these details. Three stolen files will appear, each referencing Sam. These files match the locked PDFs inside Sam’s file explorer.
         </li>
 
         <li>
-          <strong>Open Sam’s locked files from his file explorer:</strong>
-          Each locked file has a password hint (passwords are lowercase, no spaces) and are solved via OSINT and physical desk items:
-          <ul class="list-tight">
-            <li><strong>clientDatabase.pdf</strong> — Hint: “my best friend's last name” →  hansen  (found on a company social post from Sam)</li>
-            <li><strong>employeeInformation.pdf</strong> — Hint: “model of my first car” →  cruze  (found on Sam's parking pass)</li>
-            <li><strong>productRoadmap.pdf</strong> — Hint: “my home city” →  seattle  (clues scattered across the game; “sreniram66” → mariners backwards etc.)</li>
-          </ul>
+          Open each locked file on Sam’s computer. Every file includes a brief password hint, and the answers can be found using OSINT or the physical desk items. The password for clientDatabase.pdf is hansen, which is the last name of Sam’s best friend mentioned in a company social post. The password for employeeInformation.pdf is cruze, the model of Sam’s first car shown on his parking permit. The password for productRoadmap.pdf is seattle, which appears in several clues throughout the game, including the username sreniram66 which spells mariners backward.
         </li>
 
         <li>
-          <strong>Enter each password:</strong> After entering the three passwords, the final material will prompt the team to complete a short Incident Report (a debrief and certificate of completion).
+          After entering all three passwords, players receive the final prompt and are directed to complete a short incident report. A template and an example are available in the Resources section.
         </li>
 
         <li>
-          <strong>Incident report & completion:</strong>
-          Provide the incident report template (Resources page). A completed example is available on the Resources page and in the facilitator packet.
+          All puzzle answers use lowercase letters without spaces. It helps to keep printed backups of the employee cards, the parking pass, and the social post images to make resetting the room easier.
         </li>
       </ol>
 
-      <p class="callout mono" style="margin-top:1rem;">
-        Quick reminders:
-        <br />• All answers are lowercase, no spaces.
-        <br />• Keep printed backups of the Employee ID cards, parking pass image, and relevant social post screenshots for faster reset.
-      </p>
-
-      <!-- Required citation for the uploaded manual -->
-      <p style="margin-top:1rem; color:var(--text-500); font-size:.9rem;">
+      <p class="callout mono">
+        Quick reminders for facilitators. All answers use lowercase letters with no spaces. Printed backups of essential items make resets much faster.
       </p>
     </section>
 
     <hr class="hr-soft" />
 
-    <!-- keep the Admin / Instructor CTA from original for contact -->
     <section class="instructor-cta" aria-labelledby="instructor-access">
       <div class="cta-inner">
         <div class="cta-text">
-          <h2 id="instructor-access">Questions? Contact the Instructor</h2>
+          <h2 id="instructor-access">Need Assistance</h2>
           <p>
-            Contact <strong>Ahmed Ibrahim</strong> at
-            <a class="cta-email" href="mailto:aibrahim@pitt.edu?subject=Cyber%20Escape%20Rooms%20%E2%80%94%20Instructor%20PIN%20Request">aibrahim@pitt.edu</a>.
+            If you need help or have questions, contact Ahmed Ibrahim at
+            <a class="cta-email" href="mailto:aibrahim@pitt.edu">aibrahim@pitt.edu</a>.
           </p>
         </div>
 
         <div class="cta-actions">
-          <a class="button button-ghost" href="mailto:aibrahim@pitt.edu?subject=Cyber%20Escape%20Rooms%20%E2%80%94%20Instructor%20PIN%20Request">
-            Email Prof. Ahmed Ibrahim
+          <a class="button button-ghost" href="mailto:aibrahim@pitt.edu">
+            Email Ahmed Ibrahim
           </a>
           <div class="cta-name">Ahmed Ibrahim</div>
         </div>
@@ -230,7 +202,6 @@
 
   <script src="js/main.js"></script>
   <script>
-    // Lightweight PIN gate (client-side only; obfuscation, not security)
     (function(){
       const gate = document.getElementById('gate');
       const content = document.getElementById('content');
@@ -246,13 +217,11 @@
         sessionStorage.setItem('r1fac_ok', '1');
       }
 
-      // Auto-unlock if session already validated
       if (sessionStorage.getItem('r1fac_ok') === '1') {
         unlock();
         return;
       }
 
-      // Auto-unlock via URL fragment: #p=YOURPIN
       const hash = new URLSearchParams(location.hash.replace(/^#/, ''));
       const fragPin = hash.get('p');
       if (fragPin && fragPin === PIN) {
@@ -268,7 +237,6 @@
         } else {
           error.textContent = 'Incorrect PIN';
           card.classList.remove('shake');
-          // trigger reflow to restart animation
           void card.offsetWidth;
           card.classList.add('shake');
           input.focus();
