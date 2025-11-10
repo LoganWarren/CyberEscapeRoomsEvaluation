@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="globalTimer.js"></script>
+    <title>Email - Mock Desktop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #f1f1f1;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .sidebar ul li:hover {
+            background-color: #d3d3d3;
+        }
+
+        /* Header */
+        .header {
+            width: 100%;
+            background-color: #0078d4;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .header .account {
+            font-size: 16px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Email List */
+        .email-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            padding: 20px;
+            display: none;
+            /* Initially hidden */
+        }
+
+        .email-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .email-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        .email-item h3 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .email-item p {
+            font-size: 14px;
+            margin: 5px 0 0;
+            color: #555;
+        }
+
+        /* Email Content */
+        .email-content {
+            flex-grow: 1;
+            padding: 20px;
+            display: none;
+            /* Initially hidden */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Folders</h2>
+        <ul>
+            <li onclick="showEmails('inbox')">Inbox</li>
+            <li onclick="showEmails('sent')">Sent</li>
+            <li onclick="showEmails('drafts')">Drafts</li>
+            <li onclick="showEmails('spam')">Spam</li>
+            <li onclick="showEmails('trash')">Trash</li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <h1>Email</h1>
+            <div class="account">Logged in as: a.richardson1@bastion.com</div>
+        </div>
+
+        <!-- Email List -->
+        <div class="email-list" id="email-list">
+            <!-- Fake Emails will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Email Content -->
+        <div class="email-content" id="email-content">
+            <h3 id="email-subject"></h3>
+            <p id="email-body"></p>
+        </div>
+    </div>
+
+    <script>
+        // Fake email data for each folder
+        const emailData = {
+            inbox: [
+                {
+                    subject: "You're Invited to Olivia's 7th Birthday Party!",
+                    body: `
+            <p>Dear Alex,</p>
+            <p>You're invited to Olivia's 7th Birthday Party! Join us for a fun-filled celebration with balloons, games, and cake!</p>
+            <img src="images/Picture Email Birthday Invitation .png" alt="Birthday Party Invitation" style="width:100%; max-width:600px; border-radius:10px; margin-top:10px;">
+            <p>When: June 12, 2025<br>
+            Time: 2 PM to 5 PM<br>
+            Where: 1455 Hudson Street, Jersey City, NJ, 07302</p>
+            <p>We hope to see you there!</p>
+            <p>Best regards,<br>The Party Team</p>
+        `
+                },
+
+                {
+                    subject: "Massive Global Sale - Up to 50% Off on Flights!",
+                    body: `
+            <p>Dear Alex,</p>
+            <p>Don’t miss this opportunity! DeltaSky Aero is offering a massive global sale with up to 50% off on select flights. Reserve your seat now and enjoy incredible discounts!</p>
+            <img src="images/Picture Email Plane.png" alt="Massive Global Sale" style="width:100%; max-width:600px; border-radius:10px; margin-top:10px;">
+            <p>For more information, visit <a href="http://deltaskyaero.com">deltaskyaero.com</a> or call (555) 374-6821.</p>
+            <p>Hurry, seats are limited!</p>
+            <p>Best regards,<br>DeltaSky Aero Team</p>
+        `
+                },
+                {
+                    subject: "Get a Free Trial Pack of Cat Food - Limited Time Offer!",
+                    body: `
+            <p>Dear Alex,</p>
+            <p>Upgrade your cat's life with KittyBites! We're offering a free trial pack of cat food for a limited time. Don't miss this opportunity to make your furry friend happy!</p>
+            <img src="images/Picture Email Cat.png" alt="Free Cat Food Offer" style="width:100%; max-width:600px; border-radius:10px; margin-top:10px;">
+            <p>Visit <a href="http://kittybites.com">kittybites.com</a> or call (555) 987-4321 to claim your free trial pack today!</p>
+            <p>Best regards,<br>KittyBites Team</p>
+        `
+                },
+                {
+                    subject: "Join Us for the Annual BASTION Tech Carnival!",
+                    body: `Hi Team,<br><br>
+           Join us for a day of excitement, creativity, and friendly competition at the annual BASTION Tech Carnival! This event is packed with activities to help you unwind and connect with your colleagues. There’s something for everyone!<br><br>
+           <img src="images/Picture Email Tech Carnival.png" alt="Tech Carnival" style="max-width:100%; height:auto;"><br><br>
+           <strong>Activities</strong><br>
+           - VR Gaming Zone<br>
+           - Relaxation Zone<br>
+           - Trivia<br>
+           - Food Trucks<br><br>
+           We hope to see you there!<br><br>
+           Best regards,<br>
+           BASTION Corp HR`
+                },
+                {
+                    subject: "Join Us for an Exciting Event: Learn to Learn More Efficiently and Involvedly!",
+                    body: `Dear BASTION CORP Team,<br><br>
+           I’m excited to announce an upcoming event designed to help us all enhance our learning skills and improve how we approach both individual and team growth.<br><br>
+           <strong>Event:</strong> Learning More Efficiently & Involvedly<br>
+           <strong>Location:</strong> Pittsburgh Office<br><br>
+           In today’s fast-paced world, it’s essential to not only absorb information quickly but also to engage with it in a meaningful way. This event will focus on strategies for:<br>
+           - Learning new skills more efficiently.<br>
+           - Staying actively involved in the learning process.<br>
+           - Applying what we learn to improve collaboration and productivity.<br><br>
+           Whether you're looking to sharpen your existing skills or discover new approaches, this session promises to provide valuable insights that will benefit us all.<br><br>
+           We encourage everyone to participate! Together, we can elevate how we learn, grow, and contribute to BASTION CORP’s success.<br><br>
+           Please RSVP by next week so we can make necessary arrangements.<br><br>
+           Looking forward to seeing you there!<br><br>
+           Best regards,<br>
+           BASTION CORP HR`
+                },
+                {
+                    subject: "Strengthening Our Defenses: Vigilance Against Phishing, Spear Phishing, and Vishing",
+                    body: `Dear BASTION CORP Team,<br><br>
+           As a cybersecurity company, we’re all well aware of the tactics employed by attackers—but it’s important to never grow complacent. Recently, we’ve seen a rise in more targeted and sophisticated phishing, spear phishing, and vishing attempts across the industry. Even the most security-conscious organizations can become vulnerable without constant vigilance.<br><br>
+           Here’s a quick reminder of the risks:<br><br>
+           <strong>Phishing and Spear Phishing:</strong><br>
+           - Phishing emails are becoming harder to spot, often mimicking legitimate communications from trusted contacts.<br>
+           - Spear Phishing attacks are laser-focused, targeting specific individuals within our company, often using insider knowledge to appear credible.<br><br>
+           <strong>Vishing:</strong><br>
+           - Attackers may use phone calls to impersonate familiar voices or companies, attempting to manipulate us into revealing sensitive information.<br><br>
+           We encourage everyone to remain sharp and cautious, even with routine communications. Be sure to:<br><br>
+           - Verify unusual or unexpected requests through separate communication channels.<br>
+           - Report suspicious emails, messages, or calls to the security team immediately.<br>
+           - Never click on links or open attachments unless you are certain of the source.<br><br>
+           While these threats aren’t new to us, staying proactive is key to preventing even the most subtle attacks from succeeding.<br><br>
+           Thank you for your continued commitment to safeguarding our organization.<br><br>
+           Best regards,<br>
+           BASTION CORP Security Team`
+                },
+                {
+                    subject: "Update on New Onboarding Process + Workshop Details",
+                    body: `Hi Everyone,<br><br>
+           I wanted to provide an update on the new onboarding process. Please review the attached document in our Slack for a detailed breakdown of the changes. We'll be holding a workshop next Thursday to address any questions and walk through the new procedures step-by-step.<br><br>
+           Thank you for your attention to this matter.<br><br>
+           Best regards,<br>
+           Karen<br>
+           BASTION Corp`
+                },
+
+
+                {
+                    subject: "Attendance for Investor Meeting After Earnings Call",
+                    body: "Hi Alex,<br><br>I hope you're doing well. I wanted to check in regarding the investor meeting scheduled right after the upcoming earnings call on [insert date]. Will you be available to join the meeting?<br><br>It would be great to have you there to provide insights and help address any questions that may arise from the investors. Let me know if you’ll be able to attend or if there’s anything we need to coordinate in advance.<br><br>Looking forward to hearing from you. Please let me know if there’s anything specific you’d like to cover, or if you need any additional information ahead of time.<br><br>Leah<br>BASTION CORP"
+                },
+                { subject: "Re: Project Collaboration", body: "Hey Alex,<br><br>Thanks for reaching out! Yeah, I remember us mentioning it, but I don’t think I got a clear sense of the scope either. Definitely open to exploring how we can collaborate though.<br><br>How about we start with a quick chat to clarify what’s needed? Maybe we can figure out the structure as we go. I’m free Wednesday this week if that works for you.<br><br>Looking forward to hearing more.<br><br>Best,<br>Werner" },
+
+                { subject: "Re: Project Collaboration", body: "Hey Werner,<br><br>Sounds like a plan! Let’s aim for 10:30. I’ll send over a meeting invite.<br><br>In the meantime, I’ll try to gather more info on the project to give us some direction. Looking forward to figuring this out with you.<br><br>Talk soon,<br>Alex Richardson" },
+                {
+                    subject: "Exciting Opportunity at Vanguard",
+                    body: "Dear Alex,<br><br>I hope this email finds you well. My name is Melissa, and I am a Talent Acquisition Specialist at Vanguard. We’ve been following your impressive work at BASTION, and we believe your skills and experience would make you a fantastic fit for an exciting opportunity here at Vanguard!<br><br>We are currently seeking top talent to join our team, and based on your background, we would love to explore the possibility of you coming on board. Vanguard offers a dynamic work environment with ample growth opportunities, competitive compensation, and a strong commitment to innovation.<br><br>I would be happy to provide more details and discuss how this role could align with your career goals. Please let me know if you would be open to a brief conversation.<br><br>Looking forward to hearing from you.<br><br>Best regards,<br>Melissa<br>Talent Acquisition Specialist<br>Vanguard"
+                }, {
+                    subject: "Get Ready for Jersey Jam 2024 – The Ultimate Summer Music Festival!",
+                    body: `
+            Dear Alex,<br><br>
+            Are you ready for the biggest music event of the year? Here are your tickets for Jersey Jam, an unforgettable weekend filled with incredible performances, amazing food, and great vibes!<br><br>
+            <strong>Date:</strong> May 26-28,<br>
+            <strong>Location:</strong> Jersey City, NJ<br><br>
+            <strong>What to Expect:</strong><br>
+            - Over 30 live performances across multiple stages<br>
+            - Delicious local food trucks and craft beer<br>
+            - Art installations, beach activities, and chill zones<br>
+            - Exclusive VIP experiences and after-parties<br><br>
+            Time to enjoy an epic weekend of music and fun with friends under the sun. Don’t miss out!<br><br>
+            See you at Jersey Jam!<br><br>
+            <img src="images/jersyjam.png" alt="Jersey Jam Ticket" style="width:100%; max-width:600px; border-radius:10px; margin-top:10px;">
+        `
+                }
+
+
+            ],
+            sent: [
+                { subject: "Project Collaboration", body: "Hi Werner,<br><br>Hope you're doing well. I wanted to touch base about that project we briefly discussed last week. It's still in the early stages, but I think there could be a lot of opportunities for collaboration between our teams.<br><br>I’m not entirely clear on all the specifics yet, but it seems like it could be a pretty dynamic initiative with room for input from both of us. Maybe we could set up some time to chat about how we can move forward together on this?<br><br>Let me know what your schedule looks like.<br><br>Best,<br>Alex Richardson" },
+                {
+                    subject: "Time Off Request (October 10-14)",
+                    body: "Hi Jennifer,<br><br>I hope all is good! I wanted to check if it would be okay for me to take the week of October 10th off (from Monday, October 10th to Friday, October 14th) for my birthday. I’ll make sure everything is in order before I go, and I’m happy to coordinate with the team so nothing falls through the cracks.<br><br>Let me know if that works for you!<br><br>Thanks,<br>Alex Richardson"
+                },
+                {
+                    subject: "Re: Project Collaboration",
+                    body: "Hey Werner,<br><br>Sounds like a plan! Let’s aim for 10:30. I’ll send over a meeting invite.<br><br>In the meantime, I’ll try to gather more info on the project to give us some direction. Looking forward to figuring this out with you.<br><br>Talk soon,<br>Alex Richardson"
+                },
+                {
+                    subject: "Re: Exciting Opportunity at Vanguard",
+                    body: "Dear Melissa,<br><br>Thank you for reaching out and for your kind words about my work at BASTION. I’m truly flattered by Vanguard’s interest in my profile and the opportunity you’ve presented.<br><br>At this time, I’m deeply committed to my role here, and have several ongoing projects that I’m excited to see through. While I must respectfully decline this offer, I’m grateful for the consideration and will certainly keep Vanguard in mind for future opportunities!<br><br>Wishing you and your team continued success though! And thank you once again for considering me for the position.<br><br>Best regards,<br>Alex Richardson"
+                }
+            ],
+            drafts: [],
+            spam: [
+                {
+                    subject: "Alex, Save BIG on Your Car Insurance Today!",
+                    body: "Hi Alex,<br><br>Are you paying too much for car insurance? You're not alone! But the good news is, we’ve got a solution just for you.<br><br><strong>Get Insured Now and Save Up to 50%!</strong><br>No hidden fees<br>Instant coverage<br>Affordable monthly payments<br>Easy online quotes in minutes!<br><br>Whether you’re looking for basic coverage or premium plans, we’ve got options tailored for drivers like you. Why wait? Start saving NOW!<br><br><a href='#'>[Get My Free Quote Now]</a><br><br>Don’t miss out—your savings are just a click away!<br><br>Drive safe!<br><br>P.S. Alex, it’s time to stop overpaying. Let us help you keep more money in your pocket!"
+                }
+            ],
+            trash: []
+        };
+
+        // Show emails for the selected folder
+        function showEmails(folder) {
+            const emailList = document.getElementById('email-list');
+            const emailContent = document.getElementById('email-content');
+
+            // Clear current email list
+            emailList.innerHTML = '';
+
+            // Populate email list
+            emailData[folder].forEach((email, index) => {
+                const emailItem = document.createElement('div');
+                emailItem.classList.add('email-item');
+                emailItem.innerHTML = `<h3>${email.subject}</h3><p>${email.body.substring(0, 50)}...</p>`;
+                emailItem.onclick = () => showEmailContent(folder, index);
+                emailList.appendChild(emailItem);
+            });
+
+            // Show email list and hide email content
+            emailList.style.display = 'block';
+            emailContent.style.display = 'none';
+        }
+
+        // Show content of the selected email with line breaks
+        function showEmailContent(folder, index) {
+            const email = emailData[folder][index];
+            const emailList = document.getElementById('email-list');
+            const emailContent = document.getElementById('email-content');
+
+            document.getElementById('email-subject').textContent = email.subject;
+            document.getElementById('email-body').innerHTML = email.body; // Using innerHTML to support <br> tags for line breaks
+
+            // Show email content and hide email list
+            emailList.style.display = 'none';
+            emailContent.style.display = 'block';
+        }
+    </script>
+
+    <div id="footer-bar">
+        <div id="timer"></div>
+        <div class="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+        <!-- <button id="finalize-report" onclick="finalizeReport()">Finalize Incident Report</button> -->
+    </div>
+
+    <script>
+        // Initialize local storage for timer and visited pages if not already set
+        if (!localStorage.getItem('elapsedTime')) {
+            localStorage.setItem('elapsedTime', '0');
+        }
+        if (!localStorage.getItem('visitedPages')) {
+            localStorage.setItem('visitedPages', '[]');
+        }
+
+        // Track current page visit
+        const currentPage = window.location.pathname;
+        let visitedPages = JSON.parse(localStorage.getItem('visitedPages'));
+        if (!visitedPages.includes(currentPage)) {
+            visitedPages.push(currentPage);
+            localStorage.setItem('visitedPages', JSON.stringify(visitedPages));
+        }
+
+    // Calculate progress based on the number of visited pages
+    const totalPages = 5; // Adjust this number based on your total number of pages
+    const progress = (visitedPages.length / totalPages) * 100;
+    document.getElementById('progress-bar').style.width = progress + '%';
+
+    // Timer functionality
+    let elapsedTime = parseInt(localStorage.getItem('elapsedTime'));
+
+    // Check if the timer is already running on another page
+    if (!localStorage.getItem('timerRunning')) {
+        localStorage.setItem('timerRunning', 'true');
+
+        // Start the timer only if it's not already running
+        setInterval(() => {
+            elapsedTime += 1;
+            localStorage.setItem('elapsedTime', elapsedTime);
+            document.getElementById('timer').textContent = `Time: ${formatTime(elapsedTime)}`;
+        }, 1000);
+    }
+
+    // Display the current time on page load
+    document.getElementById('timer').textContent = `Time: ${formatTime(elapsedTime)}`;
+
+    // Function to format the timer display
+    function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+        const secs = (seconds % 60).toString().padStart(2, '0');
+        return `${mins}:${secs}`;
+    }
+
+        // Function to navigate to the incident report page
+        function finalizeReport() {
+            window.location.href = 'incidentReport.pdf';
+        }
+
+    // When the user leaves the page, release the timer lock
+    window.addEventListener('beforeunload', function () {
+        localStorage.removeItem('timerRunning');
+    });
+</script>
+
+    <style>
+        /* Footer Bar Styling */
+        #footer-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            z-index: 999;
+        }
+
+        #timer {
+            margin-left: 20px;
+        }
+
+        .progress-container {
+            flex-grow: 1;
+            margin: 0 20px;
+            background-color: #444;
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #progress-bar {
+            height: 100%;
+            background-color: #0078D7;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        #finalize-report {
+            background-color: #0078D7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #finalize-report:hover {
+            background-color: #005A9E;
+        }
+    </style>
+</body>
+
+</html>

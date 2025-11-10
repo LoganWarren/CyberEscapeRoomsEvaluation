@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email - Mock Desktop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #f1f1f1;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .sidebar ul li:hover {
+            background-color: #d3d3d3;
+        }
+
+        /* Header */
+        .header {
+            width: 100%;
+            background-color: #0078d4;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .header .account {
+            font-size: 16px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Email List */
+        .email-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            padding: 20px;
+            display: none;
+            /* Initially hidden */
+        }
+
+        .email-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .email-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        .email-item h3 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .email-item p {
+            font-size: 14px;
+            margin: 5px 0 0;
+            color: #555;
+        }
+
+        /* Email Content */
+        .email-content {
+            flex-grow: 1;
+            padding: 20px;
+            display: none;
+            /* Initially hidden */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Folders</h2>
+        <ul>
+            <li onclick="showEmails('inbox')">Inbox</li>
+            <li onclick="showEmails('sent')">Sent</li>
+            <li onclick="showEmails('drafts')">Drafts</li>
+            <li onclick="showEmails('spam')">Spam</li>
+            <li onclick="showEmails('trash')">Trash</li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <h1>Email</h1>
+            <div class="account">Logged in as: j.graves2@bastion.com</div>
+        </div>
+
+        <!-- Email List -->
+        <div class="email-list" id="email-list">
+            <!-- Fake Emails will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Email Content -->
+        <div class="email-content" id="email-content">
+            <h3 id="email-subject"></h3>
+            <p id="email-body"></p>
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div id="videoModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 1000; align-items: center; justify-content: center;">
+        <button id="closeButton" style="position: absolute; top: 10px; right: 10px; background: red; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px;">X</button>
+        <video id="popupVideo" style="max-width: 90%; max-height: 90%;">
+            <source src="https://capstone2videos.s3.us-east-2.amazonaws.com/Bastion+2+final.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <button id="replayButton" onclick="replayVideo()" style="display: none; margin-top: 20px; padding: 10px 20px; background: blue; color: white; border: none; cursor: pointer; border-radius: 5px;">Replay</button>
+    </div>
+
+
+
+
+    <script>
+        // Wrap in DOMContentLoaded to ensure elements are loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            const thumbnail = document.getElementById('thumbnail');
+            const videoModal = document.getElementById('videoModal');
+            const popupVideo = document.getElementById('popupVideo');
+            const closeButton = document.getElementById('closeButton');
+            const replayButton = document.getElementById('replayButton');
+            const fullSizeImageURL = 'photos/transac.png'; // URL to the full-size image
+
+            // Open the video modal when the thumbnail is clicked
+            if (thumbnail) {
+                thumbnail.addEventListener('click', function () {
+                    videoModal.style.display = 'flex';
+                    popupVideo.play();
+                });
+            }
+
+            // Show the replay button when the video ends
+            popupVideo.addEventListener('ended', function () {
+                replayButton.style.display = 'block';
+            });
+
+            // Replay the video when the replay button is clicked
+            function replayVideo() {
+                popupVideo.currentTime = 0;
+                popupVideo.play();
+                replayButton.style.display = 'none';
+            }
+
+            // Close the video modal when the close button is clicked
+            function closeVideoModal() {
+                videoModal.style.display = 'none';
+                popupVideo.pause();
+                popupVideo.currentTime = 0;
+
+                // Open the fullscreen image in a new tab after the modal is closed
+                window.open(fullSizeImageURL, '_blank');
+            }
+
+            // Attach the closeVideoModal function to the close button
+            closeButton.addEventListener('click', closeVideoModal);
+
+            // Attach the replay function to the replay button
+            replayButton.addEventListener('click', replayVideo); // Make sure this line is present
+
+            // Expose replayVideo to the global scope for use in HTML
+            window.replayVideo = replayVideo;
+        });
+
+
+    </script>
+    
+
+    <script>
+        // Fake email data for each folder
+        const emailData = {
+            inbox: [
+                {
+                    subject: "New Apple Pay Transaction from sreniram66",
+                    body: `
+            <p>Dear Jaime,</p>
+            <p>You’ve received a new transaction from sreniram66.</p>
+            <img src="images/A New Transaction from sreniram66.png" alt="Apple Pay Transaction" style="width:100%; max-width:600px; border-radius:10px; margin-top:10px;">
+            <p>Thank you for using Apple Pay!</p>
+            <p>Best regards,<br>Apple Pay Team</p>
+        `
+                },
+                {
+                    subject: "Vanguard: The Future of Tech Conference",
+                    body: `
+            <p>Dear Jaime,</p>
+            <p>Join us for Vanguard's Annual Tech Conference, where innovation meets cybersecurity. Learn about the latest advancements in threat intelligence, encryption, and proactive defense strategies.</p>
+            <img src="images/Picture Email Tech Conf.png" alt="Tech Conference Invite" style="width:100%; max-width:600px; border-radius:10px; margin-top:10px;">
+            <p>Visit <a href="http://vanguardtechconf.com">vanguardtechconf.com</a> for more details.</p>
+            <p>Best regards,<br>Vanguard Team</p>
+        `
+                },
+                {
+                    subject: "Your Home Could Be Next - Cleveland Real Estate",
+                    body: `
+            <p>Dear Jaime,</p>
+            <p>We just sold 4321 Lakeview Avenue in Cleveland, OH, over the asking price. Your home could be next!</p>
+            <a href="images/Picture Email Cleveland Home.pdf" target="_blank">View the full flyer here</a>.
+            <p>Contact Sarah Mitchell for a free market evaluation of your home at (216) 555-3478 or s.mitchell@mitchellrealty.com.</p>
+            <p>Best regards,<br>Mitchell Realty Group</p>
+        `
+                },
+                {
+                    subject: "Business Award Highlights in Our Spring 2025 Newsletter",
+                    body: `
+            <p>Dear Jaime,</p>
+            <p>Check out our latest newsletter featuring Cleveland's top businesses, community highlights, and upcoming opportunities!</p>
+            <img src="images/Picture Email Newsletter.png" alt="Newsletter Spring 2025" style="width:100%; max-width:600px; border-radius:10px; margin-top:10px;">
+            <p>Read more about our initiatives and success stories.</p>
+            <p>Best regards,<br>Your Newsletter Team</p>
+        `
+                }, {
+                    subject: "Alert: Multiple Large Deposits Detected in Your Account",
+                    body: `
+            <p>Dear Jaime,</p>
+            <p>Our system has detected multiple large deposits in your account. Please review your account activity to verify these transactions.</p>
+            <a href="images/Picture_Text Email Part 2 Subject_ Alert_ Multiple Large Deposits Detected in Your Account.pdf" target="_blank">View the details</a>.
+            <p>If you have any concerns, contact our support team immediately.</p>
+            <p>Best regards,<br>CashPal Team</p>
+        `
+                },
+                {
+                    subject: "Join Us for the Annual BASTION Tech Carnival!",
+                    body: `Hi Team,<br><br>
+           Join us for a day of excitement, creativity, and friendly competition at the annual BASTION Tech Carnival! This event is packed with activities to help you unwind and connect with your colleagues. There’s something for everyone!<br><br>
+           <img src="images/Picture Email Tech Carnival.png" alt="Tech Carnival" style="max-width:100%; height:auto;"><br><br>
+           <strong>Activities</strong><br>
+           - VR Gaming Zone<br>
+           - Relaxation Zone<br>
+           - Trivia<br>
+           - Food Trucks<br><br>
+           We hope to see you there!<br><br>
+           Best regards,<br>
+           BASTION Corp HR`
+                },
+                {
+                    subject: "Join Us for an Exciting Event: Learn to Learn More Efficiently and Involvedly!",
+                    body: `Dear BASTION CORP Team,<br><br>
+           I’m excited to announce an upcoming event designed to help us all enhance our learning skills and improve how we approach both individual and team growth.<br><br>
+           <strong>Event:</strong> Learning More Efficiently & Involvedly<br>
+           <strong>Location:</strong> Pittsburgh Office<br><br>
+           In today’s fast-paced world, it’s essential to not only absorb information quickly but also to engage with it in a meaningful way. This event will focus on strategies for:<br>
+           - Learning new skills more efficiently.<br>
+           - Staying actively involved in the learning process.<br>
+           - Applying what we learn to improve collaboration and productivity.<br><br>
+           Whether you're looking to sharpen your existing skills or discover new approaches, this session promises to provide valuable insights that will benefit us all.<br><br>
+           We encourage everyone to participate! Together, we can elevate how we learn, grow, and contribute to BASTION CORP’s success.<br><br>
+           Please RSVP by next week so we can make necessary arrangements.<br><br>
+           Looking forward to seeing you there!<br><br>
+           Best regards,<br>
+           BASTION CORP HR`
+                },
+                {
+                    subject: "Strengthening Our Defenses: Vigilance Against Phishing, Spear Phishing, and Vishing",
+                    body: `Dear BASTION CORP Team,<br><br>
+           As a cybersecurity company, we’re all well aware of the tactics employed by attackers—but it’s important to never grow complacent. Recently, we’ve seen a rise in more targeted and sophisticated phishing, spear phishing, and vishing attempts across the industry. Even the most security-conscious organizations can become vulnerable without constant vigilance.<br><br>
+           Here’s a quick reminder of the risks:<br><br>
+           <strong>Phishing and Spear Phishing:</strong><br>
+           - Phishing emails are becoming harder to spot, often mimicking legitimate communications from trusted contacts.<br>
+           - Spear Phishing attacks are laser-focused, targeting specific individuals within our company, often using insider knowledge to appear credible.<br><br>
+           <strong>Vishing:</strong><br>
+           - Attackers may use phone calls to impersonate familiar voices or companies, attempting to manipulate us into revealing sensitive information.<br><br>
+           We encourage everyone to remain sharp and cautious, even with routine communications. Be sure to:<br><br>
+           - Verify unusual or unexpected requests through separate communication channels.<br>
+           - Report suspicious emails, messages, or calls to the security team immediately.<br>
+           - Never click on links or open attachments unless you are certain of the source.<br><br>
+           While these threats aren’t new to us, staying proactive is key to preventing even the most subtle attacks from succeeding.<br><br>
+           Thank you for your continued commitment to safeguarding our organization.<br><br>
+           Best regards,<br>
+           BASTION CORP Security Team`
+                },
+                {
+                    subject: "Update on New Onboarding Process + Workshop Details",
+                    body: `Hi Everyone,<br><br>
+           I wanted to provide an update on the new onboarding process. Please review the attached document in our Slack for a detailed breakdown of the changes. We'll be holding a workshop next Thursday to address any questions and walk through the new procedures step-by-step.<br><br>
+           Thank you for your attention to this matter.<br><br>
+           Best regards,<br>
+           Karen<br>
+           BASTION Corp`
+                },
+
+
+                {
+                    subject: "Alert: Multiple Large Deposits Detected in Your Account",
+                    body: `
+            <p>Dear Jaime,</p>
+            <p>We are reaching out to notify you of recent unusual activity in your account. Our system has detected multiple large deposits that have been made to your account.</p>
+            <p>To ensure the security of your funds, we kindly ask that you review your recent account activity to verify these transactions. If these deposits are authorized and expected, no further action is needed. However, if you do not recognize these deposits, please contact our support team immediately to investigate further.</p>
+            <p>At CashPal, we take your account security seriously and want to ensure your funds are safe.</p>
+            <p>For assistance, you can reach our customer support or by replying to this email.</p>
+            <p>Thank you for your attention to this matter.</p>
+            <p>Best regards,<br>CashPal</p>
+        `
+                },
+                {
+                    subject: "A New Chapter Awaits You at Vanguard",
+                    body: `
+            <p>Dear Jaime,</p>
+            <p>I hope this message finds you well. I’m Melissa, from Vanguard’s strategic team, and we’ve been observing your work at BASTION closely. Your expertise and insight are exactly what we’re looking for as we move into our next phase of growth.</p>
+            <p>I don’t need to tell you how competitive this industry is. What I can tell you is that we recognize talent when we see it—and we know how to reward it. The position we have in mind for you is more than just another role; it's a chance to be part of something bigger. At Vanguard, we’re not just shaping the future—we’re controlling it.</p>
+            <p>You’ve already proven yourself invaluable. Now, it’s time to take the next step. I’ll leave the details to your discretion, but rest assured, this opportunity won’t stay open for long. When you’re ready, reach out.</p>
+            <p>Looking forward to hearing from you, Jaime. The future is waiting.</p>
+            <p>Best,<br>Melissa<br>Talent Acquisition Specialist<br>Vanguard</p>
+        `
+                },
+                {
+                    subject: "Performance Review Follow-Up",
+                    body: `
+            <p>Hi Jaime,</p>
+            <p>I hope you're doing well. I wanted to follow up on the concerns raised during your recent performance review. We’ve noticed a continuing lack of improvement in key areas, particularly in project completion timelines and meeting deadlines, as discussed earlier this quarter.</p>
+            <p>It’s important for us to see noticeable progress moving forward. Please ensure that all deliverables for [insert project name] are completed by the end of this week. Failure to meet these expectations will require us to revisit this discussion and take appropriate steps.</p>
+            <p>Let me know if there are any obstacles preventing you from completing your work on time.</p>
+            <p>Best regards,<br>Leah</p>
+        `
+                },
+                {
+                    subject: "Re: Performance Review Follow-Up",
+                    body: `
+            <p>Jaime,</p>
+            <p>Glad to hear you're taking steps to address the issues. I expect full completion of the project by the deadline, as mentioned earlier. Please ensure that communication remains clear moving forward—additional delays will not be acceptable.</p>
+            <p>Best,<br>Leah</p>
+        `
+                },
+                {
+                    subject: "Reminder: Client Presentation on Friday",
+                    body: `
+            <p>Hi Jaime,</p>
+            <p>I hope you're doing well! This is Simon, one of the juniors on your dev team and I just wanted to send a quick reminder that we have the client presentation scheduled for this Friday at 10 AM. Could you please send me all the materials you wanted finalized and ready by Thursday afternoon?</p>
+            <p>Let me know if you need any more help with the prep or if there’s anything you’d like to go over before the presentation.</p>
+            <p>Looking forward to it!</p>
+            <p>Best,<br>Simon<br>BASTION CORP</p>
+        `
+                },
+                {
+                    subject: "Re: Quick Access Check",
+                    body: `
+            <p>Here you go. Use these credentials to connect via FTP</p>
+            <p>Host: 73.118.209.254<br>
+            Username (MD5): ddf1d4b3aa7d445f4ceaaada6ecd026b<br>
+            Password (MD5): 7b4f86d3e54832dc7df197ed3c9d4172</p>
+            <p>Always Excited to work with you,<br>sreniram66</p>
+            <p>P.S. Don't forget to decrypt!</p>
+            <h3>Attachments</h3>
+            <div style="display: flex; align-items: center; gap: 10px;">
+
+            <!-- Thumbnail Image with ID added -->
+            <img id="thumbnail" src="photos/transacThumbnail.png" alt="Attachment Thumbnail" style="width: 150px; height: auto; cursor: pointer; border: 1px solid #ccc; padding: 5px; border-radius: 4px;">
+                        
+
+            <!-- Download Button
+            <a href="path/to/fullsize-image.jpg" download>
+                <button style="padding: 8px 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                Download
+                </button>
+            </a> -->
+            </div>
+        `
+                }, {
+                    subject: "Re: Re: Quick Access Check",
+                    body: `
+            <p>Did you really just try to put in that text exactly… You have to un-hash it first… Just use this un-hash tool on this website. And before you ask, it’s MD5. Duh.</p>
+            <p><a href="https://md5hashing.net/hash">https://md5hashing.net/hash</a></p>
+            <p>sreniram66</p>
+        `
+                },
+                {
+                    subject: "Upcoming Team Restructuring",
+                    body: `
+            <p>Hi Jaime,</p>
+            <p>I wanted to inform you that we’re currently evaluating the team structure as we prepare for the next quarter. Given the ongoing issues with project delivery and your performance, your role is being considered as part of this assessment.</p>
+            <p>I suggest we meet later this week to discuss your future with the company and review your progress against the targets set during your last performance review.</p>
+            <p>Please coordinate with my assistant to find a time that works.</p>
+            <p>Best regards,<br>Susan<br>BASTION CORP</p>
+        `
+                }
+
+            ],
+            sent: [
+                {
+                    subject: "Re: Performance Review Follow-Up",
+                    body: `
+            <p>Hi Leah,</p>
+            <p>Thank you for the reminder. I’ll make sure the project is completed by the deadline. I’m working on addressing the areas mentioned in the review and will keep you updated on my progress.</p>
+            <p>Best,<br>Jaime Graves</p>
+        `
+                },
+                {
+                    subject: "Re: Reminder: Client Presentation on Friday",
+                    body: `
+            <p>Hello Simon,</p>
+            <p>I will make sure to send you the docs and materials! Thank you for reaching out and I look forward to working with you and seeing your growth within the company.</p>
+            <p>Best,<br>Jaime Graves</p>
+        `
+                },
+                {
+                    subject: "Re: Quick Access Check",
+                    body: `
+            <p>Hello,</p>
+            <p>I’m ready with what you asked for, but I’ll need the access details to connect to you via the FTP server. Send it when you get a chance.</p>
+            <p>Regards,<br>Jaime Graves</p>
+        `
+                },
+                {
+                    subject: "Re: Re: Quick Access Check",
+                    body: `
+            <p>I’m putting all of those random numbers and letters in but it is not working still.</p>
+            <p>Jaime Graves</p>
+        `
+                }
+            ],
+            drafts: [
+                { subject: "Draft: New Project", body: "Here are some ideas for the new project we discussed..." }
+            ],
+            spam: [
+                { subject: "Congratulations! You won!", body: "You have been selected as a winner in our contest! Click here to claim your prize." }
+            ],
+            trash: [
+                { subject: "Old Meeting Notes", body: "Here are the notes from the last meeting. Feel free to review them." }
+            ]
+        };
+
+        // Show emails for the selected folder
+        function showEmails(folder) {
+            const emailList = document.getElementById('email-list');
+            const emailContent = document.getElementById('email-content');
+
+            // Clear current email list
+            emailList.innerHTML = '';
+
+            // Populate email list
+            emailData[folder].forEach((email, index) => {
+                const emailItem = document.createElement('div');
+                emailItem.classList.add('email-item');
+                emailItem.innerHTML = `<h3>${email.subject}</h3><p>${email.body.substring(0, 50)}...</p>`;
+                emailItem.onclick = () => showEmailContent(folder, index);
+                emailList.appendChild(emailItem);
+            });
+
+            // Show email list and hide email content
+            emailList.style.display = 'block';
+            emailContent.style.display = 'none';
+        }
+
+        // Show content of the selected email
+        // Show content of the selected email
+    function showEmailContent(folder, index) {
+        const email = emailData[folder][index];
+        const emailList = document.getElementById('email-list');
+        const emailContent = document.getElementById('email-content');
+
+        document.getElementById('email-subject').textContent = email.subject;
+        document.getElementById('email-body').innerHTML = email.body;
+
+        // Show email content and hide email list
+        emailList.style.display = 'none';
+        emailContent.style.display = 'block';
+
+        // Add event listener to the thumbnail AFTER it is added to the DOM
+        const thumbnail = document.getElementById('thumbnail');
+        if (thumbnail) {
+            const videoModal = document.getElementById('videoModal');
+            const popupVideo = document.getElementById('popupVideo');
+            const fullSizeImageURL = 'photos/transac.png'; // URL to the full-size image
+
+            thumbnail.addEventListener('click', function () {
+                // Show the video modal
+                videoModal.style.display = 'flex';
+
+                // Play the video
+                popupVideo.play();
+            });
+
+        }
+        }
+
+    </script>
+
+    <div id="footer-bar">
+        <div id="timer"></div>
+        <div class="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+        <!-- <button id="finalize-report" onclick="finalizeReport()">Finalize Incident Report</button> -->
+    </div>
+    <script>
+        // Initialize local storage for timer and visited pages if not already set
+        if (!localStorage.getItem('elapsedTime')) {
+            localStorage.setItem('elapsedTime', '0');
+        }
+        if (!localStorage.getItem('visitedPages')) {
+            localStorage.setItem('visitedPages', '[]');
+        }
+
+        // Track current page visit
+        const currentPage = window.location.pathname;
+        let visitedPages = JSON.parse(localStorage.getItem('visitedPages'));
+        if (!visitedPages.includes(currentPage)) {
+            visitedPages.push(currentPage);
+            localStorage.setItem('visitedPages', JSON.stringify(visitedPages));
+        }
+
+        // Calculate progress based on the number of visited pages
+        const totalPages = 5; // Adjust this number based on your total number of pages
+        const progress = (visitedPages.length / totalPages) * 100;
+        document.getElementById('progress-bar').style.width = progress + '%';
+
+        // Timer functionality
+        let elapsedTime = parseInt(localStorage.getItem('elapsedTime'));
+
+        // Check if the timer is already running on another page
+        if (!localStorage.getItem('timerRunning')) {
+            localStorage.setItem('timerRunning', 'true');
+
+            // Start the timer only if it's not already running
+            setInterval(() => {
+                elapsedTime += 1;
+                localStorage.setItem('elapsedTime', elapsedTime);
+                document.getElementById('timer').textContent = `Time: ${formatTime(elapsedTime)}`;
+            }, 1000);
+        }
+
+        // Display the current time on page load
+        document.getElementById('timer').textContent = `Time: ${formatTime(elapsedTime)}`;
+
+        // Function to format the timer display
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const secs = (seconds % 60).toString().padStart(2, '0');
+            return `${mins}:${secs}`;
+        }
+
+        // Function to navigate to the incident report page
+        function finalizeReport() {
+            window.location.href = 'incidentReport.pdf';
+        }
+
+        // When the user leaves the page, release the timer lock
+        window.addEventListener('beforeunload', function () {
+            localStorage.removeItem('timerRunning');
+        });
+    </script>
+
+
+<style>
+    /* Footer Bar Styling */
+    #footer-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 10px;
+        color: white;
+        font-family: 'Segoe UI', sans-serif;
+        z-index: 999;
+    }
+    #timer {
+        margin-left: 20px;
+    }
+    .progress-container {
+        flex-grow: 1;
+        margin: 0 20px;
+        background-color: #444;
+        height: 20px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    #progress-bar {
+        height: 100%;
+        background-color: #0078D7;
+        width: 0%;
+        transition: width 0.3s;
+    }
+    #finalize-report {
+        background-color: #0078D7;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    #finalize-report:hover {
+        background-color: #005A9E;
+    }
+</style>
+</body>
+
+</html>
