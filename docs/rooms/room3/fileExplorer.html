@@ -255,13 +255,13 @@ function checkPassword() {
         let pdfUrl = '';
         switch (selectedFile.name) {
             case 'clientDatabase.zip':
-                pdfUrl = 'Materials/LeakedDocs/clientDatabase.pdf';
+                pdfUrl = 'LeakedDocs/clientDatabase.pdf';
                 break;
             case 'employeeInformation.zip':
-                pdfUrl = 'Materials/LeakedDocs/employeeInformation.pdf';
+                pdfUrl = 'LeakedDocs/employeeInformation.pdf';
                 break;
             case 'productRoadmap.zip':
-                pdfUrl = 'Materials/LeakedDocs/productRoadmap.pdf';
+                pdfUrl = 'LeakedDocs/productRoadmap.pdf';
                 break;
             default:
                 alert('No matching PDF found.');
@@ -291,13 +291,13 @@ function viewPdf(pdfId) {
 
     switch (pdfId) {
         case 'pdf1':
-            pdfUrl = 'Materials/LeakedDocs/clientDatabase.pdf';
+            pdfUrl = 'LeakedDocs/clientDatabase.pdf';
             break;
         case 'pdf2':
-            pdfUrl = 'Materials/LeakedDocs/employeeInformation.pdf';
+            pdfUrl = 'LeakedDocs/employeeInformation.pdf';
             break;
         case 'pdf3':
-            pdfUrl = 'Materials/LeakedDocs/productRoadmap.pdf';
+            pdfUrl = 'LeakedDocs/productRoadmap.pdf';
             break;
         default:
             alert('Invalid PDF ID');
