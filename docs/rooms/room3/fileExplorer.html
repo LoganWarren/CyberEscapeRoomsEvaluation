@@ -259,30 +259,30 @@ function checkPassword() {
     if (selectedFile && enteredPassword === selectedFile.password) {
         document.getElementById('passwordModal').style.display = 'none';
 
-        // Open the appropriate PDF based on the file name
         let pdfUrl = '';
         switch (selectedFile.name) {
             case 'clientDatabase.zip':
-                pdfUrl = '/docs/rooms/room3/Materials/LeakedDocs/clientDatabase.pdf';
+                pdfUrl = 'Materials/LeakedDocs/clientDatabase.pdf';
                 break;
             case 'employeeInformation.zip':
-                pdfUrl = 'https://nate-roper.github.io/cyber-escape-site/Leaked Docs/employeeInformation.pdf';
+                pdfUrl = 'Materials/LeakedDocs/employeeInformation.pdf';
                 break;
             case 'productRoadmap.zip':
-                pdfUrl = 'https://nate-roper.github.io/cyber-escape-site/Leaked Docs/productRoadmap.pdf';
+                pdfUrl = 'Materials/LeakedDocs/productRoadmap.pdf';
                 break;
             default:
                 alert('No matching PDF found.');
                 return;
         }
 
-        // Open the PDF in a new window
         window.open(pdfUrl, '_blank');
-
     } else {
         alert("Incorrect password!");
     }
 }
+
+
+
 
 
 function closeModal() {
@@ -296,37 +296,32 @@ let viewedPdfs = new Set();
 function viewPdf(pdfId) {
     let pdfUrl = '';
 
-    // Set the correct URL based on the pdfId
     switch (pdfId) {
         case 'pdf1':
-            pdfUrl = 'docs/rooms/room3/Materials/LeakedDocs/clientDatabase.pdf';
+            pdfUrl = 'Materials/LeakedDocs/clientDatabase.pdf';
             break;
         case 'pdf2':
-            pdfUrl = 'https://nate-roper.github.io/cyber-escape-site/Leaked%20Docs/employeeInformation.pdf';
-            // or better: 'docs/rooms/room3/Materials/LeakedDocs/employeeInformation.pdf'
+            pdfUrl = 'Materials/LeakedDocs/employeeInformation.pdf';
             break;
         case 'pdf3':
-            pdfUrl = 'https://nate-roper.github.io/cyber-escape-site/Leaked%20Docs/productRoadmap.pdf';
-            // or better: 'docs/rooms/room3/Materials/LeakedDocs/productRoadmap.pdf'
+            pdfUrl = 'Materials/LeakedDocs/productRoadmap.pdf';
             break;
         default:
             alert('Invalid PDF ID');
             return;
     }
 
-    // Open the PDF in a new window/tab
     window.open(pdfUrl, '_blank');
 
-    // Add the PDF ID to the viewedPdfs set
     viewedPdfs.add(pdfId);
 
-    // Check if all three PDFs have been viewed
     if (viewedPdfs.size === 3) {
         setTimeout(function() {
-            window.location.replace('https://nate-roper.github.io/cyber-escape-site/incidentReport.html');
-        }, 1000); // 1-second delay before redirection
+            window.location.replace('incidentReport.html'); // or whatever is correct here
+        }, 1000);
     }
 }
+
 
 
 
