@@ -57,6 +57,14 @@
       color: rgb(255, 255, 255);
       font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
+
+    ul li {
+      list-style-type: none;
+      width: 50%;
+      margin: 0 auto;
+      text-align: left;
+      color: rgb(255, 255, 255);
+    }
   </style>
 </head>
 <body>
@@ -70,6 +78,29 @@
     <input type="text" id="password" name="password" required>
     <button type="submit">Submit</button>
   </form>
+
+  <div class="hints">
+    <h1>Hints to discover the password:</h1>
+    <ul>
+      <li>
+        <h2>1. You first want to unlock the lock box using the materials in the briefcase. Using the cards and the card reader, you want to place each card in the card reader looking for a colored arrow in one opening and a number in the second opening. Use this color and number correspondence to discover the combination of the lockbox's lock.</h2>
+      </li>
+
+      <li>
+        <h2>2. After you have opened the lockbox, you will need to traverse the Ceasar Cipher maze. As you go through the maze keep track of (it is reccomended that you write down) the letters as you find them.</h2>
+      </li>
+
+      <li>
+        <h2>3. You should now have finished the maze and have a string of seemingly random characters. The key is the numerical shift of your Ceasar Cipher. Use the Ceasar Cipher information page and tool to decrypt this string.</h2>
+      </li>
+
+      <li>
+        <h2>4. Once you have decrypted the string, use the flashlight and the song lyric sheets to match your message to the attackers desktop password.</h2>
+      </li>
+      
+    </ul>
+
+  </div>
 </div>
 
 <script>
@@ -78,7 +109,7 @@ function checkPassword(event) {
 
   var password = document.getElementById('password').value;
   if (password === 'RED1989') {
-    window.location.href = 'desktop.html'; // Redirect to another page
+    window.location.href = 'save_or_desktop.html'; // prev desktop.html
   } else {
     alert('Incorrect password. Please try again.');
   }
